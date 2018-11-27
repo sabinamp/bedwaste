@@ -71,6 +71,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     }
                 }
             };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         enableMyLocationIfPermitted();
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.setMinZoomPreference(12);
+        mMap.setMinZoomPreference(15);
         showDefaultLocation();
     }
     private void showDefaultLocation() {
@@ -172,6 +174,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
+    private GoogleMap.OnMyLocationButtonClickListener onMyLocationButtonClickListener =
+            new GoogleMap.OnMyLocationButtonClickListener() {
+                @Override
+                public boolean onMyLocationButtonClick() {
+                    mMap.setMinZoomPreference(17);
+                    return false;
+                }
+            };
 
     /*
      * getting the user's last location
