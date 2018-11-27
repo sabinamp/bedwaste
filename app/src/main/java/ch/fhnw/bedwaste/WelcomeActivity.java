@@ -23,7 +23,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -82,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         //setSupportActionBar(tb);
         //tb.setSubtitle("Your Location");
         Button search= findViewById(R.id.H_search);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.current_location);
         mapFragment.getMapAsync(this);
         setupGoogleApiClient();
