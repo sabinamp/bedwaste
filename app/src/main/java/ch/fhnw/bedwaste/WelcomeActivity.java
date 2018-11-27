@@ -93,9 +93,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         enableMyLocationIfPermitted();
-
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(12);
+        //showDefaultLocation();
     }
     private void showDefaultLocation() {
         Toast.makeText(this, "Location permission not granted, " +
