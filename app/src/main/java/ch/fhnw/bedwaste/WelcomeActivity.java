@@ -75,9 +75,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
-        setContentView(R.layout.activity_welcome);
         //Toolbar tb = findViewById(R.id.toolbar);
         //setSupportActionBar(tb);
         //tb.setSubtitle("Your Location");
@@ -95,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         enableMyLocationIfPermitted();
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(12);
-        //showDefaultLocation();
+        showDefaultLocation();
     }
     private void showDefaultLocation() {
         Toast.makeText(this, "Location permission not granted, " +
