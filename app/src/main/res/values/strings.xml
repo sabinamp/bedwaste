@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bedwaste</string>
+    <string name="reminder">Location</string>
 </resources>

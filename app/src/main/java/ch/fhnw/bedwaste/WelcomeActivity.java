@@ -78,9 +78,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_welcome);
-        Toolbar tb = findViewById(R.id.toolbar);
-        setSupportActionBar(tb);
-        tb.setSubtitle("Your Location");
+        //Toolbar tb = findViewById(R.id.toolbar);
+        //setSupportActionBar(tb);
+        //tb.setSubtitle("Your Location");
         Button search= findViewById(R.id.H_search);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.current_location);
