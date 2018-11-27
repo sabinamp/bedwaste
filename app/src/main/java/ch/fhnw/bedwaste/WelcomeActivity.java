@@ -46,6 +46,7 @@ import java.security.Security;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private LocationResultReceiver locResultReceiver;
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
      */
@@ -55,7 +56,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 16;
     private EditText mEditText;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final String TRACKING_LOCATION_KEY = "tracking_location";
@@ -110,7 +111,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             new GoogleMap.OnMyLocationButtonClickListener() {
                 @Override
                 public boolean onMyLocationButtonClick() {
-                    mMap.setMinZoomPreference(17);
+                    mMap.setMinZoomPreference(DEFAULT_ZOOM);
                     return false;
                 }
             };
@@ -127,7 +128,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 .findFragmentById(R.id.current_location);
         mapFragment.getMapAsync(this);
         setupGoogleApiClient();
-
+        locResultReceiver = new LocationResultReceiver(new Handler());
         // Initialize the FusedLocationClient.
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -167,7 +168,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //enableMyLocationIfPermitted();
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(DEFAULT_ZOOM);
@@ -181,10 +181,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
     private void showDefaultLocation() {
-        Toast.makeText(this, "Location permission not granted, " +
+        /*Toast.makeText(this, "Location permission not granted, " +
                         "showing default location",
                 Toast.LENGTH_SHORT).show();
-
+        */
         mMap.moveCamera(CameraUpdateFactory.newLatLng(getDefaultLocation()));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(getDefaultLocation());
@@ -315,6 +315,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public Location getCurrentLocation() {
         return mCurrentLocation;
     }
+
     private void enableMyLocationIfPermitted() {
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -333,6 +334,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public LatLng getDefaultLocation() {
         return mDefaultLocation;
     }
+
     private class LocationResultReceiver extends ResultReceiver {
         LocationResultReceiver(Handler handler) {
             super(handler);
