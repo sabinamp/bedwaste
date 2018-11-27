@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -22,6 +23,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -78,11 +80,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Log.d(TAG, "onCreate(Bundle) called");
-        //Toolbar tb = findViewById(R.id.toolbar);
-        //setSupportActionBar(tb);
-        //tb.setSubtitle("Your Location");
+        EditText locInput=findViewById(R.id.TF_location);
         Button search= findViewById(R.id.H_search);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.current_location);
         mapFragment.getMapAsync(this);
         setupGoogleApiClient();
@@ -91,22 +91,34 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-
         enableMyLocationIfPermitted();
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(15);
         showDefaultLocation();
+
     }
     private void showDefaultLocation() {
         Toast.makeText(this, "Location permission not granted, " +
                         "showing default location",
                 Toast.LENGTH_SHORT).show();
-        LatLng redmond = new LatLng(47.6739881, -122.121512);
-
+        LatLng redmond = new LatLng(47.3769, 8.5417);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(redmond);
         mMap.addMarker(markerOptions);
+    }
+    private void showCurrentLocation(){
+       /* try{
+           double[]coord = getLocation();
+            LatLng redmond = new LatLng(coord[0], coord[1]);
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(redmond);
+            mMap.addMarker(markerOptions);
+        }catch(SecurityException e){
+            e.printStackTrace();
+        }*/
     }
     private void showGoogleAPIErrorDialog(int errorCode) {
         GoogleApiAvailability googleApiAvailability =
