@@ -73,8 +73,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     Button mLocationButton;
-    LinearLayout filterLayout;
-    ImageButton btnFilter;
+/*    LinearLayout filterLayout;
+    ImageButton btnFilter;*/
 
 
     private Location mLastKnownLocation;
@@ -137,10 +137,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mLocationButton = (Button) findViewById(R.id.search);
-        filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
+        /*filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         // Set Visibility of Filter to univisible
         filterLayout.setVisibility(View.GONE);
-        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
+        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);*/
 
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -156,7 +156,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
         // Disable/Enable Filter
-        btnFilter.setOnClickListener(new View.OnClickListener() {
+/*        btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (filterLayout.getVisibility() == View.VISIBLE){
@@ -166,7 +166,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     filterLayout.setVisibility(View.VISIBLE);
                 }
             }
-        } );
+        } );*/
 
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
