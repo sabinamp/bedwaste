@@ -324,6 +324,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     LOCATION_PERMISSION_REQUEST_CODE);
         } else if (mMap != null) {
             mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
     }
     private void addDeviceLocation(){
