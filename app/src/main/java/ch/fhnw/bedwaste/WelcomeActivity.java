@@ -24,6 +24,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +73,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     Button mLocationButton;
+    LinearLayout filterLayout;
+    ImageButton btnFilter;
 
 
 
@@ -127,6 +132,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mLocationButton = (Button) findViewById(R.id.search);
+        filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
+        // Set Visibility of Filter to univisible
+        filterLayout.setVisibility(View.GONE);
+        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
+
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.current_location);
@@ -140,6 +150,19 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         if (savedInstanceState != null) {
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
+        // Disable/Enable Filter
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filterLayout.getVisibility() == View.VISIBLE){
+                    filterLayout.setVisibility(View.GONE);
+                }
+                else{
+                    filterLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        } );
+
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**
