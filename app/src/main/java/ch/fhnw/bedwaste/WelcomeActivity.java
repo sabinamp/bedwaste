@@ -8,6 +8,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Handler;
 import android.os.ResultReceiver;
@@ -42,6 +44,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.security.Security;
+import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -116,12 +119,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Log.d(TAG, "onCreate(Bundle) called");
-        EditText mEditText=findViewById(R.id.input_location);
+        mEditText=findViewById(R.id.input_location);
         mLocationButton = (Button) findViewById(R.id.search);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -144,7 +148,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
              */
             @Override
             public void onClick(View v) {
-               //showCustomLocation();
+               mEditText = findViewById(R.id.input_location);
+                if (!mEditText.getText().toString().equals("")){
+
+                   LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
+                   mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+
+               }
             }
         });
         mLocationCallback = new LocationCallback() {
@@ -359,6 +369,36 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         }
+    }
+    // Search for Inserted Address
+
+    /**
+     * Takes a String and gives the found Coordinates in form of a LatLng Object Back
+     *
+     * @param address_string String to Search
+     * @return LatLng of First Result
+     */
+    public LatLng getLocationFromAddress (String address_string){
+        Geocoder address_geocoder = new Geocoder(this);
+        LatLng coordinates;
+        try {
+            List<Address> address = address_geocoder.getFromLocationName(address_string, 5);
+            if (address == null){
+                coordinates = new LatLng(0,0);
+            }
+            else  {
+                Address location = address.get(0);
+                coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            coordinates = new LatLng(0,0);
+        }
+        return coordinates;
+
     }
 
 
