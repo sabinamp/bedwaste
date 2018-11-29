@@ -3,4 +3,6 @@
     <string name="reminder">Your Preferred Location</string>
     <string name="stop_tracking_location">Stop tracking</string>
     <string name="start_tracking_location">Start tracking</string>
+    <string name="distanceValue">10km</string>
+    <string name="priceValue">100 CHF</string>
 </resources>

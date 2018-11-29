@@ -31,6 +31,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -51,6 +53,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.w3c.dom.Text;
 
 import java.security.Security;
 import java.util.List;
@@ -78,9 +82,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private boolean mTrackingLocation;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
-    Button mLocationButton;
-    LinearLayout filterLayout;
-    ImageButton btnFilter;
+
+    // Layout Elements
+    private Button mLocationButton;
+    private LinearLayout filterLayout;
+    private ImageButton btnFilter;
+    private TextView textValueDistance;
+    private SeekBar seekBarDistance;
+    private TextView textValuePrice;
+    private SeekBar seekBarPrice;
+
+
 
 
     private Location mLastKnownLocation;
@@ -144,6 +156,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mEditText=findViewById(R.id.input_location);
         mLocationButton = (Button) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
+        //Set Progress Bar to Default Distance of 10 km
+        seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
+        seekBarDistance.setProgress(10);
+        textValueDistance = (TextView) findViewById(R.id.textValueDistance);
+        //Set Progress Bar of Price to Default 100 CHF and the max to 1000 CHF
+        seekBarPrice = (SeekBar) findViewById(R.id.seekBarPrice);
+        seekBarPrice.setMax(1000);
+        seekBarPrice.setProgress(100);
+        textValuePrice = (TextView) findViewById(R.id.textPriceValue);
         // Set Visibility of Filter to univisible
         filterLayout.setVisibility(View.GONE);
         btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
@@ -174,6 +195,42 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
         } );
 
+        //Listener vor Seek Bar of Distance Changes
+        seekBarDistance.setOnSeekBarChangeListener (new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                textValueDistance.setText(seekBarDistance.getProgress() + " km");
+
+            }
+        });
+
+        //Listener for Seek Bar for Price Changes
+        seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textValuePrice.setText(seekBarPrice.getProgress() + " CHF");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**

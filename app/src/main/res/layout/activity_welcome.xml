@@ -59,7 +59,7 @@
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/buttonProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -71,7 +71,7 @@
             />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/buttonMyLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             >
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Distance"
@@ -116,12 +116,12 @@
                 android:layout_margin="10dp"/>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textValueDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
-                android:text="Distance"
+                android:text="@string/distanceValue"
                 android:textColor="@android:color/white" />
 
 
@@ -129,7 +129,7 @@
 
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/seekBarDistance"
             android:layout_width="438dp"
             android:layout_height="match_parent" />
         <RelativeLayout
@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             >
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
@@ -146,19 +146,19 @@
                 android:layout_margin="10dp"/>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textPriceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
-                android:text="Price"
+                android:text="@string/priceValue"
                 android:textColor="@android:color/white" />
 
 
         </RelativeLayout>
 
         <SeekBar
-            android:id="@+id/seekBar2"
+            android:id="@+id/seekBarPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -169,7 +169,7 @@
 
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textRooms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -178,7 +178,7 @@
                 android:text="Rooms" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/textRoomsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -188,7 +188,7 @@
                 android:background="@color/colorAccent"/>
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/textPersons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -197,7 +197,7 @@
                 android:textColor="@android:color/white"/>
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/textPersonsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -207,7 +207,7 @@
                 android:background="@color/colorAccent"/>
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textNights"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -217,7 +217,7 @@
                 />
 
             <EditText
-                android:id="@+id/editText8"
+                android:id="@+id/textNightsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -226,6 +226,7 @@
                 android:layout_margin="5dp"
                 android:background="@color/colorAccent"/>
         </LinearLayout>
+
 
 
     </LinearLayout>
