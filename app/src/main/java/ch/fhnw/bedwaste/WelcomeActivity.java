@@ -68,7 +68,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
      */
     private static final String TAG = "WelcomeActivity";
 
-
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
@@ -84,16 +83,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private LocationCallback mLocationCallback;
 
     // Layout Elements
-    private Button mLocationButton;
+    private ImageButton mLocationButton;
     private LinearLayout filterLayout;
     private ImageButton btnFilter;
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
-
-
-
 
     private Location mLastKnownLocation;
     private Location mCurrentLocation;
@@ -154,7 +150,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_welcome);
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
-        mLocationButton = (Button) findViewById(R.id.search);
+        mLocationButton = (ImageButton) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
