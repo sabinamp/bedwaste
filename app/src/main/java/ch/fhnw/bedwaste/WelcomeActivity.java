@@ -5,9 +5,13 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.app.Dialog;
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -42,6 +46,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -73,8 +79,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     Button mLocationButton;
-/*    LinearLayout filterLayout;
-    ImageButton btnFilter;*/
+    LinearLayout filterLayout;
+    ImageButton btnFilter;
 
 
     private Location mLastKnownLocation;
@@ -137,10 +143,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mLocationButton = (Button) findViewById(R.id.search);
-        /*filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
+        filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         // Set Visibility of Filter to univisible
         filterLayout.setVisibility(View.GONE);
-        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);*/
+        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
 
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -156,7 +162,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
         // Disable/Enable Filter
-/*        btnFilter.setOnClickListener(new View.OnClickListener() {
+        btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (filterLayout.getVisibility() == View.VISIBLE){
@@ -166,7 +172,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     filterLayout.setVisibility(View.VISIBLE);
                 }
             }
-        } );*/
+        } );
 
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +234,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(redmond);
+
             mMap.addMarker(markerOptions);
         }
         else{
@@ -242,6 +249,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mMap.moveCamera(CameraUpdateFactory.newLatLng(getDefaultLocation()));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(getDefaultLocation());
+        markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
         mMap.addMarker(markerOptions);
     }
 /*    private void showDeviceCurrentLocation() {
@@ -466,5 +474,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return mDefaultLocation;
     }
 
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth()*2, vectorDrawable.getIntrinsicHeight()*2, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 
 }
