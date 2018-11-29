@@ -5,4 +5,8 @@
     <string name="start_tracking_location">Start tracking</string>
     <string name="distanceValue">10km</string>
     <string name="priceValue">100 CHF</string>
+    <string name="action_filters">Filters</string>
+    <string name="action_search">Search</string>
+    <string name="action_profile">Your Profile</string>
+    <string name="action_home">Home</string>
 </resources>

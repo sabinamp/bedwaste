@@ -18,6 +18,7 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
-
+    private BottomNavigationView mBottomNavigationView;
     private Location mLastKnownLocation;
     private Location mCurrentLocation;
 
@@ -150,6 +153,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_welcome);
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mLocationButton = (ImageButton) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         //Set Progress Bar to Default Distance of 10 km
@@ -163,7 +167,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValuePrice = (TextView) findViewById(R.id.textPriceValue);
         // Set Visibility of Filter to univisible
         filterLayout.setVisibility(View.GONE);
-        btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
+        //btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
 
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -179,7 +183,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
         // Disable/Enable Filter
-        btnFilter.setOnClickListener(new View.OnClickListener() {
+/*        btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (filterLayout.getVisibility() == View.VISIBLE){
@@ -189,7 +193,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     filterLayout.setVisibility(View.VISIBLE);
                 }
             }
-        } );
+        } );*/
 
         //Listener vor Seek Bar of Distance Changes
         seekBarDistance.setOnSeekBarChangeListener (new SeekBar.OnSeekBarChangeListener(){
@@ -441,7 +445,30 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onDestroy() called");
         super.onDestroy();
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.app_bar_filters:{
+                if (filterLayout.getVisibility() == View.VISIBLE){
+                    filterLayout.setVisibility(View.GONE);
+                }
+                else{
+                    filterLayout.setVisibility(View.VISIBLE);
+                }
+                return true;}
+            case R.id.app_bar_profile:
+                //showUserProfile();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void enableMyLocationIfPermitted() {
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
