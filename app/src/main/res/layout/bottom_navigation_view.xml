@@ -5,4 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:layout_gravity="bottom"
-    app:menu="@menu/bottom_bar_menu" />
+    app:menu="@menu/bottom_bar_menu"
+    app:itemIconSize="34dp"/>

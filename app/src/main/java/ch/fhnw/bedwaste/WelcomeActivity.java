@@ -9,14 +9,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.annotation.Dimension;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -154,6 +157,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
+
         mLocationButton = (ImageButton) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         //Set Progress Bar to Default Distance of 10 km
@@ -461,9 +466,24 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 else{
                     filterLayout.setVisibility(View.VISIBLE);
                 }
+                /*item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (filterLayout.getVisibility() == View.VISIBLE){
+                            filterLayout.setVisibility(View.GONE);
+                        }
+                        else{
+                            filterLayout.setVisibility(View.VISIBLE);
+                        }
+                        return false;
+                    }
+                });*/
                 return true;}
             case R.id.app_bar_profile:
                 //showUserProfile();
+                return true;
+            case R.id.app_bar_home:
+                //showHome();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
