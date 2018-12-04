@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_navigation"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    app:itemBackground="@color/colorPrimaryDark"
     app:menu="@menu/bottom_bar_menu"
-    app:itemIconSize="34dp"/>
+    app:itemIconSize="33dp"
+    app:itemIconTint="@color/white"
+    app:itemTextColor="@color/white"/>

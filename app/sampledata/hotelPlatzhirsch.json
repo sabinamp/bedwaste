@@ -1,0 +1,181 @@
+{
+    "hotelId": "00U5846f022c291a",
+    "hotelName": "Hotel Platzhirsch",
+    "areaUnitOfMeasureCode": 14,
+    "distanceUnitOfMeasureCode": 2,
+    "timeZone": "Europe/Zurich",
+    "weightUnitOfMeasureCode": 16,
+    "currencyCode": "CHF",
+    "hotelInfo": {
+        "whenBuilt": 1815 ,
+        "position": {
+            "altitude": 408,
+            "latitude": 47.3735057616661,
+            "longitude": 8.5440319776535
+        },
+        "descriptions": {
+            "multimediadescriptions": [
+                {
+                    "images": [
+                        {
+                            "sort": 1,
+                            "imageId": "00L55eej8eh46e5r",
+                            "imageUrl": "./PLATZHIRSCH.jpg",
+                            "imageWidth": 350,
+                            "imageHeight": 150,
+                            "dimensionCategory": "Mobile"
+                        },
+                        {
+                            "sort": 2,
+                            "imageId": "00L55aej8th46e5d",
+                            "imageUrl": "./platzhirsch-zimmer.jpg",
+                            "imageWidth": 350,
+                            "imageHeight": 150,
+                            "dimensionCategory": "Mobile"
+                        }
+                    ],
+                    "texts": [
+                        [
+                            {
+                                "detailsCode": 2,
+                                "text": "Das Hotel Platzhirsch liegt 5 Fußminuten vom Hauptbahnhof Zürich entfernt"
+                            },
+                            {
+                                "detailsCode": 71,
+                                "text": "This is the restaurant description"
+                            }
+                        ]
+                    ]
+                }
+            ]
+        },
+        "services": [
+            [
+                {
+                    "code": 5,
+                    "codeDetails": "Air conditioning"
+                },
+                {
+                    "code": 54,
+                    "codeDetails": "Indoor pool"
+                }
+            ]
+        ]
+    },
+    "affiliationInfo": {
+        "awards": [
+            {
+                "provider": "HotelAssociation",
+                "rating": 3
+            },
+            {
+                "provider": "TripAdvisor",
+                "rating": 4.1
+            }
+        ]
+    },
+    "facilityInfo": {
+        "guestRooms": [
+            {
+                "id": "00U5846d022f2911",
+                "roomTypeName": "Junior Suite",
+                "minOccupancy": 1,
+                "maxOccupancy": 2,
+                "maxChildOccupancy": 1,
+                "maxAdultOccupancy": 2,
+                "typeRoom": {
+                    "standardOccupancy": 1,
+                    "standardNumBeds": 1,
+                    "maxCribs": 1,
+                    "maxRollaways": 0,
+                    "composite": false,
+                    "quantity": 26
+                },
+                "amenities": [
+                    {
+                        "roomAmenityCode": 2,
+                        "codeDetails": "Air conditioning"
+                    },
+                    {
+                        "roomAmenityCode": 55,
+                        "codeDetails": "Iron"
+                    }
+                ],
+                "multimediaDescriptions": {
+                    "images": [
+                        {
+                            "imageId": "00U5846e022f2915",
+                            "imageUrl": "",
+                            "imageWidth": 1920,
+                            "imageHeight": 1080,
+                            "dimensionCategory": "Desktop"
+                        },
+                        {
+                            "imageId": "00U5846e022e4567",
+                            "imageUrl": "",
+                            "imageWidth": 720,
+                            "imageHeight": 480,
+                            "dimensionCategory": "Mobile"
+                        },
+                        {
+                            "imageId": "00U5846e022f2916",
+                            "imageUrl": "",
+                            "imageWidth": 1920,
+                            "imageHeight": 1080,
+                            "dimensionCategory": "Desktop"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "00U5846e022f2912",
+                "roomTypeName": "Double deluxe",
+                "minOccupancy": 1,
+                "maxOccupancy": 3,
+                "maxChildOccupancy": 2,
+                "maxAdultOccupancy": 3,
+                "typeRoom": {
+                    "standardOccupancy": 2,
+                    "standardNumBeds": 1,
+                    "maxCribs": 1,
+                    "maxRollaways": 0,
+                    "composite": false,
+                    "quantity": 14
+                }
+            }
+        ]
+    },
+    "contactInfos": [
+        {
+            "companyName": "Hotel Platzhirsch",
+            "addresses": [
+                {
+                    "streetNmbr": "3",
+                    "addressLine": "Spitalgasse",
+                    "cityName": "Zürich",
+                    "postalCode": "8001",
+                    "stateProv": "Zürich",
+                    "countryName": "Schweiz"
+                }
+            ],
+            "phones": [
+                {
+                    "phoneTechType": 1,
+                    "countryAccessCode": 41,
+                    "phoneNumber": "0442507080"
+                }
+            ],
+            "emails": [
+                {
+                    "email": "info@hotelplatzhirsch.ch"
+                }
+            ]
+        }
+    ],
+    "policies": {
+        "policyInfo": {
+            "minChildAge": 2,
+            "maxChildAge": 12
+        }
+    }
+}

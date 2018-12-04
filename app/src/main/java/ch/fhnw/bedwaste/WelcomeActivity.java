@@ -67,7 +67,7 @@ import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback  {
     private LocationResultReceiver locResultReceiver;
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
@@ -91,7 +91,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // Layout Elements
     private ImageButton mLocationButton;
     private LinearLayout filterLayout;
-    private ImageButton btnFilter;
+    //private ImageButton btnFilter;
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
@@ -150,6 +150,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +158,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
@@ -170,9 +170,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         seekBarPrice.setMax(1000);
         seekBarPrice.setProgress(100);
         textValuePrice = (TextView) findViewById(R.id.textPriceValue);
-        // Set Visibility of Filter to univisible
+        // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
-        //btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
+       // btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
 
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -188,7 +188,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
         // Disable/Enable Filter
-/*        btnFilter.setOnClickListener(new View.OnClickListener() {
+        /*  btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (filterLayout.getVisibility() == View.VISIBLE){
@@ -215,7 +215,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 textValueDistance.setText(seekBarDistance.getProgress() + " km");
-
             }
         });
 
@@ -279,8 +278,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mMap.setMinZoomPreference(DEFAULT_ZOOM);
 
         addLocationToMap();
-
     }
+
     private void addLocationToMap(){
         //Checking if the user has granted the permission
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -296,15 +295,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(redmond);
-
+            markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
             mMap.addMarker(markerOptions);
         }
         else{
             showDefaultLocation();
             enableMyLocationIfPermitted();
         }
-
     }
+
     private void showDefaultLocation() {
         Toast.makeText(this, "Showing default location",
                 Toast.LENGTH_SHORT).show();
@@ -450,11 +449,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onDestroy() called");
         super.onDestroy();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
         return true;
     }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -466,23 +468,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 else{
                     filterLayout.setVisibility(View.VISIBLE);
                 }
-                /*item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (filterLayout.getVisibility() == View.VISIBLE){
-                            filterLayout.setVisibility(View.GONE);
-                        }
-                        else{
-                            filterLayout.setVisibility(View.VISIBLE);
-                        }
-                        return false;
-                    }
-                });*/
                 return true;}
             case R.id.app_bar_profile:
+                if (filterLayout.getVisibility() == View.VISIBLE){
+                    filterLayout.setVisibility(View.GONE);
+                }
                 //showUserProfile();
                 return true;
             case R.id.app_bar_home:
+                if (filterLayout.getVisibility() == View.VISIBLE){
+                    filterLayout.setVisibility(View.GONE);
+                }
                 //showHome();
                 return true;
             default:
@@ -583,5 +579,4 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
-
 }
