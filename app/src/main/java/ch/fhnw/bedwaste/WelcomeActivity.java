@@ -46,6 +46,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
@@ -67,7 +68,7 @@ import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback  {
+public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback , LocationListener {
     private LocationResultReceiver locResultReceiver;
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
@@ -97,7 +98,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
     private BottomNavigationView mBottomNavigationView;
-    private Location mLastKnownLocation;
+    //private Location mLastKnownLocation;
     private Location mCurrentLocation;
 
     //GoogleAPI Client related
@@ -109,11 +110,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 @Override
                 public void onConnected(Bundle bundle) {
                     Toast.makeText(WelcomeActivity.this, "Google API Client - onConnected()", Toast.LENGTH_LONG).show();
-                    try{
-                        setLastKnownLocation();
-                    }catch (SecurityException e){
-                        e.printStackTrace();
-                    }
+                    //startLocationUpdates();
                 }
                 @Override
                 public void onConnectionSuspended(int i) {}
@@ -174,13 +171,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         filterLayout.setVisibility(View.GONE);
        // btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
 
-
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.current_location);
         mapFragment.getMapAsync(this);
+        setupGoogleApiClient();
         // Initialize the FusedLocationClient.
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        setupGoogleApiClient();
+
         locResultReceiver = new LocationResultReceiver(new Handler());
 
         // Restore the state if the activity is recreated.
@@ -238,7 +235,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * Toggle the tracking state.
+             *
              * @param v The hotels nearby button.
              */
             @Override
@@ -289,9 +286,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     android.Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
-        Location lastLoc= getLastKnownLocation();
-        if( lastLoc!= null){
-            LatLng redmond= new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
+
+        if( mCurrentLocation!= null){
+            //showDeviceCurrentLocation();
+            LatLng redmond= new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(redmond);
@@ -313,7 +311,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
         mMap.addMarker(markerOptions);
     }
-/*    private void showDeviceCurrentLocation() {
+/*
+    private void showDeviceCurrentLocation() {
         Toast.makeText(this, "Showing device location",
                 Toast.LENGTH_SHORT).show();
         double lat=  getCurrentLocation().getAltitude();
@@ -324,16 +323,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(redmond);
         mMap.addMarker(markerOptions);
-    }*/
-
-
-    private void showGoogleAPIErrorDialog(int errorCode) {
-        GoogleApiAvailability googleApiAvailability =
-                GoogleApiAvailability.getInstance();
-        Dialog errorDialog = googleApiAvailability.getErrorDialog(
-                this, errorCode, REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR);
-        errorDialog.show();
     }
+*/
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
@@ -355,29 +349,40 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 .build();
         mGoogleApiClient.connect();
     }
-    private void setLastKnownLocation() throws SecurityException{
 
-        mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    mLastKnownLocation=location;
-                }else {
-                    Toast.makeText(WelcomeActivity.this, "Location unknown", Toast.LENGTH_LONG).show();
-
-                }
-            }
-        });
+    private void showGoogleAPIErrorDialog(int errorCode) {
+        GoogleApiAvailability googleApiAvailability =
+                GoogleApiAvailability.getInstance();
+        Dialog errorDialog = googleApiAvailability.getErrorDialog(
+                this, errorCode, REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR);
+        errorDialog.show();
     }
+
+
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
         } else {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(WelcomeActivity.this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                       /* 
+                        mCurrentLocation=location;*/
+                        Toast.makeText(WelcomeActivity.this, "Showing device location",
+                                Toast.LENGTH_SHORT).show();
+                        handleNewLocation(location);
+                    }else {
+                        Toast.makeText(WelcomeActivity.this, "Location unknown", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
             mTrackingLocation = true;
             LocationRequest locationRequest = LocationRequest.create();
-            locationRequest.setInterval(2000);
+            locationRequest.setInterval(10*1000);
             locationRequest.setFastestInterval(1000);
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             mFusedLocationClient.requestLocationUpdates(locationRequest,
@@ -386,6 +391,22 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
     }
+    private void handleNewLocation(Location location) {
+        Log.d(TAG, location.toString());
+
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
+
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
+        MarkerOptions options = new MarkerOptions()
+                .position(latLng)
+                .title("I am here!");
+        mMap.addMarker(options);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -411,8 +432,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(TRACKING_LOCATION_KEY, mTrackingLocation);
         super.onSaveInstanceState(outState);
+        outState.putBoolean(TRACKING_LOCATION_KEY, mTrackingLocation);
     }
 
     @Override
@@ -423,20 +444,22 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
     @Override
     public void onResume() {
+        super.onResume();
         Log.d(TAG, "onResume() called");
         if (mTrackingLocation) {
             startLocationUpdates();
         }
-        super.onResume();
+
     }
 
     @Override
     public void onPause() {
+        super.onPause();
         Log.d(TAG, "onPause() called");
         if (mTrackingLocation) {
             mTrackingLocation = false;
         }
-        super.onPause();
+
     }
     @Override
     public void onStop() {
@@ -503,6 +526,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         startService(intent);
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d(TAG, "onLocationChanged() called");
+        handleNewLocation(location);
+    }
+
 
     private class LocationResultReceiver extends ResultReceiver {
         LocationResultReceiver(Handler handler) {
@@ -528,7 +557,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
     }
-    // Search for Inserted Address
+
 
     /**
      * Takes a String and gives the found Coordinates in form of a LatLng Object Back
@@ -563,9 +592,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return mCurrentLocation;
     }
 
-    public Location getLastKnownLocation() {
-        return mLastKnownLocation;
-    }
+
     public LatLng getDefaultLocation() {
         return mDefaultLocation;
     }
