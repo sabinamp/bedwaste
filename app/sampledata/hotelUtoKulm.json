@@ -1,0 +1,216 @@
+{
+  //"hotelId": "00U5846e022f2ukz",
+  "hotelName": "Uto Kulm",
+  //"areaUnitOfMeasureCode": 14,
+  //"distanceUnitOfMeasureCode": 2,
+  "timeZone": "Europe/Zurich",
+  //"weightUnitOfMeasureCode": 16,
+  "currencyCode": "CHF",
+  "hotelInfo": {
+    "whenBuilt": 1983,
+    "position": {
+      "altitude": 871,
+      "latitude": 47.349647,
+      "longitude": 8.491144
+    },
+    "descriptions": {
+      "multimediadescriptions": [
+        {
+          "images": [
+            {
+              "sort": 1,
+              "imageId": "25879195",
+              "imageUrl": "https://t-ec.bstatic.com/images/hotel/max1024x768/258/25879195.jpg",
+              "imageWidth": 1024,
+              "imageHeight": 683,
+              "dimensionCategory": "Mobile"
+            },
+            {
+              "sort": 2,
+              "imageId": "9072dfe7_z",
+              "imageUrl": "https://images.trvl-media.com/hotels/1000000/980000/971800/971753/9072dfe7_z.jpg",
+              "imageWidth": 1000,
+              "imageHeight": 665,
+              "dimensionCategory": "Mobile"
+            },
+            {
+              "sort": 3,
+              "imageId": "UK_01_Outdoor_Zusatz_Shooting_17_Drohne_033.JPG",
+              "imageUrl": "https://www.utokulm.ch/uto-kulm/images/home/alternativen_zur_Webcam/image-thumb__143__home-hero/UK_01_Outdoor_Zusatz_Shooting_17_Drohne_033.JPG.jpeg",
+              "imageWidth": 1400,
+              "imageHeight": 800,
+              "dimensionCategory": "Mobile"
+            }
+          ],
+          "texts": [
+            [
+              {
+                "detailsCode": 2,
+                "text": "This is the property description"
+              },
+              {
+                "detailsCode": 71,
+                "text": "This is the restaurant description"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "services": [
+      [
+        {
+          "code": 5,
+          "codeDetails": "Air conditioning"
+        },
+        {
+          "code": 54,
+          "codeDetails": "Indoor pool"
+        }
+      ]
+    ]
+  },
+  "affiliationInfo": {
+    "awards": [
+      {
+        "provider": "HotelAssociation",
+        "rating": 4
+      },
+      {
+        "provider": "TripAdvisor",
+        "rating": 4.0
+      },
+      {
+        "provider": "Google",
+        "rating": 4.6
+      }
+    ]
+  },
+  "facilityInfo": {
+    "guestRooms": [
+      {
+        "id": "00U5846e022f2dprws1",
+        "roomTypeName": "Double Panorama Room with Scenery",
+        "minOccupancy": 1,
+        "maxOccupancy": 2,
+        "maxChildOccupancy": 1,
+        "maxAdultOccupancy": 2,
+        "typeRoom": {
+          "standardOccupancy": 2,
+          "standardNumBeds": 1,
+          "maxCribs": 0,
+          "maxRollaways": 0,
+          "composite": false,
+          "quantity": 9
+        },
+        "amenities": [
+          {
+            "codeDetails": "WLAN, DVD Player. Safe",
+            "roomAmenityCode": 2
+          },
+          {
+            "roomAmenityCode": 55,
+            "codeDetails": "Iron"
+          }
+        ],
+        "multimediaDescriptions": {
+          "images": [
+            {
+              "imageId": "file2",
+              "imageUrl": "https://intranet.hotelpartner-ym.com/download.php?file=57a9d543ec951&mime=image%2Fjpeg",
+              "imageWidth": 531,
+              "imageHeight": 800,
+              "dimensionCategory": "Desktop"
+            },
+               {
+              "imageId": "file3",
+              "imageUrl": "https://intranet.hotelpartner-ym.com/download.php?file=57a9d54582cd2&mime=image%2Fjpeg",
+              "imageWidth": 531,
+              "imageHeight": 800,
+              "dimensionCategory": "Desktop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "00U5846e022f2rs1",
+        "roomTypeName": "Romantic Suite",
+        "minOccupancy": 1,
+        "maxOccupancy": 2,
+        "maxChildOccupancy": 1,
+        "maxAdultOccupancy": 2,
+        "typeRoom": {
+          "standardOccupancy": 2,
+          "standardNumBeds": 1,
+          "maxCribs": 0,
+          "maxRollaways": 0,
+          "composite": false,
+          "quantity": 14
+        },
+        "multimediaDescriptions": {
+          "images": [
+            {
+              "imageId": "2221_SUI(1)",
+              "imageUrl": "https://res-online.ch/content/2221/eighthundred/2221_SUI(1).jpg",
+              "imageWidth": 800,
+              "imageHeight": 531,
+              "dimensionCategory": "Desktop"
+            },
+            {
+              "imageId": "2221_SUI(2)",
+              "imageUrl": "https://res-online.ch/content/2221/eighthundred/2221_SUI(2).jpg",
+              "imageWidth": 800,
+              "imageHeight": 531,
+              "dimensionCategory": "Desktop"
+            },
+            {
+              "imageId": "file",
+              "imageUrl": "https://intranet.hotelpartner-ym.com/download.php?file=57a9d6411c4d1&mime=image%2Fjpeg",
+              "imageWidth": 800,
+              "imageHeight": 531,
+              "dimensionCategory": "Desktop"
+            },
+            {
+              "imageId": "file",
+              "imageUrl": "https://intranet.hotelpartner-ym.com/download.php?file=57a9d667610b4&mime=image%2Fjpeg",
+              "imageWidth": 800,
+              "imageHeight": 531,
+              "dimensionCategory": "Desktop"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "contactInfos": [
+    {
+      "companyName": "Uto Kulm AG",
+      "addresses": [
+        {
+          "streetNmbr": "-",
+          "addressLine": "-",
+          "cityName": "Zürich",
+          "postalCode": 8143,
+          "stateProv": "Uetliberg",
+          "countryName": "Schweiz"
+        }
+      ],
+      "phones": [
+        {
+          "phoneTechType": 1,
+          "countryAccessCode": 41,
+          "phoneNumber": 444576666
+        }
+      ],
+      "emails": [
+        {
+          "email": "info@utokulm.ch "
+        }
+      ]
+    }
+  ],
+  "policies": {
+    //"policyInfo": {
+
+  }
+}
