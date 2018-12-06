@@ -1,0 +1,173 @@
+{
+  //"hotelId": "00U5846e022f291e",
+  "hotelName": "Baur au Lac",
+  //"areaUnitOfMeasureCode": 14,
+  //"distanceUnitOfMeasureCode": 2,
+  "timeZone": "Europe/Zurich",
+  //"weightUnitOfMeasureCode": 16,
+  "currencyCode": "CHF",
+  "hotelInfo": {
+    "whenBuilt": 1844,
+    "position": {
+      "altitude": 408,
+      "latitude": 47.367301,
+      "longitude": 8.539349
+    },
+    "descriptions": {
+      "multimediadescriptions": [
+        {
+          "images": [
+            {
+              "sort": 1,
+              "imageId": "baur-au-lac-hotel-zurich-terrasse",
+              "imageUrl": "https://www.bauraulac.ch/upload/rm/baur-au-lac-hotel-zurich-terrasse.jpg?_=1539760305000",
+              "imageWidth": 3000,
+              "imageHeight": 1815
+              //"dimensionCategory": "Mobile"
+            }
+          ],
+          "texts": [
+            [
+              {
+                "detailsCode": 2,
+                "text": "This is the property description"
+              },
+              {
+                "detailsCode": 71,
+                "text": "This is the restaurant description"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "services": [
+      [
+        {
+          "code": 5,
+          "codeDetails": "Air conditioning"
+        },
+        {
+          "code": 54,
+          "codeDetails": "Indoor pool"
+        }
+      ]
+    ]
+  },
+  "affiliationInfo": {
+    "awards": [
+      {
+        "provider": "HotelAssociation",
+        "rating": 5
+      },
+      {
+        "provider": "TripAdvisor",
+        "rating": 4.5
+      },
+      {
+        "provider": "Google",
+        "rating": 4.6
+      }
+    ]
+  },
+  "facilityInfo": {
+    "guestRooms": [
+      {
+        "id": "00U5846e022f2cs1",
+        "roomTypeName": "City Suite",
+        "minOccupancy": 1,
+        "maxOccupancy": 6,
+        "maxChildOccupancy": 2,
+        "maxAdultOccupancy": 4,
+        "typeRoom": {
+          "standardOccupancy": 2,
+          "standardNumBeds": 2,
+          "maxCribs": 1,
+          "maxRollaways": 0,
+          "composite": false,
+          "quantity": 1
+        },
+        "amenities": [
+          {
+            "roomAmenityCode": 2,
+            "codeDetails": "Bidet, DVD Player. Safe",
+          },
+          {
+            "roomAmenityCode": 55,
+            "codeDetails": "Iron"
+          }
+        ],
+        "multimediaDescriptions": {
+          "images": [
+            {
+              "imageId": "23",
+              "imageUrl": "https://www.bauraulac.ch/upload/gallery/thumbresource/23.jpg",
+              "imageWidth": 610,
+              "imageHeight": 610,
+              "dimensionCategory": "Desktop"
+            }
+          ]
+        }
+      },
+      {
+        "id": "00U5846e022f2sr1",
+        "roomTypeName": "",
+        "minOccupancy": 1,
+        "maxOccupancy": 1,
+        "maxChildOccupancy": 0,
+        "maxAdultOccupancy": 0,
+        "typeRoom": {
+          "standardOccupancy": 1,
+          "standardNumBeds": 1,
+          "maxCribs": 0,
+          "maxRollaways": 0,
+          "composite": false,
+          "quantity": 14
+        },
+        "multimediaDescriptions": {
+          "images": [
+            {
+              "imageId": "700RO-251682653076928740y6512_G",
+              "imageUrl": "https://www.myhotelreservation.net/content/LW/HLLW1626/700RO-251682653076928740y6512_G.jpg",
+              "imageWidth": 531,
+              "imageHeight": 800,
+              "dimensionCategory": "Desktop"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "contactInfos": [
+    {
+      "companyName": "H. Kracht’s Erben AG",
+      "addresses": [
+        {
+          "streetNmbr": 1,
+          "addressLine": "Talstrasse",
+          "cityName": "Zürich",
+          "postalCode": 8001,
+          "stateProv": "Zürich",
+          "countryName": "Schweiz"
+        }
+      ],
+      "phones": [
+        {
+          "phoneTechType": 1,
+          "countryAccessCode": 41,
+          "phoneNumber": 442205020
+        }
+      ],
+      "emails": [
+        {
+          "email": "info@bauraulac.ch"
+        }
+      ]
+    }
+  ],
+  "policies": {
+    //"policyInfo": {
+    //"minChildAge": 2,
+    //"maxChildAge": 12
+  }
+}
