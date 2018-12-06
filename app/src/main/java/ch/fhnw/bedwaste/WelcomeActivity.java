@@ -288,8 +288,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
         if( mCurrentLocation!= null){
-            showDeviceCurrentLocation();
-
+            //showDeviceCurrentLocation();
+            LatLng redmond= new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(redmond);
+            markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
+            mMap.addMarker(markerOptions);
         }
         else{
             showDefaultLocation();
@@ -300,29 +305,26 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private void showDefaultLocation() {
         Toast.makeText(this, "Showing default location",
                 Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "showDefaultLocation() called");
         mMap.moveCamera(CameraUpdateFactory.newLatLng(getDefaultLocation()));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(getDefaultLocation());
         markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
         mMap.addMarker(markerOptions);
     }
-
+/*
     private void showDeviceCurrentLocation() {
         Toast.makeText(this, "Showing device location",
                 Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "showDeviceCurrentLocation() called");
-        double lat =  getCurrentLocation().getAltitude();
-        double longitude = getCurrentLocation().getLongitude();
+        double lat=  getCurrentLocation().getAltitude();
+        double longitude= getCurrentLocation().getLongitude();
         LatLng redmond= new LatLng(lat, longitude);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(redmond);
-        markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
         mMap.addMarker(markerOptions);
-
     }
+*/
 
 
 
@@ -367,7 +369,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
-                        mCurrentLocation=location;
+                       /* 
+                        mCurrentLocation=location;*/
                         Toast.makeText(WelcomeActivity.this, "Showing device location",
                                 Toast.LENGTH_SHORT).show();
                         handleNewLocation(location);
@@ -397,11 +400,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
-        MarkerOptions markerOptions = new MarkerOptions()
+        MarkerOptions options = new MarkerOptions()
                 .position(latLng)
-                .title("You are here!");
-        markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
-        mMap.addMarker(markerOptions);
+                .title("I am here!");
+        mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 
