@@ -353,9 +353,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            LatLng mlastLatLng= new LatLng(mLastKnownLocation.getLatitude(),
+                                    mLastKnownLocation.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(mlastLatLng);
+                            markerOptions.icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker));
+                            mMap.addMarker(markerOptions);
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -380,21 +384,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
         mMap.addMarker(markerOptions);
     }
-
-/*    private void showDeviceCurrentLocation() {
-        Toast.makeText(this, "Showing device location",
-                Toast.LENGTH_SHORT).show();
-        double lat=  getCurrentLocation().getAltitude();
-        double longitude= getCurrentLocation().getLongitude();
-        LatLng redmond= new LatLng(lat, longitude);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(redmond));
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(redmond);
-        mMap.addMarker(markerOptions);
-    }*/
-
-
 
     /**
      * Prompts the user for permission to use the device location.
