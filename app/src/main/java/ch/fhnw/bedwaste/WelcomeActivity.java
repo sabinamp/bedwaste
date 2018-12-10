@@ -158,6 +158,37 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onCreate(Bundle) called");
         mEditText=findViewById(R.id.input_location);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.app_bar_filters:{
+                        if (filterLayout.getVisibility() == View.VISIBLE){
+                            filterLayout.setVisibility(View.GONE);
+                        }
+                        else{
+                            filterLayout.setVisibility(View.VISIBLE);
+                        }
+                        return true;
+                    }
+                    case R.id.app_bar_profile: {
+                        if (filterLayout.getVisibility() == View.VISIBLE) {
+                            filterLayout.setVisibility(View.GONE);
+                        }
+                        //showUserProfile();
+                        return true;
+                    }
+                    case R.id.app_bar_home:
+                    { if (filterLayout.getVisibility() == View.VISIBLE){
+                            filterLayout.setVisibility(View.GONE);
+                        }
+                        //showLocation();
+                        return true;}
+                    default:
+                        return false;
+                }
+            }
+        });
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
