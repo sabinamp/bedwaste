@@ -203,7 +203,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValuePrice = (TextView) findViewById(R.id.textPriceValue);
         // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
-       // btnFilter = (ImageButton) findViewById(R.id.buttonFilter);
+
 
 
         MapFragment mapFragment = (MapFragment) getFragmentManager()
@@ -218,18 +218,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         if (savedInstanceState != null) {
             mTrackingLocation = savedInstanceState.getBoolean(TRACKING_LOCATION_KEY);
         }
-        // Disable/Enable Filter
-        /*  btnFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (filterLayout.getVisibility() == View.VISIBLE){
-                    filterLayout.setVisibility(View.GONE);
-                }
-                else{
-                    filterLayout.setVisibility(View.VISIBLE);
-                }
-            }
-        } );*/
 
         //Listener vor Seek Bar of Distance Changes
         seekBarDistance.setOnSeekBarChangeListener (new SeekBar.OnSeekBarChangeListener(){
