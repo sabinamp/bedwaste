@@ -27,9 +27,11 @@ public class HotelListViewActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.app_bar_profile:{
+                    case R.id.app_bar_profile:
+                    {
                         Intent listIntent= new Intent(HotelListViewActivity.this, ProfileActivity.class);
                         startActivity(listIntent);
+                        return true;
                     }
                     case R.id.app_bar_map_view:
                     {
