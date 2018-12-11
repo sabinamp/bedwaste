@@ -62,6 +62,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,7 +76,14 @@ import java.util.List;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback  {
-
+    private Marker mPlatzhirsch;
+    private Marker mHottingen;
+    private Marker mHelmhaus;
+    //private Marker mHVillette;
+    static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
+    static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
+    static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
+    //static final LatLng VILLETTE= new LatLng(47.369158397978, 8.54404538869858);
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
      */
@@ -282,6 +290,19 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
                    LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                    mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                   mPlatzhirsch = mMap.addMarker(new MarkerOptions()
+                            .position(PLATZHIRSCH)
+                            .title("Hotel Platzhirsch")
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                   mHelmhaus = mMap.addMarker(new MarkerOptions()
+                           .position(HEMLHAUS)
+                           .title("Hotel Helmhaus")
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                   mHottingen =  mMap.addMarker(new MarkerOptions()
+                           .position(HOTTINGEN)
+                           .title("Hotel Hottingen")
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+
 
                }
             }
