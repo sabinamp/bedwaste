@@ -1,0 +1,113 @@
+{
+  "hotelReservationId": "01n576bcf7dadccb",
+  "status": "Book",
+  "createDateTime": "2015-09-08T13:11:31.2567097+00:00",
+  "lastModifyDateTime": "2015-09-08T13:11:31.2567097+00:00",
+  "roomStays": [
+    {
+      "status": "Book",
+      "roomId": "01n576bcf7daabcd",
+      "ratePlanId": "01n576bcf7dadcba",
+      "rates": [
+        {
+          "date": "2015-12-02",
+          "amountAfterTax": 170.3,
+          "currencyCode": "CHF"
+        },
+        {
+          "date": "2015-12-03",
+          "amountAfterTax": 170.3,
+          "currencyCode": "CHF"
+        }
+      ],
+      "guestCounts": [
+        {
+          "ageQualifyingCode": 10,
+          "count": 2
+        }
+      ],
+      "timeSpan": {
+        "start": "2015-12-02",
+        "end": "2015-12-04"
+      },
+      "total": {
+        "amountAfterTax": 340.6,
+        "currencyCode": "CHF"
+      },
+      "cancelPenalties": "Attention: Prepaid rate category. Booking policies differ from general hotel policy! Cancellation: Please note, if cancelled or modified, the total price of the non-refundable rate of the reservation will be charged on the credit card! Non refundable deposit of 100% of the full stay including tax is required at the time of booking.",
+      "resGuestRphs": [
+        1
+      ]
+    }
+  ],
+  "resGuests": [
+    {
+      "resGuestRph": 1,
+      "gender": "Male",
+      "givenName": "John",
+      "surname": "Doe",
+      "phone": {
+        "phoneTechType": 1,
+        "countryAccessCode": 41,
+        "phoneNumber": 279556655
+      },
+      "address": {
+        "streetNmbr": 43,
+        "addressLine": "Matterstrasse",
+        "cityName": "Zermatt",
+        "postalCode": 3920,
+        "stateProv": "Wallis",
+        "countryName": "Schweiz"
+      },
+      "email": "first.last@example.com"
+    }
+  ],
+  "resGlobalInfo": {
+    "timeSpan": {
+      "start": "2015-12-02",
+      "end": "2015-12-04"
+    },
+    "comments": [
+      "We will arrive after 20h. If possible we would prefer a room in the upper floors."
+    ],
+    "guarantee": {
+      "paymentCard": {
+        "cardCode": "AX",
+        "cardNumber": "xxxx xxxx xxxx 1110",
+        "expireDate": "01/18",
+        "cardHolderName": "Mr. John Doe"
+      }
+    },
+    "total": {
+      "amountAfterTax": 340.6,
+      "currencyCode": "CHF"
+    },
+    "guestCounts": [
+      {
+        "ageQualifyingCode": 10,
+        "count": 2
+      }
+    ],
+    "profiles": [
+      {
+        "gender": "Male",
+        "givenName": "John",
+        "surname": "Doe",
+        "phone": {
+          "phoneTechType": 1,
+          "countryAccessCode": 41,
+          "phoneNumber": 279556655
+        },
+        "address": {
+          "streetNmbr": 43,
+          "addressLine": "Matterstrasse",
+          "cityName": "Zermatt",
+          "postalCode": 3920,
+          "stateProv": "Wallis",
+          "countryName": "Schweiz"
+        },
+        "email": "first.last@example.com"
+      }
+    ]
+  }
+}
