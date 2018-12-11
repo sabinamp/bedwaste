@@ -18,8 +18,10 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.provider.ContactsContract;
 import android.support.annotation.Dimension;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -182,7 +184,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         setContentView(R.layout.activity_welcome);
-        Log.d(TAG, "onCreate(Bundle) called");
+        Log.d(TAG, "Welcome Activity - onCreate(Bundle) called");
 
         setupGoogleApiClient();
         // Construct a PlaceDetectionClient.
@@ -209,18 +211,21 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         return true;
                     }
                     case R.id.app_bar_profile: {
-                        if (filterLayout.getVisibility() == View.VISIBLE) {
+                        /*if (filterLayout.getVisibility() == View.VISIBLE) {
                             filterLayout.setVisibility(View.GONE);
-                        }
-                        //showUserProfile();
+                        }*/
+                        Intent profileIntent= new Intent(WelcomeActivity.this, ProfileActivity.class);
+                        startActivity(profileIntent);
                         return true;
                     }
                     case R.id.app_bar_home:
-                    { if (filterLayout.getVisibility() == View.VISIBLE){
+                    {
+                        if (filterLayout.getVisibility() == View.VISIBLE){
                             filterLayout.setVisibility(View.GONE);
                         }
                         //showLocation();
-                        return true;}
+                        return true;
+                    }
                     default:
                         return false;
                 }
@@ -293,24 +298,31 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .alpha(0.7f)
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
                    mHelmhaus = mMap.addMarker(new MarkerOptions()
                            .position(HEMLHAUS)
                            .title("Hotel Helmhaus")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .alpha(0.7f)
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
                    mHottingen =  mMap.addMarker(new MarkerOptions()
                            .position(HOTTINGEN)
                            .title("Hotel Hottingen")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .alpha(0.7f)
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
 
                     mHVillette = mMap.addMarker(new MarkerOptions()
-                            .position(HOTTINGEN)
+                            .position(VILLETTE)
                             .title("Hotel Hottingen")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                            .alpha(0.7f)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                             .snippet("price: 77"));
+                            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_default)));
+                            // to be fixed
+                            // .icon(BitmapDescriptorFactory.fromAsset("/hotel_default.svg")));
                }
             }
         });
@@ -548,18 +560,19 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 else{
                     filterLayout.setVisibility(View.VISIBLE);
                 }
-                return true;}
+                return true;
+            }
             case R.id.app_bar_profile:
                 if (filterLayout.getVisibility() == View.VISIBLE){
                     filterLayout.setVisibility(View.GONE);
                 }
-                //showUserProfile();
+                Intent intent_profile= ProfileActivity.makeProfileIntent(WelcomeActivity.this);
+                startActivity(intent_profile);
                 return true;
             case R.id.app_bar_home:
                 if (filterLayout.getVisibility() == View.VISIBLE){
                     filterLayout.setVisibility(View.GONE);
                 }
-                //showCurrentDeviceLocationAndHotels();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
