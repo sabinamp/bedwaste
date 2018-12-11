@@ -4,17 +4,17 @@
     <item
         android:id="@+id/app_bar_profile"
         android:icon="@drawable/profile_default"
-        android:title="@string/action_profile"
+        android:title=""
         />
 
     <item
         android:id="@+id/app_bar_home"
-        android:icon="@drawable/mapview_default"
-        android:title="@string/action_home"
+        android:icon="@drawable/map_view"
+        android:title=""
         />
     <item
         android:id="@+id/app_bar_filters"
         android:icon="@drawable/filters_default"
-        android:title="@string/action_filters"
+        android:title=""
        />
 </menu>

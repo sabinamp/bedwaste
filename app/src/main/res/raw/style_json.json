@@ -85,7 +85,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#4f7869"
+        "color": "#746855"
       }
     ]
   },
@@ -94,7 +94,7 @@
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#4f7867"
+        "color": "#ffb74d"
       }
     ]
   },
@@ -103,7 +103,7 @@
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#746855"
+        "color": "#ffcc80"
       }
     ]
   },

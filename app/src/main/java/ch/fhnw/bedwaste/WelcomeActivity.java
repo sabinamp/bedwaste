@@ -79,11 +79,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Marker mPlatzhirsch;
     private Marker mHottingen;
     private Marker mHelmhaus;
-    //private Marker mHVillette;
+    private Marker mHVillette;
     static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
     static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
-    //static final LatLng VILLETTE= new LatLng(47.369158397978, 8.54404538869858);
+    static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
      */
@@ -293,21 +293,27 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .snippet("price: 77"));
                    mHelmhaus = mMap.addMarker(new MarkerOptions()
                            .position(HEMLHAUS)
                            .title("Hotel Helmhaus")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .snippet("price: 77"));
                    mHottingen =  mMap.addMarker(new MarkerOptions()
                            .position(HOTTINGEN)
                            .title("Hotel Hottingen")
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                           .snippet("price: 77"));
 
-
+                    mHVillette = mMap.addMarker(new MarkerOptions()
+                            .position(HOTTINGEN)
+                            .title("Hotel Hottingen")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                            .snippet("price: 77"));
                }
             }
         });
-
 
 
     }
