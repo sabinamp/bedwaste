@@ -3,6 +3,7 @@ package ch.fhnw.bedwaste;
 import android.Manifest;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.IntentService;
 import android.content.Context;
@@ -70,8 +71,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Security;
 import java.util.List;
 
@@ -117,6 +121,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // Layout Elements
     private ImageButton mLocationButton;
     private LinearLayout filterLayout;
+    private ImageButton mFiltersButton;
 
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
@@ -201,29 +206,19 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.app_bar_filters:{
-                        if (filterLayout.getVisibility() == View.VISIBLE){
-                            filterLayout.setVisibility(View.GONE);
-                        }
-                        else{
-                            filterLayout.setVisibility(View.VISIBLE);
-                        }
+                    case R.id.app_bar_hotel_list:{
+                        Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
+                        startActivity(listIntent);
+                        return true;
+                    }
+                    case R.id.app_bar_map_view:
+                    {
                         return true;
                     }
                     case R.id.app_bar_profile: {
-                        /*if (filterLayout.getVisibility() == View.VISIBLE) {
-                            filterLayout.setVisibility(View.GONE);
-                        }*/
+
                         Intent profileIntent= new Intent(WelcomeActivity.this, ProfileActivity.class);
                         startActivity(profileIntent);
-                        return true;
-                    }
-                    case R.id.app_bar_home:
-                    {
-                        if (filterLayout.getVisibility() == View.VISIBLE){
-                            filterLayout.setVisibility(View.GONE);
-                        }
-                        //showLocation();
                         return true;
                     }
                     default:
@@ -233,6 +228,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
+        mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
@@ -326,7 +322,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                }
             }
         });
-
+        mFiltersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filterLayout.getVisibility() == View.VISIBLE){
+                    filterLayout.setVisibility(View.GONE);
+                }
+                else{
+                    filterLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
     @Override
@@ -553,27 +559,21 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.app_bar_filters:{
-                if (filterLayout.getVisibility() == View.VISIBLE){
-                    filterLayout.setVisibility(View.GONE);
-                }
-                else{
-                    filterLayout.setVisibility(View.VISIBLE);
-                }
+            case R.id.app_bar_hotel_list:{
+                Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
+                startActivity(listIntent);
                 return true;
             }
-            case R.id.app_bar_profile:
-                if (filterLayout.getVisibility() == View.VISIBLE){
-                    filterLayout.setVisibility(View.GONE);
-                }
-                Intent intent_profile= ProfileActivity.makeProfileIntent(WelcomeActivity.this);
-                startActivity(intent_profile);
+            case R.id.app_bar_map_view:
+            {
                 return true;
-            case R.id.app_bar_home:
-                if (filterLayout.getVisibility() == View.VISIBLE){
-                    filterLayout.setVisibility(View.GONE);
-                }
+            }
+            case R.id.app_bar_profile: {
+
+                Intent profileIntent= new Intent(WelcomeActivity.this, ProfileActivity.class);
+                startActivity(profileIntent);
                 return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -640,4 +640,24 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+    /*public void getAvailabilitiesResponseJson(){
+        String json;
+        try {
+            InputStream is= getAssets().open("availabilitiesResponse.json");
+            int size=is.available();
+            byte[] buffer= new byte[size];
+            is.read();
+            is.close();
+
+            json= new String(buffer, "UTF-8");
+            JSONArray jsonArray = new JSONArray(json);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        catch (org.json.JSONException e){
+            e.printStackTrace();
+        }
+
+    }*/
 }

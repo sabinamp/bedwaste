@@ -29,12 +29,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-
+        <activity android:name=".HotelListViewActivity"></activity>
     </application>
 
 </manifest>

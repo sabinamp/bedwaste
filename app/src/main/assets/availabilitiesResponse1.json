@@ -1,0 +1,168 @@
+[
+    {
+        "hotelId": "00U5846j022d291v",
+        "availableStays": [
+            {
+                "arrivalDate": "2018-12-13",
+                "minLOS": 1,
+                "maxLOS": 14,
+                "lastModifyDateTime": "TIMESTAMP",
+                "stayLengths": {
+                    "1": [
+                        {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_1",
+                            "rateCode": "RATE_CODE_1",
+                            "amount": "324.00",
+                            "currency": "CHF",
+                            "quantity": "10"
+                        },
+                         {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_1",
+                            "rateCode": "RATE_CODE_1",
+                            "amount": "311.00",
+                            "currency": "CHF",
+                            "quantity": "10"
+                        }
+                    ],
+                     "2": [
+                        {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_1",
+                            "rateCode": "RATE_CODE_2",
+                            "amount": "224.00",
+                            "currency": "CHF",
+                            "quantity": "12"
+                        },
+                         {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_1",
+                            "rateCode": "RATE_CODE_2",
+                            "amount": "211.00",
+                            "currency": "CHF",
+                            "quantity": "12"
+                        }
+                    ]                                     
+                }
+            },
+            {
+                "arrivalDate": "2018-12-14",
+                "minLOS": 3,
+                "maxLOS": 6,
+                "lastModifyDateTime": "TIMESTAMP",
+                "stayLengths": {
+                    "3": [
+                        {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_1",
+                            "rateCode": "RATE_CODE_1",
+                            "amount": "313.00",
+                            "currency": "CHF",
+                            "quantity": "12"
+                        },
+                        {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_10",
+                            "rateCode": "RATE_CODE_1",
+                            "amount": "256.00",
+                            "currency": "CHF",
+                            "quantity": "8"
+                        },
+                        {
+                            "nbAdults": "2",
+                            "roomId": "ROOM_ID_12",
+                            "rateCode": "RATE_CODE_1",
+                            "amount": "286.00",
+                            "currency": "CHF",
+                            "quantity": "10"
+                        }
+                    ]                    
+                }
+            }
+        ]
+    },
+  {
+    "hotelId": "00U5846j022d291s",
+    "availableStays": [
+      {
+        "arrivalDate": "2018-12-14",
+        "minLOS": 1,
+        "maxLOS": 14,
+        "lastModifyDateTime": "TIMESTAMP",
+        "stayLengths": {
+          "1": [
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_1",
+              "rateCode": "RATE_CODE_1",
+              "amount": "324.00",
+              "currency": "CHF",
+              "quantity": "10"
+            },
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_1",
+              "rateCode": "RATE_CODE_1",
+              "amount": "300.00",
+              "currency": "CHF",
+              "quantity": "5"
+            }
+          ],
+          "2": [
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_1",
+              "rateCode": "RATE_CODE_2",
+              "amount": "224.00",
+              "currency": "CHF",
+              "quantity": "12"
+            },
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_1",
+              "rateCode": "RATE_CODE_2",
+              "amount": "211.00",
+              "currency": "CHF",
+              "quantity": "12"
+            }
+          ]
+        }
+      },
+      {
+        "arrivalDate": "2018-12-16",
+        "minLOS": 3,
+        "maxLOS": 6,
+        "lastModifyDateTime": "TIMESTAMP",
+        "stayLengths": {
+          "3": [
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_1",
+              "rateCode": "RATE_CODE_1",
+              "amount": "333.00",
+              "currency": "CHF",
+              "quantity": "12"
+            },
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_10",
+              "rateCode": "RATE_CODE_1",
+              "amount": "276.00",
+              "currency": "CHF",
+              "quantity": "5"
+            },
+            {
+              "nbAdults": "2",
+              "roomId": "ROOM_ID_12",
+              "rateCode": "RATE_CODE_1",
+              "amount": "296.00",
+              "currency": "CHF",
+              "quantity": "4"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

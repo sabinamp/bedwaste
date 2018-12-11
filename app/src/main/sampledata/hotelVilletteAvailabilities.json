@@ -1,0 +1,17 @@
+[
+  {
+    "guestroomId": "01q578c6e6bdf51d",
+    "products": [
+      {
+        "rateplanId": "01W58b92adc96446",
+        "totalPrice": 330,
+        "discount": 25,
+        "currency": "CHF",
+        "isBar": false,
+        "availability": 12,
+        "limitedOffer": false,
+        "popularity": 64
+      }
+    ]
+  }
+]
