@@ -294,19 +294,21 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
-                           .alpha(0.7f)
+                           .alpha(0.5f)
                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
+                   mPlatzhirsch.showInfoWindow();
                    mHelmhaus = mMap.addMarker(new MarkerOptions()
                            .position(HEMLHAUS)
                            .title("Hotel Helmhaus")
-                           .alpha(0.7f)
+                           .alpha(0.5f)
                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
+
                    mHottingen =  mMap.addMarker(new MarkerOptions()
                            .position(HOTTINGEN)
                            .title("Hotel Hottingen")
-                           .alpha(0.7f)
+                           .alpha(0.5f)
                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                            .snippet("price: 77"));
 
@@ -319,6 +321,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             //.icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_default)));
                             // to be fixed
                             // .icon(BitmapDescriptorFactory.fromAsset("/hotel_default.svg")));
+
                }
             }
         });
@@ -346,7 +349,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             // in a raw resource file.
             boolean success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
-                            this, R.raw.style_json));
+                            this, R.raw.style2_json));
 
             if (!success) {
                 Log.e(TAG, "Style parsing failed.");
@@ -652,6 +655,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
             json= new String(buffer, "UTF-8");
             JSONArray jsonArray = new JSONArray(json);
+            for(int i=0; i < jsonArray.length(); i++){
+                JsonObject obj= jsonArray.getJsonObject(i);
+            }
+
         }catch (IOException e){
             e.printStackTrace();
         }
