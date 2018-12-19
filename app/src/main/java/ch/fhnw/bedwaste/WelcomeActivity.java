@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -122,6 +123,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private ImageButton mLocationButton;
     private LinearLayout filterLayout;
     private ImageButton mFiltersButton;
+    private LinearLayout mFilterExtendedLayout;
+    private ImageView btnFilterExtend;
+    private ImageView btnFilterLess;
+    private ImageView btnMoreRooms;
+    private ImageView btnLessRooms;
+    private ImageView btnMoreNights;
+    private ImageView btnLessNights;
+    private ImageView btnMorePeople;
+    private ImageView btnLessPeople;
+    private TextView textValueRooms;
+    private TextView textValueNights;
+    private TextView textValuePeople;
 
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
@@ -230,6 +243,21 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mLocationButton = (ImageButton) findViewById(R.id.search);
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
+        mFilterExtendedLayout = (LinearLayout) findViewById( R.id.expandedFilter);
+        btnFilterExtend = (ImageView) findViewById(R.id.btnExpandFilter);
+        btnFilterLess = (ImageView) findViewById(R.id.lessfilter);
+        mFilterExtendedLayout.setVisibility(View.GONE);
+        btnFilterLess.setVisibility(View.GONE);
+        btnLessPeople = (ImageView) findViewById(R.id.lessPeople);
+        btnMorePeople = (ImageView) findViewById(R.id.morepeople);
+        btnLessNights = (ImageView) findViewById(R.id.lessNights);
+        btnMoreNights = (ImageView) findViewById(R.id.moreNights);
+        btnLessRooms = (ImageView) findViewById(R.id.lessRooms);
+        btnMoreRooms = (ImageView) findViewById(R.id.moreRooms);
+        textValueNights = (TextView) findViewById(R.id.textNightValue);
+        textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
+        textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
+
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
         seekBarDistance.setProgress(10);
@@ -242,6 +270,63 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
 
+        btnLessPeople.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+
+
+            }
+        });
+        btnMorePeople.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                
+
+            }
+        });
+        btnLessRooms.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+
+            }
+        });
+        btnMoreRooms.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+
+            }
+        });
+        btnLessNights.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+
+            }
+        });
+        btnMoreNights.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+
+            }
+        });
+        btnFilterExtend.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                btnFilterLess.setVisibility(View.VISIBLE);
+                mFilterExtendedLayout.setVisibility(View.VISIBLE);
+                btnFilterExtend.setVisibility(View.GONE);
+
+            }
+        });
+
+        btnFilterLess.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick (View view){
+                btnFilterExtend.setVisibility(View.VISIBLE);
+                mFilterExtendedLayout.setVisibility(View.GONE);
+                btnFilterLess.setVisibility(View.GONE);
+            }
+
+        });
 
         //Listener vor Seek Bar of Distance Changes
         seekBarDistance.setOnSeekBarChangeListener (new SeekBar.OnSeekBarChangeListener(){

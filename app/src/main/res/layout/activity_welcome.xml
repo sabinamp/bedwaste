@@ -74,38 +74,6 @@
         android:background="@color/colorPrimaryDark"
         android:elevation="3dp"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-
-                android:text="Distance"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/textValueDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="10dp"
-                android:text="@string/distanceValue"
-                android:textColor="@android:color/white" />
-
-
-        </RelativeLayout>
-
-
-        <SeekBar
-            android:id="@+id/seekBarDistance"
-            android:layout_width="438dp"
-            android:layout_height="match_parent" />
-
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -116,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
 
-                android:text="Price"
+                android:text="Preis"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -135,80 +103,255 @@
             android:id="@+id/seekBarPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:text="Entfernungslimit"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/textValueDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/distanceValue"
+                android:textColor="@android:color/white" />
+
+
+        </RelativeLayout>
+
+
+        <SeekBar
+            android:id="@+id/seekBarDistance"
+            android:layout_width="438dp"
+            android:layout_height="match_parent" />
+
 
         <LinearLayout
-            android:id="@+id/ab"
+            android:id="@+id/linear_rooms"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1.2"
             android:orientation="horizontal">
 
 
             <TextView
                 android:id="@+id/textRooms"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="Rooms"
+                android:layout_weight="1.2"
+                android:text="Anzahl Zimmer"
                 android:textColor="@android:color/white" />
 
-            <EditText
+
+
+
+            <ImageView
+                android:id="@+id/lessRooms"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_down" />
+
+            <TextView
                 android:id="@+id/textRoomsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:text="@string/roomsValue"/>
+
+            <ImageView
+                android:id="@+id/moreRooms"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_up" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_people"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:orientation="horizontal">
+
 
             <TextView
-                android:id="@+id/textPersons"
+                android:id="@+id/textPeople"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="Persons"
+                android:layout_weight="1.2"
+                android:text="Anzahl Personen"
                 android:textColor="@android:color/white" />
 
-            <EditText
-                android:id="@+id/textPersonsValue"
+
+            <ImageView
+                android:id="@+id/lessPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_down" />
+
+            <TextView
+                android:id="@+id/textPeopleValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:text="@string/peopleValue"/>
+
+            <ImageView
+                android:id="@+id/morepeople"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_up" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_nights"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
 
             <TextView
                 android:id="@+id/textNights"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:text="Nights"
+                android:layout_weight="1.2"
+                android:text="Anzahl Nächte"
                 android:textColor="@android:color/white" />
 
-            <EditText
-                android:id="@+id/textNightsValue"
+
+            <ImageView
+                android:id="@+id/lessNights"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_down" />
+
+            <TextView
+                android:id="@+id/textNightValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:text="@string/nightValue"/>
+
+            <ImageView
+                android:id="@+id/moreNights"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_chevron_up" />
+
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/btnExpandFilter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            app:srcCompat="@drawable/ic_sharp_expand" />
+
+
+        <LinearLayout
+            android:id="@+id/expandedFilter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layoutRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+
+                    android:text="Bewertung"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/textValueRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/distanceValue"
+                    android:textColor="@android:color/white" />
+
+
+            </RelativeLayout>
+
+            <SeekBar
+                android:id="@+id/seekBarRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/lessfilter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            app:srcCompat="@drawable/ic_sharp_expand_less" />
+
+
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentBottom="true">
-        <include layout="@layout/bottom_navigation_view"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary">
+
+        <include layout="@layout/bottom_navigation_view" />
 
     </RelativeLayout>
+
 
 </RelativeLayout>
