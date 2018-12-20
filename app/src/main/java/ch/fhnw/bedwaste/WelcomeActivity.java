@@ -135,6 +135,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView textValueRooms;
     private TextView textValueNights;
     private TextView textValuePeople;
+    private ImageButton declineFilter;
+    private ImageButton applyFilter;
+
 
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
@@ -257,7 +260,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValueNights = (TextView) findViewById(R.id.textNightValue);
         textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
         textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
-
+        applyFilter = (ImageButton) findViewById(R.id.imageApply);
+        declineFilter =(ImageButton) findViewById(R.id.imageDecline);
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
         seekBarDistance.setProgress(10);
@@ -270,9 +274,33 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
 
+        applyFilter.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                mFiltersButton.callOnClick();
+            }
+        });
+        declineFilter.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                seekBarPrice.setMax(1000);
+                seekBarPrice.setProgress(100);
+                textValueDistance.setText("100 CHF");
+                textValueDistance.setText("10 km");
+                textValuePeople.setText("1");
+                textValueNights.setText("1");
+                textValueRooms.setText("1");
+            }
+        });
         btnLessPeople.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
+                String PeopleValue = textValuePeople.getText().toString();
+
+                if (Integer.parseInt(PeopleValue) != 1){
+                    PeopleValue = String.valueOf(Integer.parseInt(PeopleValue)-1);
+                    textValuePeople.setText(PeopleValue);
+                }
 
 
             }
@@ -280,32 +308,49 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         btnMorePeople.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
-                
+                String PeopleValue = textValuePeople.getText().toString();
+                PeopleValue = String.valueOf(Integer.parseInt(PeopleValue)+1);
+                textValuePeople.setText(PeopleValue);
 
             }
         });
         btnLessRooms.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
+                String RoomsValue = textValueRooms.getText().toString();
+                if (Integer.parseInt(RoomsValue) != 1){
+                    RoomsValue = String.valueOf(Integer.parseInt(RoomsValue)-1);
+                    textValueRooms.setText(RoomsValue);
+                }
+
 
             }
         });
         btnMoreRooms.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
-
+                String RoomsValue = textValueRooms.getText().toString();
+                RoomsValue = String.valueOf(Integer.parseInt(RoomsValue)+1);
+                textValueRooms.setText(RoomsValue);
             }
         });
         btnLessNights.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
+                String NightsValue = textValueNights.getText().toString();
+                if (Integer.parseInt(NightsValue) != 1){
+                    NightsValue = String.valueOf(Integer.parseInt(NightsValue)-1);
+                    textValueNights.setText(NightsValue);
+                }
 
             }
         });
         btnMoreNights.setOnClickListener(new ImageView.OnClickListener(){
             @Override
             public void onClick (View view){
-
+                String NightsValue = textValueNights.getText().toString();
+                NightsValue = String.valueOf(Integer.parseInt(NightsValue)+1);
+                textValueNights.setText(NightsValue);
             }
         });
         btnFilterExtend.setOnClickListener(new ImageView.OnClickListener(){
