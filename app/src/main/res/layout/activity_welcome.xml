@@ -71,9 +71,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/gradient_background"
         android:elevation="3dp"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -103,6 +104,7 @@
             android:id="@+id/seekBarPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -155,8 +157,6 @@
                 android:textColor="@android:color/white" />
 
 
-
-
             <ImageView
                 android:id="@+id/lessRooms"
                 android:layout_width="wrap_content"
@@ -173,8 +173,8 @@
                 android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white"
-                android:text="@string/roomsValue"/>
+                android:text="@string/roomsValue"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/moreRooms"
@@ -220,8 +220,8 @@
                 android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white"
-                android:text="@string/peopleValue"/>
+                android:text="@string/peopleValue"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/morepeople"
@@ -230,7 +230,6 @@
                 android:layout_weight="0.05"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/ic_chevron_up" />
-
 
 
         </LinearLayout>
@@ -268,8 +267,8 @@
                 android:layout_weight="0.1"
                 android:background="@color/colorAccent"
                 android:inputType="numberDecimal"
-                android:textColor="@android:color/white"
-                android:text="@string/nightValue"/>
+                android:text="@string/nightValue"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/moreNights"
@@ -344,21 +343,20 @@
                     android:buttonTint="@color/white"
                     android:layoutDirection="rtl"
                     android:text="Frühstück"
-                    android:textColor="@color/white"
-                    android:textAlignment="textStart"/>
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white" />
 
                 <CheckBox
                     android:id="@+id/checkBoxWlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WLAN"
-                    android:textColor="@color/white"
-                    android:buttonTint="@color/white"
-                    android:layoutDirection="rtl"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                                       />
+                    android:layout_weight="1"
+                    android:buttonTint="@color/white"
+                    android:layoutDirection="rtl"
+                    android:text="WLAN"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -380,6 +378,7 @@
             android:layout_centerHorizontal="true"
 
             app:srcCompat="@drawable/ic_sharp_expand_less" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -390,28 +389,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:layout_marginLeft="5px"
+                android:layout_marginTop="5px"
+                android:layout_marginRight="100dp"
+                android:layout_marginBottom="5px"
                 android:layout_weight="0.5"
                 android:background="@color/colorAccent"
-                app:srcCompat="@drawable/ic_decline"
-                android:layout_marginRight="100dp"
                 android:padding="5dp"
-                android:layout_marginLeft="5px"
-                android:layout_marginBottom="5px"
-                android:layout_marginTop="5px"/>
+                app:srcCompat="@drawable/ic_decline" />
 
             <ImageButton
                 android:id="@+id/imageApply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_weight="0.5"
-                android:background="@color/colorAccent"
-                app:srcCompat="@drawable/ic_apply"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="5px"
                 android:layout_marginRight="5px"
                 android:layout_marginBottom="5px"
-                android:layout_marginTop="5px"
-                android:layout_marginLeft="100dp"
-                android:padding="5dp"/>
+                android:layout_weight="0.5"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_apply" />
         </LinearLayout>
 
 

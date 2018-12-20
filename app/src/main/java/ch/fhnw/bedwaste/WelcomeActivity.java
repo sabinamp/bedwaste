@@ -37,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -137,6 +138,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView textValuePeople;
     private ImageButton declineFilter;
     private ImageButton applyFilter;
+    private CheckBox checkBoxWLAN;
+    private CheckBox checkBoxBreakfast;
 
 
     private TextView textValueDistance;
@@ -262,6 +265,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
         applyFilter = (ImageButton) findViewById(R.id.imageApply);
         declineFilter =(ImageButton) findViewById(R.id.imageDecline);
+        checkBoxBreakfast = findViewById(R.id.checkBoxBreakfast);
+        checkBoxWLAN = findViewById(R.id.checkBoxWlan);
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
         seekBarDistance.setProgress(10);
@@ -290,6 +295,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 textValuePeople.setText("1");
                 textValueNights.setText("1");
                 textValueRooms.setText("1");
+                checkBoxBreakfast.setChecked(false);
+                checkBoxWLAN.setChecked(false);
+
             }
         });
         btnLessPeople.setOnClickListener(new ImageView.OnClickListener(){
