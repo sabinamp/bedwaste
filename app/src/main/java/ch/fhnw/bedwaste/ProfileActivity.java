@@ -54,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    @Override
+ /*   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
         return true;
@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     public static Intent makeProfileIntent(Context cont){
         Intent profileIntent= new Intent(cont, ProfileActivity.class);

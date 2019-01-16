@@ -54,7 +54,7 @@ public class HotelListViewActivity extends AppCompatActivity {
         Intent profileIntent= new Intent(cont, ProfileActivity.class);
         return profileIntent;
     }
-    @Override
+ /*   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
         return true;
@@ -84,5 +84,5 @@ public class HotelListViewActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }

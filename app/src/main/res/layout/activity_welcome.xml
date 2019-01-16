@@ -48,7 +48,7 @@
             android:layout_alignRight="@id/search_bar"
             android:layout_alignParentEnd="true"
             android:elevation="2dp"
-            android:src="@drawable/ic_stars_36dp"
+            android:src="@drawable/ic_filters_default"
             />
     </LinearLayout>
 
