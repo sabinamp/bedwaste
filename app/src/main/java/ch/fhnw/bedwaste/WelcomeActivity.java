@@ -88,10 +88,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Marker mHottingen;
     private Marker mHelmhaus;
     private Marker mHVillette;
-    static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
-    static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
-    static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
-    static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
+
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
      */
@@ -430,28 +427,28 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                    LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                    mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
-                            .position(PLATZHIRSCH)
+                            .position(WelcomeViewModel.PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: 77"));
+                           .snippet("price: CHF 107"));
                    mPlatzhirsch.showInfoWindow();
                    mHelmhaus = mMap.addMarker(new MarkerOptions()
-                           .position(HEMLHAUS)
+                           .position(WelcomeViewModel.HEMLHAUS)
                            .title("Hotel Helmhaus")
                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: 77"));
+                           .snippet("price: CHF 97"));
 
                    mHottingen =  mMap.addMarker(new MarkerOptions()
-                           .position(HOTTINGEN)
+                           .position(WelcomeViewModel.HOTTINGEN)
                            .title("Hotel Hottingen")
                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: 77"));
+                           .snippet("price: CHF 120"));
 
                     mHVillette = mMap.addMarker(new MarkerOptions()
-                            .position(VILLETTE)
+                            .position(WelcomeViewModel.VILLETTE)
                             .title("Hotel Villette")
                             .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: 77"));
+                            .snippet("price: CHF 77"));
                             //.icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_default)));
                             // to be fixed
                             // .icon(BitmapDescriptorFactory.fromAsset("/hotel_default.svg")));
@@ -778,27 +775,5 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    /*public void getAvailabilitiesResponseJson(){
-        String json;
-        try {
-            InputStream is= getAssets().open("availabilitiesResponse.json");
-            int size=is.available();
-            byte[] buffer= new byte[size];
-            is.read();
-            is.close();
 
-            json= new String(buffer, "UTF-8");
-            JSONArray jsonArray = new JSONArray(json);
-            for(int i=0; i < jsonArray.length(); i++){
-                JsonObject obj= jsonArray.getJsonObject(i);
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        catch (org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-    }*/
 }

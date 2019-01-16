@@ -25,7 +25,7 @@ android {
 ext {
     swagger_annotations_version = "1.5.0"
     gson_version = "2.3.1"
-
+    lifecycle_version = "1.1.1"
     junit_version = "4.12"
     robolectric_version = "3.0"
     concurrent_unit_version = "0.4.2"
@@ -47,6 +47,7 @@ dependencies {
     implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
-
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 }
 
