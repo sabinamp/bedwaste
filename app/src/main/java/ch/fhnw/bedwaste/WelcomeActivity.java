@@ -682,7 +682,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "onDestroy() called");
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
         return true;
@@ -711,7 +711,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
     /*private void enableMyLocationIfPermitted() {
         if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)

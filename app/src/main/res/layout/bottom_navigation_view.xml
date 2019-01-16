@@ -9,5 +9,6 @@
     app:menu="@menu/bottom_bar_menu"
     app:itemIconSize="33dp"
     app:itemIconTint="@color/white"
+    app:labelVisibilityMode="unlabeled"
 
     />
