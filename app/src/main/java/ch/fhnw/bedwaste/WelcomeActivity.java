@@ -432,29 +432,25 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
-                           .alpha(0.5f)
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                            .snippet("price: 77"));
                    mPlatzhirsch.showInfoWindow();
                    mHelmhaus = mMap.addMarker(new MarkerOptions()
                            .position(HEMLHAUS)
                            .title("Hotel Helmhaus")
-                           .alpha(0.5f)
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                            .snippet("price: 77"));
 
                    mHottingen =  mMap.addMarker(new MarkerOptions()
                            .position(HOTTINGEN)
                            .title("Hotel Hottingen")
-                           .alpha(0.5f)
-                           .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                            .snippet("price: 77"));
 
                     mHVillette = mMap.addMarker(new MarkerOptions()
                             .position(VILLETTE)
-                            .title("Hotel Hottingen")
-                            .alpha(0.7f)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                            .title("Hotel Villette")
+                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                             .snippet("price: 77"));
                             //.icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_default)));
                             // to be fixed
@@ -582,7 +578,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(getDefaultLocation());
         markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
-        mMap.addMarker(markerOptions);
+        //mMap.addMarker(markerOptions);
     }
 
     /**
@@ -776,7 +772,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth()*2, vectorDrawable.getIntrinsicHeight()*2, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
