@@ -35,7 +35,8 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".HotelListViewActivity"></activity>
+        <activity android:name=".HotelListViewActivity" />
+        <activity android:name=".HotelInfoActivity"></activity>
     </application>
 
 </manifest>
