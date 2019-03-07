@@ -4,17 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HotelListViewActivity">
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_view_result"
+<!--        <TextView
+            android:id="@+id/text_list_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!xxx"
+            android:text="Hello World!"
+            android:textColor="@color/white"
+             />-->
+        <android.support.design.button.MaterialButton
+            android:id = "@+id/btn_hotel_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="Hotel Details"
             android:textColor="#000"
-             />
+            android:drawablePadding="4dp"/>
 
     </android.support.v4.widget.NestedScrollView>
     <RelativeLayout

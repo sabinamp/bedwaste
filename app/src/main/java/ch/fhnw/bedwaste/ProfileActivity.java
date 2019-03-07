@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent= new Intent(ProfileActivity.this, HotelListViewActivity.class);
+                        Intent listIntent=  HotelListViewActivity.makeHotelListIntent(ProfileActivity.this);
                         startActivity(listIntent);
                         return true;
                     }
@@ -54,36 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
-        return true;
-    }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.app_bar_profile:{
-                //current screen
-                return true;
-            }
-            case R.id.app_bar_hotel_list: {
-                Intent listIntent= new Intent(ProfileActivity.this, HotelListViewActivity.class);
-                startActivity(listIntent);
-                return true;
-            }
-            case R.id.app_bar_map_view:
-            {
-                Intent welcomeIntent= new Intent(ProfileActivity.this, WelcomeActivity.class);
-                startActivity(welcomeIntent);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
 
     public static Intent makeProfileIntent(Context cont){
         Intent profileIntent= new Intent(cont, ProfileActivity.class);

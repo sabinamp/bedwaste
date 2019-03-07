@@ -8,26 +8,26 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 
-import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
-import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
+    private Button btn;
     /**
      * Debugging tag ProfileActivity used by the Android logger.
      */
     private static final String TAG = "HotelListViewActivity";
-    private TextView responseTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
-        responseTextView = findViewById(R.id.text_view_result);
+        btn = (Button) findViewById(R.id.btn_hotel_view);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -46,7 +46,6 @@ public class HotelListViewActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-
                         return true;
                     }
                     default:
@@ -54,21 +53,18 @@ public class HotelListViewActivity extends AppCompatActivity {
                 }
             }
         });
-
-        HotelDescriptiveInfoController controller = new HotelDescriptiveInfoController();
-        controller.start();
-        controller.getDescriptiveInfo("en", "00U5846f022c291a");
-        HotelDescriptiveInfo hotelinfo = controller.getHotelinfo();
-        String content = "";
-        content +=  hotelinfo.getHotelName() +"\n";
-        content +=  hotelinfo.getContactInfos()+"\n";
-        responseTextView.append(content);
-
-}
+    btn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent hotelViewIntent=  HotelInfoActivity.makeHotelInfoIntent(HotelListViewActivity.this,"00U5846f022c291a" );
+            startActivity(hotelViewIntent);
+        }
+    });
+    }
 
     public static Intent makeHotelListIntent(Context cont){
-        Intent profileIntent= new Intent(cont, ProfileActivity.class);
-        return profileIntent;
+        Intent hotelListIntent = new Intent(cont, HotelListViewActivity.class);
+        return hotelListIntent;
     }
 
 

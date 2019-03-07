@@ -6,6 +6,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface HotelDescriptiveInfoAPI {
-    @GET("/descriptive-info/{lang}/{hotelId}")
+    @GET("descriptive-info/{lang}/{hotelId}")
     Call<HotelDescriptiveInfo> getDescriptiveInfo(@Path("lang") String lang, @Path("hotelId") String hotelId);
 }
