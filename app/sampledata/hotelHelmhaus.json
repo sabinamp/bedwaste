@@ -1,0 +1,180 @@
+{
+    "hotelId": "00U5846j022d291s",
+    "hotelName": "Hotel Helmhaus",
+    "areaUnitOfMeasureCode": 14,
+    "distanceUnitOfMeasureCode": 2,
+    "timeZone": "Europe/Zurich",
+    "weightUnitOfMeasureCode": 16,
+    "currencyCode": "CHF",
+    "hotelInfo": {
+        "whenBuilt": 1356,
+        "position": {
+            "altitude": 411,
+            "latitude": 47.369158397978,
+            "longitude": 8.54404538869858
+        },
+        "descriptions": {
+            "multimediadescriptions": [
+                {
+                    "images": [
+                        {
+                            "sort": 1,
+                            "imageId": "00L55ewe83f4635b",
+                            "imageUrl": "./Hotel_Helmhaus.jpg",
+                            "imageWidth": 350,
+                            "imageHeight": 150,
+                            "dimensionCategory": "Mobile"
+                        },
+                        {
+                            "sort": 2,
+                            "imageId": "00L55ewr83a4635b",
+                            "imageUrl": "./hotel_helmhaus_ zimmer.jpg",
+                            "imageWidth": 350,
+                            "imageHeight": 150,
+                            "dimensionCategory": "Mobile"
+                        }
+                    ],
+                    "texts": [
+                        [
+                            {
+                                "detailsCode": 2,
+                                "text": "Hotel Helmhaus in zentraler Lage nahe dem Großmünster und dem Zürichsee"
+                            },
+                            {
+                                "detailsCode": 71,
+                                "text": "This is the restaurant description"
+                            }
+                        ]
+                    ]
+                }
+            ]
+        },
+        "services": [
+            [
+                {
+                    "code": 5,
+                    "codeDetails": "Air conditioning"
+                },
+                {
+                    "code": 54,
+                    "codeDetails": "Indoor pool"
+                }
+            ]
+        ]
+    },
+    "affiliationInfo": {
+        "awards": [
+            {
+                "provider": "HotelAssociation",
+                "rating": 4
+            },
+            {
+                "provider": "TripAdvisor",
+                "rating": 4.5
+            }
+        ]
+    },
+    "facilityInfo": {
+        "guestRooms": [
+            {
+                "id": "00U5846e022f2911",
+                "roomTypeName": "Junior Suite",
+                "minOccupancy": 1,
+                "maxOccupancy": 2,
+                "maxChildOccupancy": 1,
+                "maxAdultOccupancy": 2,
+                "typeRoom": {
+                    "standardOccupancy": 1,
+                    "standardNumBeds": 1,
+                    "maxCribs": 1,
+                    "maxRollaways": 0,
+                    "composite": false,
+                    "quantity": 26
+                },
+                "amenities": [
+                    {
+                        "roomAmenityCode": 2,
+                        "codeDetails": "Air conditioning"
+                    },
+                    {
+                        "roomAmenityCode": 55,
+                        "codeDetails": "Iron"
+                    }
+                ],
+                "multimediaDescriptions": {
+                    "images": [
+                        {
+                            "imageId": "00U5846e022f2915",
+                            "imageUrl": "",
+                            "imageWidth": 1920,
+                            "imageHeight": 1080,
+                            "dimensionCategory": "Desktop"
+                        },
+                        {
+                            "imageId": "00U5846e022e4567",
+                            "imageUrl": "",
+                            "imageWidth": 720,
+                            "imageHeight": 480,
+                            "dimensionCategory": "Mobile"
+                        },
+                        {
+                            "imageId": "00U5846e022f2916",
+                            "imageUrl": "",
+                            "imageHeight": 1080,
+                            "dimensionCategory": "Desktop"
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "00U5846e022f2912",
+                "roomTypeName": "Double deluxe",
+                "minOccupancy": 1,
+                "maxOccupancy": 3,
+                "maxChildOccupancy": 2,
+                "maxAdultOccupancy": 3,
+                "typeRoom": {
+                    "standardOccupancy": 2,
+                    "standardNumBeds": 1,
+                    "maxCribs": 1,
+                    "maxRollaways": 0,
+                    "composite": false,
+                    "quantity": 14
+                }
+            }
+        ]
+    },
+    "contactInfos": [
+        {
+            "companyName": "Hotel Helmhaus",
+            "addresses": [
+                {
+                    "streetNmbr": "30",
+                    "addressLine": "Schifflände",
+                    "cityName": "Zürich",
+                    "postalCode": "8001",
+                    "stateProv": "Zürich",
+                    "countryName": "Schweiz"
+                }
+            ],
+            "phones": [
+                {
+                    "phoneTechType": 1,
+                    "countryAccessCode": 41,
+                    "phoneNumber": "0442669595"
+                }
+            ],
+            "emails": [
+                {
+                    "email": "info@helmhaus.ch"
+                }
+            ]
+        }
+    ],
+    "policies": {
+        "policyInfo": {
+            "minChildAge": 2,
+            "maxChildAge": 12
+        }
+    }
+}

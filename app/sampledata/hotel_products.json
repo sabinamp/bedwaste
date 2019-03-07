@@ -1,0 +1,32 @@
+[
+  {
+    "ID": "01q578c8e62df61f",
+    "roomTypes": [
+      {
+        "roomTypeCode": "01q578c6e6bdf51d"
+      }
+    ],
+    "ratePlans": [
+      {
+        "ratePlanCode": "01q578c6dd5e1d4c",
+        "ratePlanName": "Standard",
+        "currencyCode": "CHF",
+        "descriptions": {
+          "texts": [
+            "Rate plan description"
+          ],
+          "images": [
+            "http://images.example.com/00L55eee8ef46e5b.jpg",
+            "http://images.example.com/00L55eee8ef46b7a.jpg"
+          ]
+        }
+      },
+      {
+        "ratePlanCode": "01q578c6dd5e1d5d",
+        "ratePlanName": "Non-Refundable",
+        "currencyCode": "CHF",
+        "descriptions": {}
+      }
+    ]
+  }
+]

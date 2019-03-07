@@ -1,0 +1,47 @@
+
+{
+	"description": "HotelDescription",
+	"when built": "1900-01-01",
+	"position":
+		{
+			"altitude": "150",
+			"latitude": "47.444546",
+			"longitude": "4.161718"
+		},
+	"descriptions": [
+			{
+                "multimediadescriptions": [{
+                    
+                       "images": [{
+					    "sort"	: "1",
+						"imageId": "00L55eee8ef46e5b",
+						"imageUrl": "http://images.example.com/00L55eee8ef46e5b.jpg",
+						"imageWidth": "350",
+						"imageHeight": "150",
+						"dimensionCategory": "Mobile"
+												}]
+                            
+                        },
+                        {
+                            "texts": [{
+                            	"detailsCode": "11",
+                            	"text": "somestring"
+                            }]
+                            
+                        }
+                ]
+     		}
+     ],
+	"services":
+		[
+			{
+			"code": "amenityorservice_id",
+			"codeDetails": "further details"
+			},
+			{
+			"code": "amenityorservice_id",
+			"codeDetails": "further details"
+			}
+	]	
+
+}
