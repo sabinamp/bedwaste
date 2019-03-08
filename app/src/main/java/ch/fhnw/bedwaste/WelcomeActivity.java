@@ -19,9 +19,11 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.support.annotation.Dimension;
 import android.support.annotation.NonNull;
@@ -31,6 +33,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -44,6 +47,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +83,14 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Security;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -194,6 +206,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             };
 
+    public WelcomeActivity() throws ParseException {
+    }
 
 
     @Override
@@ -467,6 +481,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
+
+        // call Countdown
+        startCountdown();
 
     }
     @Override
@@ -773,6 +790,62 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+
+    // Countdown
+
+    private TextView countdownTextSeconds;
+    private TextView countdownTextMinutes;
+    private TextView countdownTextHours;
+    private TableLayout countdownBox;
+
+    private CountDownTimer countDownTimer;
+
+    LocalTime localTime = LocalTime.now();
+
+    String deadline = "23:00:00";
+
+    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+    Date time1 = format.parse(deadline);
+    Date time2 = format.parse(localTime.toString());
+
+    public void startCountdown(){
+
+        long timeElapsed = time1.getTime() - time2.getTime();
+
+        countdownTextSeconds = (TextView) findViewById(R.id.countdownTextSeconds);
+        countdownTextMinutes = (TextView) findViewById(R.id.countdownTextMinutes);
+        countdownTextHours = (TextView) findViewById(R.id.countdownTextHours);
+        countdownBox = (TableLayout) findViewById(R.id.countdownBox);
+
+        countDownTimer = new CountDownTimer(timeElapsed, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                // in Seconds
+                if ((millisUntilFinished/1000 % 60)>=10){
+                countdownTextSeconds.setText(""+millisUntilFinished/1000 % 60);
+                } else {
+                    countdownTextSeconds.setText("0"+millisUntilFinished/1000 % 60);
+                }
+
+                // in Minutes
+                if ((millisUntilFinished/(60 * 1000) % 60)>=10) {
+                    countdownTextMinutes.setText("" + millisUntilFinished / (60 * 1000) % 60);
+                } else {
+                    countdownTextMinutes.setText("0" + millisUntilFinished / (60 * 1000) % 60);
+                }
+
+                // in Hours
+                countdownTextHours.setText("0"+millisUntilFinished/(60 * 60 * 1000) % 24);
+                }
+
+            public void onFinish() {
+                countdownBox.setAlpha(0);
+
+            }
+        }.start();
     }
 
 

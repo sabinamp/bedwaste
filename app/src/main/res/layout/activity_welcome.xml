@@ -52,6 +52,7 @@
             />
     </LinearLayout>
 
+
     <fragment
         android:id="@+id/current_location"
         android:name="com.google.android.gms.maps.MapFragment"
@@ -60,371 +61,474 @@
         android:layout_below="@id/search_bar"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="0dp" />
-
-
-    <LinearLayout
-        android:id="@+id/layoutFilters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/gradient_background"
-        android:elevation="3dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-
-                android:text="Preis"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/textPriceValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="10dp"
-                android:text="@string/priceValue"
-                android:textColor="@android:color/white" />
-
-
-        </RelativeLayout>
-
-        <SeekBar
-            android:id="@+id/seekBarPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-
-                android:text="Entfernungslimit"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:id="@+id/textValueDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/distanceValue"
-                android:textColor="@android:color/white" />
-
-
-        </RelativeLayout>
-
-
-        <SeekBar
-            android:id="@+id/seekBarDistance"
-            android:layout_width="438dp"
-            android:layout_height="match_parent" />
+        android:layout_marginTop="-1dp"
+        android:layout_marginBottom="0dp" />
 
 
         <LinearLayout
-            android:id="@+id/linear_rooms"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/textRooms"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1.2"
-                android:text="Anzahl Zimmer"
-                android:textColor="@android:color/white" />
-
-
-            <ImageView
-                android:id="@+id/lessRooms"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_down" />
-
-            <TextView
-                android:id="@+id/textRoomsValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.1"
-                android:background="@color/colorAccent"
-                android:inputType="numberDecimal"
-                android:text="@string/roomsValue"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/moreRooms"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_up" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_people"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/textPeople"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1.2"
-                android:text="Anzahl Personen"
-                android:textColor="@android:color/white" />
-
-
-            <ImageView
-                android:id="@+id/lessPeople"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_down" />
-
-            <TextView
-                android:id="@+id/textPeopleValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.1"
-                android:background="@color/colorAccent"
-                android:inputType="numberDecimal"
-                android:text="@string/peopleValue"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/morepeople"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_up" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_nights"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/textNights"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1.2"
-                android:text="Anzahl Nächte"
-                android:textColor="@android:color/white" />
-
-
-            <ImageView
-                android:id="@+id/lessNights"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_down" />
-
-            <TextView
-                android:id="@+id/textNightValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.1"
-                android:background="@color/colorAccent"
-                android:inputType="numberDecimal"
-                android:text="@string/nightValue"
-                android:textColor="@android:color/white" />
-
-            <ImageView
-                android:id="@+id/moreNights"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.05"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_chevron_up" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/btnExpandFilter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/layoutFilters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-
-            app:srcCompat="@drawable/ic_sharp_expand" />
-
-
-        <LinearLayout
-            android:id="@+id/expandedFilter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/gradient_background"
+            android:elevation="3dp"
             android:orientation="vertical">
 
+
+
+        <!-- Filtersection -->
+
             <RelativeLayout
-                android:id="@+id/layoutRating"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textRating"
+                    android:id="@+id/textPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
 
-                    android:text="Bewertung"
+                    android:text="Preis"
                     android:textColor="@android:color/white" />
 
                 <TextView
-                    android:id="@+id/textValueRating"
+                    android:id="@+id/textPriceValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/ratingValue"
+                    android:layout_margin="10dp"
+                    android:text="@string/priceValue"
                     android:textColor="@android:color/white" />
 
 
             </RelativeLayout>
 
             <SeekBar
-                android:id="@+id/seekBarRating"
+                android:id="@+id/seekBarPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+
+                    android:text="Entfernungslimit"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/textValueDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/distanceValue"
+                    android:textColor="@android:color/white" />
+
+
+            </RelativeLayout>
+
+
+            <SeekBar
+                android:id="@+id/seekBarDistance"
+                android:layout_width="438dp"
+                android:layout_height="match_parent" />
+
+
             <LinearLayout
+                android:id="@+id/linear_rooms"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textRooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1.2"
+                    android:text="Anzahl Zimmer"
+                    android:textColor="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/lessRooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_down" />
+
+                <TextView
+                    android:id="@+id/textRoomsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.1"
+                    android:background="@color/colorAccent"
+                    android:inputType="numberDecimal"
+                    android:text="@string/roomsValue"
+                    android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/moreRooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_up" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/textPeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1.2"
+                    android:text="Anzahl Personen"
+                    android:textColor="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/lessPeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_down" />
+
+                <TextView
+                    android:id="@+id/textPeopleValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.1"
+                    android:background="@color/colorAccent"
+                    android:inputType="numberDecimal"
+                    android:text="@string/peopleValue"
+                    android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/morepeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_up" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_nights"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/checkBoxBreakfast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/white"
-                    android:layoutDirection="rtl"
-                    android:text="Frühstück"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/white" />
 
-                <CheckBox
-                    android:id="@+id/checkBoxWlan"
+                <TextView
+                    android:id="@+id/textNights"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1.2"
+                    android:text="Anzahl Nächte"
+                    android:textColor="@android:color/white" />
+
+
+                <ImageView
+                    android:id="@+id/lessNights"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_down" />
+
+                <TextView
+                    android:id="@+id/textNightValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/white"
-                    android:layoutDirection="rtl"
-                    android:text="WLAN"
-                    android:textColor="@color/white" />
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.1"
+                    android:background="@color/colorAccent"
+                    android:inputType="numberDecimal"
+                    android:text="@string/nightValue"
+                    android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/moreNights"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.05"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_chevron_up" />
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/btnExpandFilter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+
+                app:srcCompat="@drawable/ic_sharp_expand" />
+
+
+            <LinearLayout
+                android:id="@+id/expandedFilter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/layoutRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+
+                        android:text="Bewertung"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/textValueRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/ratingValue"
+                        android:textColor="@android:color/white" />
+
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:id="@+id/seekBarRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxBreakfast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/white"
+                        android:layoutDirection="rtl"
+                        android:text="Frühstück"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxWlan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/white"
+                        android:layoutDirection="rtl"
+                        android:text="WLAN"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/lessfilter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+
+                app:srcCompat="@drawable/ic_sharp_expand_less" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/imageDecline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="5px"
+                    android:layout_marginTop="5px"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginBottom="5px"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorAccent"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_decline" />
+
+                <ImageButton
+                    android:id="@+id/imageApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="5px"
+                    android:layout_marginRight="5px"
+                    android:layout_marginBottom="5px"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorAccent"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_apply" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary">
+            <include layout="@layout/bottom_navigation_view" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/lessfilter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
 
-            app:srcCompat="@drawable/ic_sharp_expand_less" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+    <!-- Countdown -->
 
-            <ImageButton
-                android:id="@+id/imageDecline"
+
+    <TableLayout
+        android:id="@+id/countdownBox"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/current_location"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="106dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="1"
+        android:background="#8ad5f8"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/countdownTextNoch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Noch" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/countdownTextHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="5px"
-                android:layout_marginTop="5px"
-                android:layout_marginRight="100dp"
-                android:layout_marginBottom="5px"
-                android:layout_weight="0.5"
-                android:background="@color/colorAccent"
-                android:padding="5dp"
-                app:srcCompat="@drawable/ic_decline" />
+                android:text=" HH "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
 
-            <ImageButton
-                android:id="@+id/imageApply"
+            <TextView
+                android:id="@+id/countdownTextHoursGap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="5px"
-                android:layout_marginRight="5px"
-                android:layout_marginBottom="5px"
-                android:layout_weight="0.5"
-                android:background="@color/colorAccent"
-                android:padding="5dp"
-                app:srcCompat="@drawable/ic_apply" />
-        </LinearLayout>
+                android:text=" : "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/countdownTextMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" MM "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/countdownTextMinutesGap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/countdownTextSeconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" SS "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
+        </TableRow>
 
-        <include layout="@layout/bottom_navigation_view" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/countdownTextRabatt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="bis zu 50% Rabatt" />
+
+    </TableLayout>
+
+
+
+
+
 
 
 </RelativeLayout>
+

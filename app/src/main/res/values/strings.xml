@@ -15,4 +15,5 @@
     <string name="action_profile">Your Profile</string>
     <string name="action_home">Map View</string>
     <string name="profile_activity_title">Your Profile</string>
+    <string name="countdown">COUNTDOWN</string>
 </resources>
