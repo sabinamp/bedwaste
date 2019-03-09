@@ -37,7 +37,7 @@ public class HotelListViewActivity extends AppCompatActivity {
         list.add("Hotel Hottingen");
         list.add("Hotel Platzhirsch");
         list.add("Hotel Villette");
-        list.add("Hotel test");
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

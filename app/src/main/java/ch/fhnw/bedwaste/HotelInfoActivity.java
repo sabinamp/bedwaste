@@ -14,20 +14,20 @@ import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelInfoActivity extends AppCompatActivity {
-    private static final String EXTRA_HOTEL_ID =
-            "ch.fhnw.bedwaste.extra.hotelid";
+    private static final String EXTRA_HOTEL_ADDRESS =
+            "ch.fhnw.bedwaste.extra.hotel.id";
     /**
      * Debugging tag ProfileActivity used by the Android logger.
      */
     private static final String TAG = "HotelInfoActivity";
     private BottomNavigationView mBottomNavigationView;
-    private HotelDescriptiveInfoController controller;
-    private TextView responseTextView;
+
+    private TextView addressTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        responseTextView = (TextView) findViewById(R.id.text_view_result);
+        addressTextView = (TextView) findViewById(R.id.text_view_result);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -53,24 +53,12 @@ public class HotelInfoActivity extends AppCompatActivity {
                 }
             }
         });
-        controller = new HotelDescriptiveInfoController();
-        controller.start("en", "00U5846f022c291a");
-        String error = controller.getErrorCode();
-        if(!(error.isEmpty() || error == null)){
-            responseTextView.setText(error);
-            Log.d(TAG, "HotelListViewActivity Activity - could not fetch data from the server");
-        } else {
-            HotelDescriptiveInfo hotelInfo = controller.getHotelinfo();
-            String content = "";
-            content +=  hotelInfo.getHotelName() +"\n";
-            responseTextView.setText(content);
-            Log.d(TAG, "HotelListViewActivity Activity - fetched data from the server");
-        }
+
     }
 
     public static Intent makeHotelInfoIntent(Context cont, String extra){
         Intent hotelViewIntent = new Intent(cont, HotelInfoActivity.class);
-        hotelViewIntent.putExtra(EXTRA_HOTEL_ID, extra);
+        hotelViewIntent.putExtra(EXTRA_HOTEL_ADDRESS, extra);
         return hotelViewIntent;
     }
 }
