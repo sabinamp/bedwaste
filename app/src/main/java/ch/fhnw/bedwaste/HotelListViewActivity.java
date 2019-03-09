@@ -7,11 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
@@ -27,7 +32,19 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
-        btn = (Button) findViewById(R.id.btn_hotel_view);
+        List<String> list = new ArrayList<>();
+        list.add("Hotel Helmhaus");
+        list.add("Hotel Hottingen");
+        list.add("Hotel Platzhirsch");
+        list.add("Hotel Villette");
+        list.add("Hotel test");
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        HotelListAdapter myAdapter = new HotelListAdapter(list);
+        recyclerView.setAdapter(myAdapter);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -53,13 +70,7 @@ public class HotelListViewActivity extends AppCompatActivity {
                 }
             }
         });
-    btn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent hotelViewIntent=  HotelInfoActivity.makeHotelInfoIntent(HotelListViewActivity.this,"00U5846f022c291a" );
-            startActivity(hotelViewIntent);
-        }
-    });
+
     }
 
     public static Intent makeHotelListIntent(Context cont){
