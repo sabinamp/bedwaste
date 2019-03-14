@@ -1,51 +1,35 @@
 package ch.fhnw.bedwaste;
 
-import android.Manifest;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.ResultReceiver;
-import android.os.SystemClock;
-import android.provider.ContactsContract;
-import android.support.annotation.Dimension;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.format.Time;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -55,9 +39,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
@@ -65,7 +46,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -74,27 +54,15 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONArray;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.Security;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback  {
     private Marker mPlatzhirsch;
     private Marker mHottingen;
@@ -150,12 +118,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private CheckBox checkBoxWLAN;
     private CheckBox checkBoxBreakfast;
 
-
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
     private BottomNavigationView mBottomNavigationView;
+
 
     //GoogleAPI Client related
     private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR=1;
@@ -210,6 +178,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -483,9 +452,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         // call Countdown
-        startCountdown();
+        countdownRunnable.run();
 
     }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -763,7 +734,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             else  {
                 Address location = address.get(0);
                 coordinates = new LatLng(location.getLatitude(), location.getLongitude());
-
             }
 
         }
@@ -793,7 +763,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-    // Countdown
+    // COUNTDOWN LOGIC
+
+    private final static int HOUR_TO_ACTIVATE_COUNTDOWNLABEL = 12;
+    private final static String ENDTIME_TO_DEACTIVATE_COUNTDOWNLABEL = "24:00:00";
+
+    Handler countdownHandler = new Handler();
 
     private TextView countdownTextSeconds;
     private TextView countdownTextMinutes;
@@ -802,22 +777,42 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     private CountDownTimer countDownTimer;
 
-    LocalTime localTime = LocalTime.now();
+    // This Runnable Object is used to trigger the countdown method & the handlermethod calls this runnable each 5sec after APP has started.
 
-    String deadline = "23:00:00";
+    private Runnable countdownRunnable = new Runnable() {
+        @Override
+        public void run() {
+            countdownHandler.postDelayed(this, 10000);
 
-    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-    Date time1 = format.parse(deadline);
-    Date time2 = format.parse(localTime.toString());
+            try {
+             LocalTime localTime = LocalTime.now();
+                if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL){
+                startCountdown();
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-    public void startCountdown(){
+        }
+    };
 
-        long timeElapsed = time1.getTime() - time2.getTime();
+    public void startCountdown() throws ParseException {
+
+        LocalTime localTime = LocalTime.now();
+
+        // Format time and calcualtion of elapsed time..
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        Date endTime = format.parse(ENDTIME_TO_DEACTIVATE_COUNTDOWNLABEL);
+        Date deviceLocaltime = format.parse(localTime.toString());
+
+        long timeElapsed = endTime.getTime() - deviceLocaltime.getTime();
 
         countdownTextSeconds = (TextView) findViewById(R.id.countdownTextSeconds);
         countdownTextMinutes = (TextView) findViewById(R.id.countdownTextMinutes);
         countdownTextHours = (TextView) findViewById(R.id.countdownTextHours);
         countdownBox = (TableLayout) findViewById(R.id.countdownBox);
+
+        countdownBox.setAlpha(1);
 
         countDownTimer = new CountDownTimer(timeElapsed, 1000) {
 
@@ -838,15 +833,19 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
 
                 // in Hours
-                countdownTextHours.setText("0"+millisUntilFinished/(60 * 60 * 1000) % 24);
+                if( (millisUntilFinished/(60 * 60 * 1000) % 24) >=10){
+                    countdownTextHours.setText(""+millisUntilFinished/(60 * 60 * 1000) % 24);
+                } else {
+                    countdownTextHours.setText("0"+millisUntilFinished/(60 * 60 * 1000) % 24);
                 }
+                countdownHandler.removeCallbacks(countdownRunnable);
+            }
 
             public void onFinish() {
                 countdownBox.setAlpha(0);
+                countdownHandler.postDelayed(countdownRunnable, 10000);
 
             }
         }.start();
     }
-
-
 }
