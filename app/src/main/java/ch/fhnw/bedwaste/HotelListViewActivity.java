@@ -7,21 +7,44 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
+
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
+    private Button btn;
     /**
      * Debugging tag ProfileActivity used by the Android logger.
      */
     private static final String TAG = "HotelListViewActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
+        List<String> list = new ArrayList<>();
+        list.add("Hotel Helmhaus");
+        list.add("Hotel Hottingen");
+        list.add("Hotel Platzhirsch");
+        list.add("Hotel Villette");
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        HotelListAdapter myAdapter = new HotelListAdapter(list);
+        recyclerView.setAdapter(myAdapter);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -40,7 +63,6 @@ public class HotelListViewActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-
                         return true;
                     }
                     default:
@@ -48,41 +70,15 @@ public class HotelListViewActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     public static Intent makeHotelListIntent(Context cont){
-        Intent profileIntent= new Intent(cont, ProfileActivity.class);
-        return profileIntent;
-    }
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
-        return true;
+        Intent hotelListIntent = new Intent(cont, HotelListViewActivity.class);
+        return hotelListIntent;
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.app_bar_profile:{
-                Intent profileIntent= new Intent(HotelListViewActivity.this, ProfileActivity.class);
-                startActivity(profileIntent);
-                return true;
-            }
-            case R.id.app_bar_hotel_list: {
-                //nt sure we have list view btn on the profile screen-to be designed
-                //maybe we have bookings-
-                return true;
-            }
-            case R.id.app_bar_map_view:
-            {
-                Intent welcomeIntent= new Intent(HotelListViewActivity.this, WelcomeActivity.class);
-                startActivity(welcomeIntent);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
+
+
 }

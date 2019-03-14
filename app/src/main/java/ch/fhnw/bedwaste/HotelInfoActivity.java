@@ -1,6 +1,5 @@
 package ch.fhnw.bedwaste;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,25 +7,27 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-public class ProfileActivity extends AppCompatActivity {
-    public static final String PROFILE_EXTRA_MESSAGE = "ch.fhnw.bedwaste.PROFILE_MESSAGE";
-    private BottomNavigationView mBottomNavigationView;
+import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+
+public class HotelInfoActivity extends AppCompatActivity {
+    private static final String EXTRA_HOTEL_ADDRESS =
+            "ch.fhnw.bedwaste.extra.hotel.id";
     /**
      * Debugging tag ProfileActivity used by the Android logger.
      */
-    private static final String TAG = "ProfileActivity";
+    private static final String TAG = "HotelInfoActivity";
+    private BottomNavigationView mBottomNavigationView;
+
+    private TextView addressTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        Log.d(TAG, "Profile Activity - onCreate(Bundle) called");
-        TextView textProfile= (TextView) findViewById(R.id.profile_activity_text);
-
+        setContentView(R.layout.activity_hotel_info);
+        addressTextView = (TextView) findViewById(R.id.text_view_result);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -37,13 +38,13 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent=  HotelListViewActivity.makeHotelListIntent(ProfileActivity.this);
+                        Intent listIntent= new Intent(HotelInfoActivity.this, HotelListViewActivity.class);
                         startActivity(listIntent);
                         return true;
                     }
                     case R.id.app_bar_map_view:
                     {
-                        Intent welcomeIntent= new Intent(ProfileActivity.this, WelcomeActivity.class);
+                        Intent welcomeIntent= new Intent(HotelInfoActivity.this, WelcomeActivity.class);
                         startActivity(welcomeIntent);
                         return true;
                     }
@@ -52,14 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
-
-
-    public static Intent makeProfileIntent(Context cont){
-        Intent profileIntent= new Intent(cont, ProfileActivity.class);
-        //add user id to the intent
-        profileIntent.putExtra(PROFILE_EXTRA_MESSAGE, "1123");
-        return profileIntent;
+    public static Intent makeHotelInfoIntent(Context cont, String extra){
+        Intent hotelViewIntent = new Intent(cont, HotelInfoActivity.class);
+        hotelViewIntent.putExtra(EXTRA_HOTEL_ADDRESS, extra);
+        return hotelViewIntent;
     }
 }

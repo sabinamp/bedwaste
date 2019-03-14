@@ -199,7 +199,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 .findFragmentById(R.id.current_location);
         mapFragment.getMapAsync(this);
 
-        mEditText=findViewById(R.id.input_location);
+        mEditText = findViewById(R.id.input_location);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -669,50 +669,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate( R.menu.bottom_bar_menu, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.app_bar_hotel_list:{
-                Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
-                startActivity(listIntent);
-                return true;
-            }
-            case R.id.app_bar_map_view:
-            {
-                return true;
-            }
-            case R.id.app_bar_profile: {
-
-                Intent profileIntent= new Intent(WelcomeActivity.this, ProfileActivity.class);
-                startActivity(profileIntent);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
-
-    /*private void enableMyLocationIfPermitted() {
-        if (ContextCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{ACCESS_FINE_LOCATION,ACCESS_FINE_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        } else if (mMap != null) {
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        }
-    }*/
-
 
 
     // Search for Inserted Address
