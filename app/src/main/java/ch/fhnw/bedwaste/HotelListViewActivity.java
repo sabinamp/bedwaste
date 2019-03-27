@@ -7,21 +7,22 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Button;
+import java.util.Arrays;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
+    private RecyclerView recyclerView;
+    private final static String[] items = {"Hotel Helmhaus", "Hotel Hottingen","Hotel Platzhirsch","Hotel Villette"};
     /**
      * Debugging tag ProfileActivity used by the Android logger.
      */
@@ -32,19 +33,17 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
-        List<String> list = new ArrayList<>();
-        list.add("Hotel Helmhaus");
-        list.add("Hotel Hottingen");
-        list.add("Hotel Platzhirsch");
-        list.add("Hotel Villette");
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(false);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        HotelListAdapter myAdapter = new HotelListAdapter(list);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL));
+        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items));
         recyclerView.setAdapter(myAdapter);
+
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
