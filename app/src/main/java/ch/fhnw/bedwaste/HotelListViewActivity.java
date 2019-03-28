@@ -82,7 +82,7 @@ public class HotelListViewActivity extends AppCompatActivity {
 
 
     private void setViewAdapter(){
-        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items));
+        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items), HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
     }
 }

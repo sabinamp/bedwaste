@@ -1,5 +1,7 @@
 package ch.fhnw.bedwaste;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,10 +32,15 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     private List<String> nameList;
     private Map<String, String> hotelsMap= new HashMap<>();
     private HotelDescriptiveInfoController controller;
+    private Context context;
 
-    public HotelListAdapter(List<String> list) {
+    public HotelListAdapter(List<String> list,Context context) {
+        this.context = context;
         nameList = list;
-
+        hotelsMap.put(nameList.get(0), "00U5846j022d292h");
+        hotelsMap.put(nameList.get(1), "00I5846a022h291r");
+        hotelsMap.put(nameList.get(2), "00U5846f022c291a");
+        hotelsMap.put(nameList.get(3), "00U5846j022d291s");
     }
     @NonNull
     @Override
@@ -50,17 +57,15 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         final String hotelName = nameList.get(position);
         final MyViewHolder holder = (MyViewHolder) viewHolder;
         holder.hotelNameTextView.setText(hotelName);
-        hotelsMap.put(nameList.get(0), "00U5846j022d292h");
-        hotelsMap.put(nameList.get(1), "00I5846a022h291r");
-        hotelsMap.put(nameList.get(2), "00U5846f022c291a");
-        hotelsMap.put(nameList.get(3), "00U5846j022d291s");
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller = new HotelDescriptiveInfoController();
+                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), nameList.get(position));
+                context.startActivity(hotelDescriptionIntent);
+
+                /*controller = new HotelDescriptiveInfoController();
                 String hoteln= nameList.get(position);
                 controller.start("en", hotelsMap.get(hoteln));
                 String error = controller.getErrorCode();
@@ -79,7 +84,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
                     content +=  address.getCountryName() +"\n";
                     holder.hotelAddress.setText(content);
                     Log.d(TAG, "HotelListViewActivity Activity - fetched data from the server");
-                }
+                } */
             }
         });
     }
@@ -106,6 +111,9 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             hotelPrice = (TextView)itemView.findViewById(R.id.hotel_price);
             hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
             hotelThumbnail.setVisibility(View.VISIBLE);
+            itemView.setClickable(true);
         }
+
+
     }
 }

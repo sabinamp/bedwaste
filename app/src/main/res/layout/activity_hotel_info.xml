@@ -14,10 +14,9 @@
             android:id="@+id/text_view_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:textColor="#000"
+            android:text="Hotel Description!"
+            android:textColor="@android:color/white"
             />
-
     </android.support.v4.widget.NestedScrollView>
     <RelativeLayout
         android:layout_width="match_parent"

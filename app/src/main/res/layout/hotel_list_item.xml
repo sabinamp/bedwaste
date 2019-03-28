@@ -32,7 +32,8 @@
                 android:layout_gravity="center_vertical"
                 android:padding="5dp"
                 android:src="@drawable/cast_album_art_placeholder"
-                android:contentDescription="@string/icon"/>
+                android:contentDescription="@string/icon"
+                android:minHeight="40dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,13 +69,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-            android:paddingLeft="2dp">
+            android:paddingLeft="1dp">
+            <TextView
+                android:id="@+id/spacing_fromtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="3dp"
+                android:paddingLeft="0dp"
+                android:textSize="18sp"
+                />
         <TextView
             android:id="@+id/hotel_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
-            android:paddingLeft="2dp"
+            android:paddingLeft="0dp"
             android:textStyle="bold"
             android:textColor= "@android:color/black"
             android:textSize="18sp"
@@ -87,7 +96,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/tertiary_text_light"
             android:text="Bahnhofstrasse 10 Zürich 8001"
-            android:paddingLeft="2dp"
+            android:paddingLeft="0dp"
             android:textSize="14sp"
             android:minLines="2"
             />
@@ -96,7 +105,7 @@
                android:layout_height="wrap_content"
                android:text="Buchen"
                android:background="@color/bookbtn_color"
-               android:padding="2dp"
+               android:padding="1dp"
                android:textSize="11sp"
                android:textColor="@android:color/white"/>
     </LinearLayout>
