@@ -16,4 +16,5 @@
     <string name="action_home">Map View</string>
     <string name="profile_activity_title">Your Profile</string>
     <string name="countdown">COUNTDOWN</string>
+    <string name="alsGastFortfahren">Als Gast fortfahren</string>
 </resources>
