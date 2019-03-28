@@ -35,7 +35,8 @@ public class HotelInfoActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.app_bar_profile:{
-                        //current screen
+                        Intent loginIntent= LoginActivity.makeProfileIntent(HotelInfoActivity.this);
+                        startActivity(loginIntent);
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {

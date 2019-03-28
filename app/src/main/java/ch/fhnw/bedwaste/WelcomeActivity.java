@@ -460,7 +460,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             // in a raw resource file.
             boolean success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
-                            this, R.raw.style2_json));
+                            this, R.raw.style3));
 
             if (!success) {
                 Log.e(TAG, "Style parsing failed.");
