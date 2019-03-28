@@ -3,6 +3,8 @@ package ch.fhnw.bedwaste;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -34,15 +36,11 @@ public class HotelListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
 
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL));
-        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items));
-        recyclerView.setAdapter(myAdapter);
+        setLayoutManager();
+        setViewAdapter();
+        addListDivider();
 
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,7 +75,18 @@ public class HotelListViewActivity extends AppCompatActivity {
         return hotelListIntent;
     }
 
+    private void setLayoutManager(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
 
-
-
+    private void addListDivider(){
+        Drawable divider=getResources().getDrawable(R.drawable.item_divider);
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration(divider));
+    }
+    private void setViewAdapter(){
+        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items));
+        recyclerView.setAdapter(myAdapter);
+    }
 }

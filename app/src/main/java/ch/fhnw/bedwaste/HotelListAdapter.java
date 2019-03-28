@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -89,10 +90,12 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView hotelNameTextView;
         public TextView hotelAddress;
+        public ImageView hotelThumbnail;
         public MyViewHolder(View itemView) {
             super(itemView);
-            hotelNameTextView = itemView.findViewById(R.id.hotel_name);
-            hotelAddress = itemView.findViewById(R.id.hotel_address);
+            hotelNameTextView = (TextView)itemView.findViewById(R.id.hotel_name);
+            hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
+            hotelThumbnail = (ImageView)itemView.findViewById(R.id.icon);
         }
     }
 }

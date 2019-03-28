@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:padding="2dip"
+        android:padding="3dp"
         android:src="@drawable/cast_album_art_placeholder"
         android:contentDescription="@string/icon"/>
     <LinearLayout
@@ -18,12 +18,13 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/hotel_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
-            android:paddingLeft="2dp"
+            android:paddingLeft="6dp"
             android:textStyle="bold"
             android:textColor= "@android:color/white"
+            android:textAllCaps="true"
             />
 
         <TextView
@@ -32,8 +33,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:text="Contact Info. Address"
-            android:paddingLeft="2dp"
-            android:textStyle="bold"
+            android:paddingLeft="6dp"
             />
     </LinearLayout>
 
