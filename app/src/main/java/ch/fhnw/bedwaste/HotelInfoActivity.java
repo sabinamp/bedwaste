@@ -14,7 +14,7 @@ import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelInfoActivity extends AppCompatActivity {
-    private static final String EXTRA_HOTEL_ADDRESS =
+    private static final String EXTRA_HOTEL_ID =
             "ch.fhnw.bedwaste.extra.hotel.id";
     /**
      * Debugging tag ProfileActivity used by the Android logger.
@@ -22,12 +22,13 @@ public class HotelInfoActivity extends AppCompatActivity {
     private static final String TAG = "HotelInfoActivity";
     private BottomNavigationView mBottomNavigationView;
 
-    private TextView addressTextView;
+    private TextView infoTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        addressTextView = (TextView) findViewById(R.id.text_view_result);
+        infoTextView = (TextView) findViewById(R.id.text_view_result);
+
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -58,7 +59,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
     public static Intent makeHotelInfoIntent(Context cont, String extra){
         Intent hotelViewIntent = new Intent(cont, HotelInfoActivity.class);
-        hotelViewIntent.putExtra(EXTRA_HOTEL_ADDRESS, extra);
+        hotelViewIntent.putExtra(EXTRA_HOTEL_ID, extra);
         return hotelViewIntent;
     }
 }
