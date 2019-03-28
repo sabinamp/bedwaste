@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
      * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG = "LoginActivity";
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Log.d(TAG, "Login Activity - onCreate(Bundle) called");
         EditText editTxt = (EditText) findViewById(R.id.emailText);
+
         EditText passwordTxt = (EditText) findViewById(R.id.passwordText);
         Button loginBtn = (Button) findViewById(R.id.buttonLogin);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userId instanceof String)
+                login(userId);
+            }
+        });
         Button passwordForgotBtn = findViewById(R.id.buttonPasswordForgot);
         Button registerBtn = findViewById(R.id.buttonRegistrieren);
         Button alsGastFortfahrenBtn = (Button) findViewById(R.id.buttonAlsGastFortfahren);
@@ -49,5 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent loginIntent= new Intent(cont, LoginActivity.class);
 
         return loginIntent;
+    }
+
+    private void login(String userId){
+        Intent profileIntent = ProfileActivity.makeProfileIntent(LoginActivity.this, userId);
     }
 }
