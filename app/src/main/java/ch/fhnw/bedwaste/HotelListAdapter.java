@@ -1,5 +1,9 @@
 package ch.fhnw.bedwaste;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +41,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.hotel_list_item, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
+
         return myViewHolder;
     }
 
@@ -90,12 +96,16 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView hotelNameTextView;
         public TextView hotelAddress;
+        public TextView hotelPrice;
         public ImageView hotelThumbnail;
         public MyViewHolder(View itemView) {
             super(itemView);
             hotelNameTextView = (TextView)itemView.findViewById(R.id.hotel_name);
-            hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
             hotelThumbnail = (ImageView)itemView.findViewById(R.id.icon);
+
+            hotelPrice = (TextView)itemView.findViewById(R.id.hotel_price);
+            hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
+            hotelThumbnail.setVisibility(View.VISIBLE);
         }
     }
 }

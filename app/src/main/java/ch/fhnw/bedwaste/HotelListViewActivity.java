@@ -40,7 +40,6 @@ public class HotelListViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
         setViewAdapter();
-        addListDivider();
 
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -81,10 +80,7 @@ public class HotelListViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    private void addListDivider(){
-        Drawable divider=getResources().getDrawable(R.drawable.item_divider);
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration(divider));
-    }
+
     private void setViewAdapter(){
         HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items));
         recyclerView.setAdapter(myAdapter);
