@@ -13,7 +13,8 @@
         <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="2">
             <TextView
                 android:id="@+id/hotel_name"
                 android:layout_width="wrap_content"
@@ -23,7 +24,7 @@
                 android:textStyle="bold"
                 android:textColor= "@android:color/black"
                 android:textAllCaps="true"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 />
             <ImageView
                 android:id="@+id/icon"
@@ -69,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+            android:layout_weight="1"
             android:paddingLeft="1dp">
             <TextView
                 android:id="@+id/spacing_fromtitle"

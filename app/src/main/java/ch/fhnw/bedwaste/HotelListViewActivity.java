@@ -1,15 +1,11 @@
 package ch.fhnw.bedwaste;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.InsetDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +22,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private final static String[] items = {"Hotel Helmhaus", "Hotel Hottingen","Hotel Platzhirsch","Hotel Villette"};
     /**
-     * Debugging tag ProfileActivity used by the Android logger.
+     * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG = "HotelListViewActivity";
 
@@ -48,7 +44,7 @@ public class HotelListViewActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.app_bar_profile:
                     {
-                        Intent listIntent= new Intent(HotelListViewActivity.this, ProfileActivity.class);
+                        Intent listIntent= new Intent(HotelListViewActivity.this, LoginActivity.class);
                         startActivity(listIntent);
                         return true;
                     }

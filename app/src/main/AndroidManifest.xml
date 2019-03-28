@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".LoginActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

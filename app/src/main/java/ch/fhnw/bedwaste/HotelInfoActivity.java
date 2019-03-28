@@ -17,7 +17,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private static final String EXTRA_HOTEL_ID =
             "ch.fhnw.bedwaste.extra.hotel.id";
     /**
-     * Debugging tag ProfileActivity used by the Android logger.
+     * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG = "HotelInfoActivity";
     private BottomNavigationView mBottomNavigationView;
@@ -39,7 +39,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent= new Intent(HotelInfoActivity.this, HotelListViewActivity.class);
+                        Intent listIntent= HotelListViewActivity.makeHotelListIntent(HotelInfoActivity.this);
                         startActivity(listIntent);
                         return true;
                     }
