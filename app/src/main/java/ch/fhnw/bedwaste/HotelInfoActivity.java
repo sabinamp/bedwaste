@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
@@ -27,7 +29,10 @@ public class HotelInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
-        infoTextView = (TextView) findViewById(R.id.text_view_result);
+
+        //receive values that got passed from previous activity
+        final Intent intent = getIntent();
+        String previous_activity_value = intent.getStringExtra("key");
 
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,6 +60,18 @@ public class HotelInfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
+        for (int i = 0; i < 10; i++) {
+            ImageView imageView = new ImageView(this);
+            imageView.setId(i);
+            imageView.setPadding(2, 2, 2, 2);
+            //imageView.setImageBitmap(BitmapFactory.decodeResource(
+            //        getResources(), R.drawable.ic_launcher_foreground));
+            imageView.setImageResource(R.drawable.ic_launcher_background);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            layout.addView(imageView);
+        }
 
     }
 
