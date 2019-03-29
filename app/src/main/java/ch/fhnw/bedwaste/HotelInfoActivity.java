@@ -32,7 +32,10 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         //receive values that got passed from previous activity
         final Intent intent = getIntent();
-        String previous_activity_value = intent.getStringExtra("key");
+        String hotellist_value = intent.getStringExtra("key");
+
+        TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
+        hotelname.setText(hotellist_value);
 
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

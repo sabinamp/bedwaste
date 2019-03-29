@@ -63,6 +63,9 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), nameList.get(position));
+
+                //pass a value to HotelInfoActivity, Hotelname FOR NOW, later ID
+                hotelDescriptionIntent.putExtra("key", hotelName);
                 context.startActivity(hotelDescriptionIntent);
 
                 /*controller = new HotelDescriptiveInfoController();
