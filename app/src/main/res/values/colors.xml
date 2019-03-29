@@ -6,9 +6,11 @@
     <color name="lightGrey">#E7E9E7</color>
     <color name="grey">#5C5C5C</color>
     <color name="light_purple">#E0E6F8</color>
-    <color name="white">#FFFFFF</color>
     <color name="bookbtn_color">#ff8a65 </color>
     <color name="min_color">#d84315</color>
     <color name="triangle_red_light">#ffccbc </color>
+    <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+    <color name="dark_gray">#333333</color>
 </resources>
 
