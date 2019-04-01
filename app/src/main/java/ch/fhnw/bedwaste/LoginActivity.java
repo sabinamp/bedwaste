@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,20 +24,53 @@ public class LoginActivity extends AppCompatActivity {
      */
     private static final String TAG = "LoginActivity";
     private String userId;
-
+    private String userPassword;
+    private boolean credentialsOK  = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Log.d(TAG, "Login Activity - onCreate(Bundle) called");
-        EditText editTxt = (EditText) findViewById(R.id.emailText);
+        EditText emailTxt = (EditText) findViewById(R.id.emailText);
+        emailTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // This space intentionally left blank
+            }
 
-        EditText passwordTxt = (EditText) findViewById(R.id.passwordText);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                userId = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        final EditText passwordTxt = (EditText) findViewById(R.id.passwordText);
+        passwordTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //left blank
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                userPassword = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         Button loginBtn = (Button) findViewById(R.id.buttonLogin);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userId instanceof String)
+                //to be updated to cover the correct login logic-checking if the user id and password match a registered user's credentials
+                if(credentialsOK)
                 login(userId);
             }
         });
