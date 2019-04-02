@@ -20,6 +20,11 @@ public class HotelAvailabilityResultsService implements Callback<AvailabilityRes
     private HotelAvailabilityResultsInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
+
+    public AvailabilityResults getAv_response() {
+        return av_response;
+    }
+
     private AvailabilityResults av_response= null;
 
     public void start(String hotelId, int nbAdults, int nbChildren, int nbInfants){
