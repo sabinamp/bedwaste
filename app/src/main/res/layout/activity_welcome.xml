@@ -414,6 +414,7 @@
 
         </LinearLayout>
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -508,8 +509,41 @@
             android:gravity="center"
             android:text="bis zu 50% Rabatt" />
 
+
     </TableLayout>
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButtonLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="338dp"
+            android:layout_marginTop="599dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="76dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:backgroundTint="@color/white"
+            app:srcCompat="@android:drawable/ic_menu_mylocation"
+            />
+    </android.support.constraint.ConstraintLayout>
+
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/animation_maps" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
     <!-- END COUNTDOWN -->
 
 </RelativeLayout>

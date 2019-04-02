@@ -1,5 +1,6 @@
 package ch.fhnw.bedwaste;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,14 +19,21 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnimationSet;
 import android.widget.*;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -109,12 +118,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private ImageButton applyFilter;
     private CheckBox checkBoxWLAN;
     private CheckBox checkBoxBreakfast;
-
+    private TextView helpText1;
+    private TextView helpText2;
+    private LinearLayout searchBar;
     private TextView textValueDistance;
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
     private BottomNavigationView mBottomNavigationView;
+    private FloatingActionButton FABLocation;
+    private View BlankAnimationBar; 
+
 
 
     //GoogleAPI Client related
@@ -217,6 +231,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
+        //Animation for Introduction of Map
+        helpText1 = (TextView) findViewById(R.id.firstHelpBox);
+        helpText2 = (TextView) findViewById(R.id.secondHelpBox);
+        BlankAnimationBar = (View) findViewById(R.id.blank_bar);
+        final ConstraintLayout animationLayout = findViewById(R.id.animationLayout);
+        animationLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                animationLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                startAnimation();
+            }
+        });
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
@@ -239,6 +265,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         declineFilter =(ImageButton) findViewById(R.id.imageDecline);
         checkBoxBreakfast = findViewById(R.id.checkBoxBreakfast);
         checkBoxWLAN = findViewById(R.id.checkBoxWlan);
+        searchBar = findViewById(R.id.search_bar);
+        FABLocation = findViewById(R.id.floatingActionButtonLocation);
         //Set Progress Bar to Default Distance of 10 km
         seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
         seekBarDistance.setProgress(10);
@@ -795,5 +823,156 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
             }
         }.start();
+    }
+
+    public void startAnimation (){
+
+        mBottomNavigationView.setVisibility(View.INVISIBLE);
+        searchBar.setVisibility(View.INVISIBLE);
+        countdownBox.setVisibility(View.INVISIBLE);
+        FABLocation.hide();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        Display mdisp = getWindowManager().getDefaultDisplay();
+        Point mdispSize = new Point();
+        mdisp.getSize(mdispSize);
+        int maxY = mdispSize.y;
+        int maxX = mdispSize.x;
+        final ValueAnimator helpText1X = ValueAnimator.ofFloat(helpText1.getX(), 0);
+        final ValueAnimator helpText1Y = ValueAnimator.ofFloat(helpText1.getY(), maxY - 280);
+        final ValueAnimator helpText1Width = ValueAnimator.ofInt(helpText1.getWidth(),width);
+        final ValueAnimator helpText1Height = ValueAnimator.ofInt(helpText1.getHeight(),  150);
+        helpText1X.setDuration(1500);
+        helpText1Y.setDuration(1500);
+        helpText1Width.setDuration(1500);
+        helpText1Height.setDuration(1500);
+        helpText1X.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                helpText1.setText("");
+                helpText1.setX((float)animation.getAnimatedValue());
+            }
+        });
+        helpText1Y.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                helpText1.setY((float)animation.getAnimatedValue());
+            }
+        });
+        helpText1Width.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                helpText1.setWidth((int)animation.getAnimatedValue());
+            }
+        });
+
+        helpText1Height.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                helpText1.setHeight((int)animation.getAnimatedValue());
+            }
+        });
+
+
+
+        final ValueAnimator BlankAnimationBarX = ValueAnimator.ofFloat(BlankAnimationBar.getX(), FABLocation.getX() );
+        final ValueAnimator BlankAnimationBarY = ValueAnimator.ofFloat(BlankAnimationBar.getY(), FABLocation.getY());
+        final ValueAnimator BlankAnimationBarWidth = ValueAnimator.ofInt(BlankAnimationBar.getWidth(),100);
+        final ValueAnimator BlankAnimationBarHeight = ValueAnimator.ofInt(BlankAnimationBar.getHeight(),FABLocation.getHeight());
+        BlankAnimationBarX.setDuration(1500);
+        BlankAnimationBarY.setDuration(1500);
+        BlankAnimationBarWidth.setDuration(1500);
+        BlankAnimationBarHeight.setDuration(1500);
+        BlankAnimationBarX.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+
+                BlankAnimationBar.setX((float)animation.getAnimatedValue() + 50);
+            }
+        });
+        BlankAnimationBarY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                BlankAnimationBar.setY((float)animation.getAnimatedValue() + 50);
+            }
+        });
+        BlankAnimationBarWidth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+
+                BlankAnimationBar.setLayoutParams(new ConstraintLayout.LayoutParams((int)animation.getAnimatedValue(), 100));
+
+
+            }
+        });
+
+        BlankAnimationBarHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                BlankAnimationBar.setMinimumHeight((int)animation.getAnimatedValue());
+            }
+        });
+
+
+        BlankAnimationBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpText2.setVisibility(View.INVISIBLE);
+                BlankAnimationBarX.start();
+                BlankAnimationBarY.start();
+                BlankAnimationBarHeight.start();
+                BlankAnimationBarWidth.start();
+                helpText1X.start();
+                helpText1Y.start();
+                helpText1Height.start();
+                helpText1Width.start();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBottomNavigationView.setVisibility(View.VISIBLE);
+                        searchBar.setVisibility(View.VISIBLE);
+                        countdownBox.setVisibility(View.VISIBLE);
+                        FABLocation.show();
+                        helpText1.setVisibility(View.INVISIBLE);
+                        BlankAnimationBar.setVisibility(View.INVISIBLE);
+                    }
+                }, 1500);
+
+            }
+        });
+        helpText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpText1X.start();
+                helpText1Y.start();
+                helpText1Height.start();
+                helpText1Width.start();
+                helpText2.setVisibility(View.INVISIBLE);
+                BlankAnimationBarX.start();
+                BlankAnimationBarY.start();
+                BlankAnimationBarHeight.start();
+                BlankAnimationBarWidth.start();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBottomNavigationView.setVisibility(View.VISIBLE);
+                        searchBar.setVisibility(View.VISIBLE);
+                        countdownBox.setVisibility(View.VISIBLE);
+                        FABLocation.show();
+                        BlankAnimationBar.setVisibility(View.INVISIBLE);
+                        helpText1.setVisibility(View.INVISIBLE);
+                    }
+                }, 1500);
+            }
+        });
+
+
+
+
+
+
     }
 }
