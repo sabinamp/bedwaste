@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-package ch.fhnw.bedwaste.client;
+package ch.fhnw.bedwaste.server;
 
 public class ApiException extends Exception {
   int code = 0;

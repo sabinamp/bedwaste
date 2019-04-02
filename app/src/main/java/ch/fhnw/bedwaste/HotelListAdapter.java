@@ -2,36 +2,27 @@ package ch.fhnw.bedwaste;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.fhnw.bedwaste.client.HotelDescriptiveInfoController;
-import ch.fhnw.bedwaste.model.Address;
-import ch.fhnw.bedwaste.model.ContactInfo;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
     private List<String> nameList;
     private Map<String, String> hotelsMap= new HashMap<>();
-    private HotelDescriptiveInfoController controller;
+    private HotelDescriptiveInfoService controller;
     private Context context;
 
     public HotelListAdapter(List<String> list,Context context) {
@@ -62,32 +53,12 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), nameList.get(position));
+                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelsMap.get(nameList.get(position)));
 
-                //pass a value to HotelInfoActivity, Hotelname FOR NOW, later ID
+                //pass a value to HotelInfoActivity, Hotelname FOR NOW, the hotel id extra is passed above as param to makeHotelInfoIntent
                 hotelDescriptionIntent.putExtra("key", hotelName);
-                context.startActivity(hotelDescriptionIntent);
 
-                /*controller = new HotelDescriptiveInfoController();
-                String hoteln= nameList.get(position);
-                controller.start("en", hotelsMap.get(hoteln));
-                String error = controller.getErrorCode();
-                if(!(error.isEmpty() || error == null)){
-                    holder.hotelAddress.setText(error);
-                    Log.d(TAG, "HotelListViewActivity Activity - could not fetch data from the server");
-                } else {
-                    HotelDescriptiveInfo hotelInfo = controller.getHotelinfo();
-                    String content = "";
-                    ContactInfo contact=hotelInfo.getContactInfos().get(0);
-                    content +=  contact.getCompanyName() +"\n";
-                    Address address= contact.getAddresses().get(0);
-                    content +=  address.getAddressLine() +"\n";
-                    content +=  address.getStreetNmbr() +"\n";
-                    content +=  address.getCityName() +"\n";
-                    content +=  address.getCountryName() +"\n";
-                    holder.hotelAddress.setText(content);
-                    Log.d(TAG, "HotelListViewActivity Activity - fetched data from the server");
-                } */
+                context.startActivity(hotelDescriptionIntent);
             }
         });
     }
@@ -102,21 +73,46 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        private HotelDescriptiveInfo hotelInfo;
+        private AvailabilityResults availabilities;
         public TextView hotelNameTextView;
         public TextView hotelAddress;
         public TextView hotelPrice;
         public ImageView hotelThumbnail;
+        private TextView minHotel;
         public MyViewHolder(View itemView) {
             super(itemView);
             hotelNameTextView = (TextView)itemView.findViewById(R.id.hotel_name);
             hotelThumbnail = (ImageView)itemView.findViewById(R.id.icon);
-
+            hotelThumbnail.setVisibility(View.VISIBLE);
             hotelPrice = (TextView)itemView.findViewById(R.id.hotel_price);
             hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
-            hotelThumbnail.setVisibility(View.VISIBLE);
+            minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
             itemView.setClickable(true);
         }
 
+        public void bind(HotelDescriptiveInfo info, AvailabilityResults results){
+            this.hotelInfo = info;
+            this.availabilities = results;
+            hotelNameTextView.setText(hotelInfo.getHotelName());
+            //hotelThumbnail.setImageURI(hotelInfo.getHotelInfo().getDescriptions().getMultimediadescriptions().get("img/index"));
+            hotelPrice.setText(hotelInfo.getCurrencyCode() + "" + results.get(0).getProducts().get(0).getTotalPrice());
+            hotelAddress.setText(hotelInfo.getContactInfos().get(0).getAddresses().get(1).getAddressLine());
+            minHotel.setText(getDistanceToHotel_Minutes() + "Min");
+
+        }
+
+        private int getDistanceToHotel_Minutes() {
+            long hotelAltitude = hotelInfo.getHotelInfo().getPosition().getAltitude().longValue();
+            long hotelLongitude = hotelInfo.getHotelInfo().getPosition().getLongitude().longValue();
+            //todo
+            return 3;
+        }
+        private int getNumberofStars(){
+
+            //default
+            return 2;
+        }
 
     }
 }
