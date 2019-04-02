@@ -70,7 +70,13 @@ public class HotelInfoActivity extends AppCompatActivity {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             layout.addView(imageView);
         }
+        addBottomNavigation();
 
+
+
+    }
+
+    private void addBottomNavigation() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -97,9 +103,6 @@ public class HotelInfoActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     public static Intent makeHotelInfoIntent(Context cont, String extra){

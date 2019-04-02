@@ -206,45 +206,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
         mEditText = findViewById(R.id.input_location);
-        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.app_bar_hotel_list:{
-                        Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
-                        startActivity(listIntent);
-                        return true;
-                    }
-                    case R.id.app_bar_map_view:
-                    {
-                        return true;
-                    }
-                    case R.id.app_bar_profile: {
-
-                        Intent profileIntent= new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(profileIntent);
-                        return true;
-                    }
-                    default:
-                        return false;
-                }
-            }
-        });
-        //Animation for Introduction of Map
-        helpText1 = (TextView) findViewById(R.id.firstHelpBox);
-        helpText2 = (TextView) findViewById(R.id.secondHelpBox);
-        BlankAnimationBar = (View) findViewById(R.id.blank_bar);
-        final ConstraintLayout animationLayout = findViewById(R.id.animationLayout);
-        animationLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                animationLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                startAnimation();
-            }
-        });
+        addBottomNavigation();
+        addIntroAnimation();
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
+        
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         mFilterExtendedLayout = (LinearLayout) findViewById( R.id.expandedFilter);
@@ -474,6 +440,49 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // call Countdown
         countdownRunnable.run();
 
+    }
+
+    private void addIntroAnimation() {
+        //Animation for Introduction of Map
+        helpText1 = (TextView) findViewById(R.id.firstHelpBox);
+        helpText2 = (TextView) findViewById(R.id.secondHelpBox);
+        BlankAnimationBar = (View) findViewById(R.id.blank_bar);
+        final ConstraintLayout animationLayout = findViewById(R.id.animationLayout);
+        animationLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                animationLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                startAnimation();
+            }
+        });
+    }
+
+    private void addBottomNavigation() {
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.app_bar_hotel_list:{
+                        Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
+                        startActivity(listIntent);
+                        return true;
+                    }
+                    case R.id.app_bar_map_view:
+                    {
+                        return true;
+                    }
+                    case R.id.app_bar_profile: {
+
+                        Intent profileIntent= new Intent(WelcomeActivity.this, LoginActivity.class);
+                        startActivity(profileIntent);
+                        return true;
+                    }
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
 

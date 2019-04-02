@@ -37,6 +37,11 @@ public class HotelListViewActivity extends AppCompatActivity {
         setLayoutManager();
         setViewAdapter();
 
+    addBottomNavigation();
+
+    }
+
+    private void addBottomNavigation() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -62,7 +67,6 @@ public class HotelListViewActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public static Intent makeHotelListIntent(Context cont){

@@ -25,6 +25,10 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(TAG, "Login Activity - onCreate(Bundle) called");
         TextView txtView = findViewById(R.id.profile_activity_text);
 
+        addBottomNav();
+    }
+
+    private void addBottomNav() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
