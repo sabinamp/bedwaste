@@ -207,7 +207,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mEditText = findViewById(R.id.input_location);
         addBottomNavigation();
-        addIntroAnimation();
+
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
         
@@ -838,7 +838,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mBottomNavigationView.setVisibility(View.INVISIBLE);
         searchBar.setVisibility(View.INVISIBLE);
-        countdownBox.setVisibility(View.INVISIBLE);
+        if (countdownBox != null){
+            countdownBox.setVisibility(View.INVISIBLE);
+        }
+
         FABLocation.hide();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -942,7 +945,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     public void run() {
                         mBottomNavigationView.setVisibility(View.VISIBLE);
                         searchBar.setVisibility(View.VISIBLE);
-                        countdownBox.setVisibility(View.VISIBLE);
+                        if (countdownBox != null){
+                            countdownBox.setVisibility(View.VISIBLE);
+                        }
+
                         FABLocation.show();
                         helpText1.setVisibility(View.INVISIBLE);
                         BlankAnimationBar.setVisibility(View.INVISIBLE);
