@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#151233</color>
-    <color name="colorPrimaryDark">#1A2F64</color>
+    <color name="colorPrimaryDark">#1a2f64</color>
     <color name="colorAccent">#264282</color>
     <color name="lightGrey">#E7E9E7</color>
     <color name="grey">#5C5C5C</color>
     <color name="light_purple">#E0E6F8</color>
     <color name="bookbtn_color">#ff8a65 </color>
-    <color name="min_color">#d84315</color>
+    <color name="min_color">#ff6e40</color>
     <color name="triangle_red_light">#ffccbc </color>
     <color name="white">#ffffff</color>
     <color name="red">#ff0000</color>

@@ -91,7 +91,8 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             itemView.setClickable(true);
         }
 
-        public void bind(HotelDescriptiveInfo info, AvailabilityResults results){
+        //method to call within the adapter's onBindViewHolder() after fetching data from the server
+        private void bind(HotelDescriptiveInfo info, AvailabilityResults results){
             this.hotelInfo = info;
             this.availabilities = results;
             hotelNameTextView.setText(hotelInfo.getHotelName());

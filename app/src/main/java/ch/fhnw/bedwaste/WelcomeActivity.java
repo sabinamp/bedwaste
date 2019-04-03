@@ -210,7 +210,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         addIntroAnimation();
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
-        
+
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
         mFilterExtendedLayout = (LinearLayout) findViewById( R.id.expandedFilter);

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import android.widget.Button;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
@@ -35,9 +36,9 @@ public class HotelListViewActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
-        setViewAdapter();
+        setViewAdapter(Arrays.asList(items));
 
-    addBottomNavigation();
+        addBottomNavigation();
 
     }
 
@@ -81,8 +82,8 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
-    private void setViewAdapter(){
-        HotelListAdapter myAdapter = new HotelListAdapter(Arrays.asList(items), HotelListViewActivity.this);
+    private void setViewAdapter(List<String> hotels){
+        HotelListAdapter myAdapter = new HotelListAdapter(hotels, HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
     }
 }
