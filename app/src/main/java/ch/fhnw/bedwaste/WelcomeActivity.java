@@ -207,7 +207,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mEditText = findViewById(R.id.input_location);
         addBottomNavigation();
-
+        addIntroAnimation();
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
 
