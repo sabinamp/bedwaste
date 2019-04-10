@@ -29,6 +29,7 @@ public class HotelItem {
     private List<AvailabilityResult> availabilities;
     private int nbStars;
 
+
     public HotelItem(String hotelId, String hotelName){
         this.hotelId=hotelId;
         currencyCode = null;

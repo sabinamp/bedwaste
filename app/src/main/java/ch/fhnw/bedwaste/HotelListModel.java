@@ -1,12 +1,21 @@
 package ch.fhnw.bedwaste;
 
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.bedwaste.client.HotelItem;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.server.ErrorsHandler;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 
 public class HotelListModel {
-
+    /**
+     * Debugging tag LoginActivity used by the Android logger.
+     */
+    private static final String TAG="HotelListModel";
     private List<HotelItem> items= null;
     public HotelListModel(){
         items= new ArrayList<>();
@@ -29,5 +38,32 @@ public class HotelListModel {
     public List<HotelItem> getItems() {
         return items;
     }
+
+    /*public static HotelItem fetchHotel(String hotelId, AppCompatActivity activity){
+        HotelDescriptiveInfoService service = new HotelDescriptiveInfoService();
+        Log.d(TAG, "start fetching data from the server");
+        service.start( new ErrorsHandler(activity));
+        service.fetchDescriptiveInfo("en",hotelId);
+
+        String error = service.getErrorCode();
+        if(!(*//*error.isEmpty() ||*//* error == null)){
+            Log.d(TAG, "HotelInfoActivity Activity - could not fetch data from the server.Error code:"+ service.getErrorCode());
+            return null;
+        }  else{
+            HotelDescriptiveInfo hotelInfo = service.getHotelinfo();
+            HotelItem fetchedHotel = null;
+            Log.d(TAG, "the hotelAddress textView content is empty");
+            if(hotelInfo !=null){
+
+                fetchedHotel= new HotelItem(hotelId, hotelInfo.getHotelName());
+                fetchedHotel.setAddress(hotelInfo.getContactInfos().get(0).getAddresses().get(0));
+                fetchedHotel.setPhone(hotelInfo.getContactInfos().get(0).getPhones().get(0));
+                Log.d(TAG, "HotelInfoActivity Activity - fetched data from the server");
+
+            }
+            return fetchedHotel;
+        }
+
+    }*/
 
 }

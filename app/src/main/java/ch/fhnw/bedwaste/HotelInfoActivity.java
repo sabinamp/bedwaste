@@ -12,14 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Objects;
+import ch.fhnw.bedwaste.client.HotelItem;
 
-import ch.fhnw.bedwaste.model.Address;
-import ch.fhnw.bedwaste.model.ContactInfo;
-import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
-import ch.fhnw.bedwaste.server.ErrorsHandler;
-import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
-import retrofit2.Call;
 
 public class HotelInfoActivity extends AppCompatActivity {
     private static final String EXTRA_HOTEL_ID =
@@ -42,6 +36,12 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
         hotelname.setText(hotellist_value);
+        TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
+        /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
+        if(hotelToDisplay!= null){
+            hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
+        }*/
+
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
         for (int i = 0; i < 10; i++) {
@@ -55,8 +55,6 @@ public class HotelInfoActivity extends AppCompatActivity {
             layout.addView(imageView);
         }
         addBottomNavigation();
-
-
 
     }
 

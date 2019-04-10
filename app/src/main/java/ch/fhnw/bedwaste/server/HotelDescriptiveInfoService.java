@@ -49,6 +49,7 @@ public class HotelDescriptiveInfoService {
                     hotelinfo = response.body();
                 } else {
                     errorCode = response.errorBody().toString();
+                    descriptiveInfoError.onServerError();
                 }
             }
 

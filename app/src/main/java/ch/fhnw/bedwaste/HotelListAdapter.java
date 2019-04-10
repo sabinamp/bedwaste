@@ -18,8 +18,6 @@ import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
-    //private List<String> hotelList;
-    //private Map<String, String> hotelsMap= new HashMap<>();
     private List<HotelItem> hotelList;
     private HotelDescriptiveInfoService controller;
     private Context context;
@@ -55,7 +53,6 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
                 //pass a value to HotelInfoActivity, Hotelname FOR NOW, the hotel id extra is passed above as param to makeHotelInfoIntent
                 hotelDescriptionIntent.putExtra("key", hotelName);
-
                 context.startActivity(hotelDescriptionIntent);
             }
         });
@@ -118,6 +115,8 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             hotelCity.setText(city_zipcode );*/
             hotelRating.setText(rating);
             minHotel.setText(distance);
+
+       
 
         }
 
