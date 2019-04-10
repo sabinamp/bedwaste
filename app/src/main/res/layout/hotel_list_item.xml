@@ -124,14 +124,22 @@
                 />
 
             <TextView
-                android:id="@+id/hotel_address"
+                android:id="@+id/hotel_address_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/tertiary_text_light"
-                android:text="Bahnhofstrasse 10 Zürich 8001"
+                android:text="Bahnhofstrasse 10"
                 android:paddingLeft="4dp"
                 android:textSize="15sp"
-                android:minLines="2"
+                />
+            <TextView
+                android:id="@+id/hotel_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/tertiary_text_light"
+                android:text="Zürich 8001"
+                android:paddingLeft="4dp"
+                android:textSize="15sp"
                 />
                <Button
                    android:layout_width="match_parent"

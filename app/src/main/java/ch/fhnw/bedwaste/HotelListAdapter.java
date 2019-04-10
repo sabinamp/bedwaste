@@ -10,28 +10,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
+import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
-import java.util.Map;
 
+import ch.fhnw.bedwaste.client.HotelItem;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
-import ch.fhnw.bedwaste.model.AvailabilityResults;
-import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
-    private List<String> nameList;
-    private Map<String, String> hotelsMap= new HashMap<>();
+    //private List<String> hotelList;
+    //private Map<String, String> hotelsMap= new HashMap<>();
+    private List<HotelItem> hotelList;
     private HotelDescriptiveInfoService controller;
     private Context context;
 
-    public HotelListAdapter(List<String> list,Context context) {
+    private LatLng userLocation;
+
+    public HotelListAdapter(List<HotelItem> list,Context context) {
         this.context = context;
-        nameList = list;
-        hotelsMap.put(nameList.get(0), "00U5846j022d292h");
-        hotelsMap.put(nameList.get(1), "00I5846a022h291r");
-        hotelsMap.put(nameList.get(2), "00U5846f022c291a");
-        hotelsMap.put(nameList.get(3), "00U5846j022d291s");
+        hotelList = list;
     }
     @NonNull
     @Override
@@ -45,15 +42,16 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final String hotelName = nameList.get(position);
+        final HotelItem hotel = hotelList.get(position);
+        final String hotelName = hotelList.get(position).getName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
-        holder.hotelNameTextView.setText(hotelName);
-
+       // holder.hotelNameTextView.setText(hotelName);
+        holder.bind(hotel, userLocation);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelsMap.get(nameList.get(position)));
+                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelList.get(position).getHotelId());
 
                 //pass a value to HotelInfoActivity, Hotelname FOR NOW, the hotel id extra is passed above as param to makeHotelInfoIntent
                 hotelDescriptionIntent.putExtra("key", hotelName);
@@ -65,55 +63,65 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if (nameList==null) {
+        if (hotelList ==null) {
             return 0;
         } else {
-            return nameList.size();
+            return hotelList.size();
         }
+    }
+    public LatLng getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(LatLng userLocation) {
+        this.userLocation = userLocation;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private HotelDescriptiveInfo hotelInfo;
-        private AvailabilityResults availabilities;
-        public TextView hotelNameTextView;
-        public TextView hotelAddress;
-        public TextView hotelPrice;
-        public ImageView hotelThumbnail;
+        private HotelItem hotelItem;
+        TextView hotelNameTextView;
+        TextView hotelAddressLine;
+        TextView hotelCity;
+        TextView hotelPrice;
+        TextView hotelRating;
+        ImageView hotelThumbnail;
         private TextView minHotel;
         public MyViewHolder(View itemView) {
             super(itemView);
             hotelNameTextView = (TextView)itemView.findViewById(R.id.hotel_name);
+            hotelRating = (TextView)itemView.findViewById(R.id.hotel_rating);
             hotelThumbnail = (ImageView)itemView.findViewById(R.id.icon);
             hotelThumbnail.setVisibility(View.VISIBLE);
             hotelPrice = (TextView)itemView.findViewById(R.id.hotel_price);
-            hotelAddress = (TextView)itemView.findViewById(R.id.hotel_address);
+            hotelAddressLine = (TextView)itemView.findViewById(R.id.hotel_address_line);
+            hotelCity = (TextView)itemView.findViewById(R.id.hotel_city);
             minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
+
             itemView.setClickable(true);
         }
 
         //method to call within the adapter's onBindViewHolder() after fetching data from the server
-        private void bind(HotelDescriptiveInfo info, AvailabilityResults results){
-            this.hotelInfo = info;
-            this.availabilities = results;
-            hotelNameTextView.setText(hotelInfo.getHotelName());
+        private void bind(HotelItem hotelItem, LatLng userLocation){
+            this.hotelItem = hotelItem;
+            String name = hotelItem.getName() != null ? hotelItem.getName() : "";
+            String description = hotelItem.getDescription() != null ? hotelItem.getDescription() : "";
+            //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
+            /*String street = hotelItem.getAddress().getAddressLine() != null ? hotelItem.getAddress().getAddressLine() : "";
+            String city_zipcode = hotelItem.getAddress().getCityName() != null ? hotelItem.getAddress().getCityName()+ hotelItem.getAddress().getPostalCode() : "";
+            */
+            String rating =  hotelItem.getRating() +"/10" ;
+            String distance = hotelItem.getWalkingDistanceToHotelInMinutes(userLocation)+"Min";
+            hotelNameTextView.setText(name);
             //hotelThumbnail.setImageURI(hotelInfo.getHotelInfo().getDescriptions().getMultimediadescriptions().get("img/index"));
-            hotelPrice.setText(hotelInfo.getCurrencyCode() + "" + results.get(0).getProducts().get(0).getTotalPrice());
-            hotelAddress.setText(hotelInfo.getContactInfos().get(0).getAddresses().get(1).getAddressLine());
-            minHotel.setText(getDistanceToHotel_Minutes() + "Min");
+            /*hotelPrice.setText(price);
+            hotelAddressLine.setText(street);
+            hotelCity.setText(city_zipcode );*/
+            hotelRating.setText(rating);
+            minHotel.setText(distance);
 
         }
 
-        private int getDistanceToHotel_Minutes() {
-            long hotelAltitude = hotelInfo.getHotelInfo().getPosition().getAltitude().longValue();
-            long hotelLongitude = hotelInfo.getHotelInfo().getPosition().getLongitude().longValue();
-            //todo
-            return 3;
-        }
-        private int getNumberofStars(){
 
-            //default
-            return 2;
-        }
 
     }
 }

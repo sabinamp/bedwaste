@@ -13,15 +13,21 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import android.widget.Button;
-import java.util.Arrays;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import ch.fhnw.bedwaste.client.HotelItem;
+import ch.fhnw.bedwaste.model.Address;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
     private RecyclerView recyclerView;
-    private final static String[] items = {"Hotel Helmhaus", "Hotel Hottingen","Hotel Platzhirsch","Hotel Villette"};
+    //private final static String[] items = {"Hotel Helmhaus", "Hotel Hottingen","Hotel Platzhirsch","Hotel Villette"};
+    private final static List<HotelItem> items= new ArrayList<>();
+
     /**
      * Debugging tag LoginActivity used by the Android logger.
      */
@@ -32,11 +38,26 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
-        setViewAdapter(Arrays.asList(items));
+
+        //adding hardcoded hotels to the list
+        HotelItem hHelmhaus = new HotelItem( "00U5846j022d292h","Hotel Helmhaus");
+        hHelmhaus.setRating(9);
+
+        items.add(hHelmhaus);
+        HotelItem hHottingen = new HotelItem( "00I5846a022h291r","Hotel Hottingen");
+        hHottingen.setRating(8);
+        items.add(hHottingen);
+        HotelItem hPlatzhirsch = new HotelItem("00U5846f022c291a","Hotel Platzhirsch");
+        hPlatzhirsch.setRating(7);
+        items.add(hPlatzhirsch);
+        HotelItem hVillette= new HotelItem( "00U5846j022d291s","Hotel Villette");
+        hVillette.setRating(9);
+        hVillette.setNbStars(3);
+        items.add(hVillette);
+        setViewAdapter(items);
 
         addBottomNavigation();
 
@@ -82,7 +103,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
-    private void setViewAdapter(List<String> hotels){
+    private void setViewAdapter(List<HotelItem> hotels){
         HotelListAdapter myAdapter = new HotelListAdapter(hotels, HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
     }

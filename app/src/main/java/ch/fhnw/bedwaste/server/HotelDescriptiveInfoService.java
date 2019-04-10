@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class HotelDescriptiveInfoService implements Callback<HotelDescriptiveInfo> {
+public class HotelDescriptiveInfoService {
     static final String BASE_URL = "http://86.119.40.244:8888/";
     private HotelDescriptiveInfoInterface jsonDescriptiveInfoAPI;
     public static final int STATUS_OK = 200;
@@ -42,23 +42,24 @@ public class HotelDescriptiveInfoService implements Callback<HotelDescriptiveInf
     }
     public void fetchDescriptiveInfo(String lang, String hotelId){
         Call<HotelDescriptiveInfo> callApi = jsonDescriptiveInfoAPI.getDescriptiveInfo(lang, hotelId);
-        callApi.enqueue(this);
+        callApi.enqueue(new Callback<HotelDescriptiveInfo>() {
+            @Override
+            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+                if(response.isSuccessful()) {
+                    hotelinfo = response.body();
+                } else {
+                    errorCode = response.errorBody().toString();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
 
-    @Override
-    public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
-        if(response.isSuccessful()) {
-             hotelinfo = response.body();
-        } else {
-            errorCode = response.errorBody().toString();
-        }
-    }
-
-    @Override
-    public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
-        t.printStackTrace();
-    }
     public HotelDescriptiveInfo getHotelinfo() {
         return hotelinfo;
     }
