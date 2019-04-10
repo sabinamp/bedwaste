@@ -12,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import ch.fhnw.bedwaste.model.Address;
 import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.server.ErrorsHandler;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
+import retrofit2.Call;
 
 public class HotelInfoActivity extends AppCompatActivity {
     private static final String EXTRA_HOTEL_ID =
@@ -39,22 +43,29 @@ public class HotelInfoActivity extends AppCompatActivity {
         TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
         hotelname.setText(hotellist_value);
         //code to call the server
-/*                HotelDescriptiveInfoService service = new HotelDescriptiveInfoService();
-                service.start("en", getIntent().getStringExtra("ch.fhnw.bedwaste.extra.hotel.id"));
+       /*         HotelDescriptiveInfoService service = new HotelDescriptiveInfoService();
+                Log.d(TAG, "start fetching data from the server");
+                service.start( new ErrorsHandler(HotelInfoActivity.this));
+                service.fetchDescriptiveInfo("en", getIntent().getStringExtra(EXTRA_HOTEL_ID ));
+
                 String error = service.getErrorCode();
-                if(!(error.isEmpty() || error == null)){
+                if(!(*//*error.isEmpty() ||*//* error == null)){
                     hotelAddress.setText(error);
                     Log.d(TAG, "HotelInfoActivity Activity - could not fetch data from the server");
-                } else {
+                }  else{
                     HotelDescriptiveInfo hotelInfo = service.getHotelinfo();
                     String content = "";
-                    ContactInfo contact=hotelInfo.getContactInfos().get(0);
-                    content +=  contact.getCompanyName() +"\n";
-                    Address address= contact.getAddresses().get(0);
-                    content +=  address.getAddressLine() +"\n";
-                    content +=  address.getStreetNmbr() +"\n";
-                    content +=  address.getCityName() +"\n";
-                    content +=  address.getCountryName() +"\n";
+                    Log.d(TAG, "the hotelAddress textView content is empty");
+                    if(hotelInfo !=null){
+                        ContactInfo contact=hotelInfo.getContactInfos().get(0);
+                        content +=  contact.getCompanyName() +"\n";
+                        Address address= contact.getAddresses().get(0);
+                        content +=  address.getAddressLine() +"\n";
+                        content +=  address.getStreetNmbr() +"\n";
+                        content +=  address.getCityName() +"\n";
+                        content +=  address.getCountryName() +"\n";
+                    }
+
                     hotelAddress.setText(content);
                     Log.d(TAG, "HotelInfoActivity Activity - fetched data from the server");
                 }*/
@@ -109,5 +120,33 @@ public class HotelInfoActivity extends AppCompatActivity {
         Intent hotelViewIntent = new Intent(cont, HotelInfoActivity.class);
         hotelViewIntent.putExtra(EXTRA_HOTEL_ID, extra);
         return hotelViewIntent;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+    @Override
+    public void onResume() {
+        Log.d(TAG, "onResume() called");
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Log.d(TAG, "onPause() called");
+
+        super.onPause();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 }

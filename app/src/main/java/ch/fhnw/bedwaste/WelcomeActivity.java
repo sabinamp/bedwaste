@@ -418,9 +418,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             .title("Hotel Villette")
                             .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                             .snippet("price: CHF 77"));
-                            //.icon(BitmapDescriptorFactory.fromResource(R.drawable.hotel_default)));
-                            // to be fixed
-                            // .icon(BitmapDescriptorFactory.fromAsset("/hotel_default.svg")));
+
 
                }
             }
