@@ -60,10 +60,10 @@ public class HotelDescriptiveInfoService implements Callback<HotelDescriptiveInf
         t.printStackTrace();
     }
     public HotelDescriptiveInfo getHotelinfo() {
-
         return hotelinfo;
     }
     public String getErrorCode() {
+
         return errorCode;
     }
 }

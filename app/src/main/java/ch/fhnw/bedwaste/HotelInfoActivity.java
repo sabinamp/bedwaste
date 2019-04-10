@@ -42,33 +42,6 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
         hotelname.setText(hotellist_value);
-        //code to call the server
-       /*         HotelDescriptiveInfoService service = new HotelDescriptiveInfoService();
-                Log.d(TAG, "start fetching data from the server");
-                service.start( new ErrorsHandler(HotelInfoActivity.this));
-                service.fetchDescriptiveInfo("en", getIntent().getStringExtra(EXTRA_HOTEL_ID ));
-
-                String error = service.getErrorCode();
-                if(!(*//*error.isEmpty() ||*//* error == null)){
-                    hotelAddress.setText(error);
-                    Log.d(TAG, "HotelInfoActivity Activity - could not fetch data from the server");
-                }  else{
-                    HotelDescriptiveInfo hotelInfo = service.getHotelinfo();
-                    String content = "";
-                    Log.d(TAG, "the hotelAddress textView content is empty");
-                    if(hotelInfo !=null){
-                        ContactInfo contact=hotelInfo.getContactInfos().get(0);
-                        content +=  contact.getCompanyName() +"\n";
-                        Address address= contact.getAddresses().get(0);
-                        content +=  address.getAddressLine() +"\n";
-                        content +=  address.getStreetNmbr() +"\n";
-                        content +=  address.getCityName() +"\n";
-                        content +=  address.getCountryName() +"\n";
-                    }
-
-                    hotelAddress.setText(content);
-                    Log.d(TAG, "HotelInfoActivity Activity - fetched data from the server");
-                }*/
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
         for (int i = 0; i < 10; i++) {
