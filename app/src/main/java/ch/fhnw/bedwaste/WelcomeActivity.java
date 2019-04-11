@@ -973,7 +973,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     public void run() {
                         mBottomNavigationView.setVisibility(View.VISIBLE);
                         searchBar.setVisibility(View.VISIBLE);
-                        countdownBox.setVisibility(View.VISIBLE);
+                        if (countdownBox != null){
+                            countdownBox.setVisibility(View.VISIBLE);}
                         FABLocation.show();
                         BlankAnimationBar.setVisibility(View.INVISIBLE);
                         helpText1.setVisibility(View.INVISIBLE);
