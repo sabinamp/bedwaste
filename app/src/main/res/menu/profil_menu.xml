@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group >
+        <item android:id= "@+id/nav_meineDaten"
+            android:title="Meine Daten" />
+
+        <item android:id= "@+id/nav_buchungen"
+            android:title="Buchungen" />
+
+        <item android:id= "@+id/nav_filterEinstellungen"
+            android:title="Filter Voreinstellungen" />
+
+        <item android:id= "@+id/nav_zahlungsMethoden"
+            android:title="Zahlungsmethoden" />
+
+        <item android:id= "@+id/nav_datenschutbestimmungen"
+            android:title="Datenschutzbestimmungen" />
+
+        <item android:id= "@+id/nav_geschaeftsbestimmungen"
+            android:title="Geschäftsbestimmungen" />
+
+        <item android:id= "@+id/nav_support"
+            android:title="Support" />
+
+    </group>
+
+</menu>
