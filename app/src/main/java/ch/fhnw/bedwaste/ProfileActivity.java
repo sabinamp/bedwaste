@@ -23,9 +23,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Log.d(TAG, "Login Activity - onCreate(Bundle) called");
-        TextView txtView = findViewById(R.id.profile_activity_text);
+      //  TextView txtView = findViewById(R.id.profile_activity_text);
 
-        addBottomNav();
+     //   addBottomNav();
     }
 
     private void addBottomNav() {
