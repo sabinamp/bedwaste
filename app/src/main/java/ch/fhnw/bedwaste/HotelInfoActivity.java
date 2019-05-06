@@ -68,7 +68,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         final TextView insert_telnr = (TextView) findViewById(R.id.ph_phoneNr);
 
 
-        insert_hotelname.setText(hotellist_value);
+
         TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
         /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
         if(hotelToDisplay!= null){
@@ -78,7 +78,6 @@ public class HotelInfoActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://86.119.40.244:8888/")
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
         HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
@@ -90,6 +89,7 @@ public class HotelInfoActivity extends AppCompatActivity {
             public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
 
                 if(!response.isSuccessful()) {
+
                     insert_hotelname.setText("Code: " + response.code());
 
                     return;
@@ -98,7 +98,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
                 insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
-
+/**
                 //iterate thrpugh amount of stars to create *** String
                     java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
                     award_list = hotelDescriptiveInfo.getAffiliationInfo().getAwards();
@@ -111,7 +111,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                         }
                     }
 
-                    int stars = Integer.parseInt(star_amount_string);
+                    //int stars = Integer.parseInt(star_amount_string);
                     String starstring = new String(new char[10]).replace("", "hello");
 
                     insert_starRating.setText(starstring);
@@ -138,12 +138,13 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 insert_telnr.setText(phone.getPhoneNumber());
 
-
+*/
             }
 
             @Override
             public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
                 insert_hotelname.setText(t.getMessage());
+                System.out.println(t.getMessage());
             }
         });
 
