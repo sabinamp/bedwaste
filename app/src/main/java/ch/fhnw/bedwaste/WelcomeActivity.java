@@ -56,10 +56,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -188,6 +188,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidThreeTen.init(this);
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -768,7 +769,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             countdownHandler.postDelayed(this, 10000);
 
             try {
-             LocalTime localTime = LocalTime.now();
+                org.threeten.bp.LocalTime localTime = org.threeten.bp.LocalTime.now();
                 if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL){
                 startCountdown();
                 }
@@ -781,7 +782,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     public void startCountdown() throws ParseException {
 
-        LocalTime localTime = LocalTime.now();
+        org.threeten.bp.LocalTime localTime = org.threeten.bp.LocalTime.now();
 
         // Format time and calcualtion of elapsed time..
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");

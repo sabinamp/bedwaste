@@ -46,7 +46,8 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services:12.0.1'
     implementation 'com.android.support:design:28.0.0'
-
+    //implement old LocalTime getter
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
     implementation "io.swagger:swagger-annotations:$swagger_annotations_version"
     implementation "com.google.code.gson:gson:$gson_version"
     //RecyclerView
