@@ -78,11 +78,12 @@ public class HotelInfoActivity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://86.119.40.244:8888/")
                 .addConverterFactory(GsonConverterFactory.create())
+
                 .build();
 
         HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
-        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("eng", hotellist_value);
+        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", hotellist_value);
 
         call.enqueue(new Callback<HotelDescriptiveInfo>() {
             @Override
