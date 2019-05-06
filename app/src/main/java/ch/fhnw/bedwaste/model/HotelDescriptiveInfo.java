@@ -33,7 +33,7 @@ public class HotelDescriptiveInfo {
   @SerializedName("weightUnitOfMeasureCode")
   private Integer weightUnitOfMeasureCode = null;
   @SerializedName("currencyCode")
-  private CurrencyCode currencyCode = null;
+  private String currencyCode = null;
   @SerializedName("hotelInfo")
   private HotelInfo hotelInfo = null;
   @SerializedName("affiliationInfo")
@@ -114,10 +114,10 @@ public class HotelDescriptiveInfo {
   /**
    **/
   @ApiModelProperty(value = "")
-  public CurrencyCode getCurrencyCode() {
+  public String getCurrencyCode() {
     return currencyCode;
   }
-  public void setCurrencyCode(CurrencyCode currencyCode) {
+  public void setCurrencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
   }
 

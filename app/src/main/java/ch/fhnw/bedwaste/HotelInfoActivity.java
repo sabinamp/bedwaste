@@ -11,8 +11,21 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import ch.fhnw.bedwaste.client.HotelItem;
+import ch.fhnw.bedwaste.model.Address;
+import ch.fhnw.bedwaste.model.Award;
+import ch.fhnw.bedwaste.model.ContactInfo;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.model.Phone;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HotelInfoActivity extends AppCompatActivity {
@@ -23,6 +36,17 @@ public class HotelInfoActivity extends AppCompatActivity {
      */
     private static final String TAG = "HotelInfoActivity";
     private BottomNavigationView mBottomNavigationView;
+
+    private TextView insert_hotelname;
+    private TextView insert_starRating;
+    private ImageView insert_banner;
+    private TextView insert_minutes_away;
+    private TextView insert_price;
+    private TextView insert_street;
+    private TextView insert_village;
+    private TextView insert_telnr;
+
+
     private TextView hotelAddress;
     private TextView infoTextView;
     @Override
@@ -34,13 +58,95 @@ public class HotelInfoActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         String hotellist_value = intent.getStringExtra("key");
 
-        TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
-        hotelname.setText(hotellist_value);
+        final TextView insert_hotelname = (TextView) findViewById(R.id.ph_hotelName);
+        final TextView insert_starRating = (TextView) findViewById(R.id.ph_starRating);
+        final ImageView insert_banner = (ImageView) findViewById(R.id.ph_hotelGeneralImage);
+        final TextView insert_minutes_away = (TextView) findViewById(R.id.ph_amountMinutes);
+        final TextView insert_price = (TextView) findViewById(R.id.ph_price);
+        final TextView insert_street = (TextView) findViewById(R.id.ph_streetPlusNr);
+        final TextView insert_village = (TextView) findViewById(R.id.ph_location);
+        final TextView insert_telnr = (TextView) findViewById(R.id.ph_phoneNr);
+
+
+
         TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
         /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
         if(hotelToDisplay!= null){
             hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
         }*/
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://86.119.40.244:8888/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+
+        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", hotellist_value);
+
+        call.enqueue(new Callback<HotelDescriptiveInfo>() {
+            @Override
+            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+
+                if(!response.isSuccessful()) {
+
+                    insert_hotelname.setText("Code: " + response.code());
+
+                    return;
+                }
+
+                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+
+                insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+/**
+                //iterate thrpugh amount of stars to create *** String
+                    java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
+                    award_list = hotelDescriptiveInfo.getAffiliationInfo().getAwards();
+                    String star_amount_string = "";
+
+                    for (Award a : award_list)
+                    {
+                        if(a.getProvider() == "HotelAssociation"){
+                            star_amount_string = a.getRating();
+                        }
+                    }
+
+                    //int stars = Integer.parseInt(star_amount_string);
+                    String starstring = new String(new char[10]).replace("", "hello");
+
+                    insert_starRating.setText(starstring);
+
+
+                //insert_banner?!
+
+
+                //insert_minutes_away.setText(hotelDescriptiveInfo.get());
+
+                //Not in Hotel DescriptiveInfo nut Availabilies()
+                //insert_price.setText(hotelDescriptiveInfo.get());
+
+                java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
+                //takes first entry as main contact info
+                ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
+                java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
+                Address address = addresses.get(0);
+                //only nr? Possible Second TextView for Street?
+                insert_street.setText(address.getStreetNmbr());
+                insert_village.setText(address.getCityName());
+                java.util.List<ch.fhnw.bedwaste.model.Phone>  phones = contactInfo.getPhones();
+                Phone phone = phones.get(0);
+
+                insert_telnr.setText(phone.getPhoneNumber());
+
+*/
+            }
+
+            @Override
+            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                insert_hotelname.setText(t.getMessage());
+                System.out.println(t.getMessage());
+            }
+        });
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
