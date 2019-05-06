@@ -473,7 +473,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     }
                     case R.id.app_bar_profile: {
 
-                        Intent profileIntent= new Intent(WelcomeActivity.this, LoginActivity.class);
+                        Intent profileIntent= new Intent(WelcomeActivity.this, ProfileActivity.class);
                         startActivity(profileIntent);
                         return true;
                     }
