@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private String userId;
     private String userPassword;
     private boolean credentialsOK  = false;
+    private ConnectionDetector cd = new ConnectionDetector(LoginActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             });
 
+        cd.internetRunnable.run();
     }
 
 

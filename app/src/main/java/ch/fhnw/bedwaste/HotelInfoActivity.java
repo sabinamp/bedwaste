@@ -25,6 +25,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private TextView hotelAddress;
     private TextView infoTextView;
+    private ConnectionDetector cd = new ConnectionDetector(HotelInfoActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,8 @@ public class HotelInfoActivity extends AppCompatActivity {
             layout.addView(imageView);
         }
         addBottomNavigation();
+
+        cd.internetRunnable.run();
 
     }
 
