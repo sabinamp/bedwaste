@@ -64,7 +64,7 @@ import java.util.Date;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback  {
+public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Marker mPlatzhirsch;
     private Marker mHottingen;
     private Marker mHelmhaus;
@@ -95,7 +95,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private boolean mLocationPermissionGranted;
 
     //Object for Internet Connection
-    private ConnectionDetector cd = new ConnectionDetector();
+    private ConnectionDetector cd = new ConnectionDetector(WelcomeActivity.this);
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -130,12 +130,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private SeekBar seekBarPrice;
     private BottomNavigationView mBottomNavigationView;
     private FloatingActionButton FABLocation;
-    private View BlankAnimationBar; 
-
+    private View BlankAnimationBar;
 
 
     //GoogleAPI Client related
-    private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR=1;
+    private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR = 1;
     boolean mResolvingError;
     GoogleApiClient mGoogleApiClient;
     GoogleApiClient.ConnectionCallbacks mConnectionCallbacks =
@@ -143,14 +142,16 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 @Override
                 public void onConnected(Bundle bundle) {
                     Toast.makeText(WelcomeActivity.this, "Google API Client - onConnected()", Toast.LENGTH_LONG).show();
-                    try{
+                    try {
                         getDeviceLocation();
-                    }catch (SecurityException e){
+                    } catch (SecurityException e) {
                         e.printStackTrace();
                     }
                 }
+
                 @Override
-                public void onConnectionSuspended(int i) {}
+                public void onConnectionSuspended(int i) {
+                }
             };
 
     GoogleApiClient.OnConnectionFailedListener mOnConnectionFailedListener =
@@ -216,7 +217,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
         filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
-        mFilterExtendedLayout = (LinearLayout) findViewById( R.id.expandedFilter);
+        mFilterExtendedLayout = (LinearLayout) findViewById(R.id.expandedFilter);
         btnFilterExtend = (ImageView) findViewById(R.id.btnExpandFilter);
         btnFilterLess = (ImageView) findViewById(R.id.lessfilter);
         mFilterExtendedLayout.setVisibility(View.GONE);
@@ -231,7 +232,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
         textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
         applyFilter = (ImageButton) findViewById(R.id.imageApply);
-        declineFilter =(ImageButton) findViewById(R.id.imageDecline);
+        declineFilter = (ImageButton) findViewById(R.id.imageDecline);
         checkBoxBreakfast = findViewById(R.id.checkBoxBreakfast);
         checkBoxWLAN = findViewById(R.id.checkBoxWlan);
         searchBar = findViewById(R.id.search_bar);
@@ -248,15 +249,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
 
-        applyFilter.setOnClickListener(new ImageView.OnClickListener(){
+        applyFilter.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 mFiltersButton.callOnClick();
             }
         });
-        declineFilter.setOnClickListener(new ImageView.OnClickListener(){
+        declineFilter.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 seekBarPrice.setMax(1000);
                 seekBarPrice.setProgress(100);
                 textValueDistance.setText("100 CHF");
@@ -269,70 +270,70 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
             }
         });
-        btnLessPeople.setOnClickListener(new ImageView.OnClickListener(){
+        btnLessPeople.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String PeopleValue = textValuePeople.getText().toString();
 
-                if (Integer.parseInt(PeopleValue) != 1){
-                    PeopleValue = String.valueOf(Integer.parseInt(PeopleValue)-1);
+                if (Integer.parseInt(PeopleValue) != 1) {
+                    PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) - 1);
                     textValuePeople.setText(PeopleValue);
                 }
 
 
             }
         });
-        btnMorePeople.setOnClickListener(new ImageView.OnClickListener(){
+        btnMorePeople.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String PeopleValue = textValuePeople.getText().toString();
-                PeopleValue = String.valueOf(Integer.parseInt(PeopleValue)+1);
+                PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) + 1);
                 textValuePeople.setText(PeopleValue);
 
             }
         });
-        btnLessRooms.setOnClickListener(new ImageView.OnClickListener(){
+        btnLessRooms.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String RoomsValue = textValueRooms.getText().toString();
-                if (Integer.parseInt(RoomsValue) != 1){
-                    RoomsValue = String.valueOf(Integer.parseInt(RoomsValue)-1);
+                if (Integer.parseInt(RoomsValue) != 1) {
+                    RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) - 1);
                     textValueRooms.setText(RoomsValue);
                 }
 
 
             }
         });
-        btnMoreRooms.setOnClickListener(new ImageView.OnClickListener(){
+        btnMoreRooms.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String RoomsValue = textValueRooms.getText().toString();
-                RoomsValue = String.valueOf(Integer.parseInt(RoomsValue)+1);
+                RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) + 1);
                 textValueRooms.setText(RoomsValue);
             }
         });
-        btnLessNights.setOnClickListener(new ImageView.OnClickListener(){
+        btnLessNights.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String NightsValue = textValueNights.getText().toString();
-                if (Integer.parseInt(NightsValue) != 1){
-                    NightsValue = String.valueOf(Integer.parseInt(NightsValue)-1);
+                if (Integer.parseInt(NightsValue) != 1) {
+                    NightsValue = String.valueOf(Integer.parseInt(NightsValue) - 1);
                     textValueNights.setText(NightsValue);
                 }
 
             }
         });
-        btnMoreNights.setOnClickListener(new ImageView.OnClickListener(){
+        btnMoreNights.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 String NightsValue = textValueNights.getText().toString();
-                NightsValue = String.valueOf(Integer.parseInt(NightsValue)+1);
+                NightsValue = String.valueOf(Integer.parseInt(NightsValue) + 1);
                 textValueNights.setText(NightsValue);
             }
         });
-        btnFilterExtend.setOnClickListener(new ImageView.OnClickListener(){
+        btnFilterExtend.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 btnFilterLess.setVisibility(View.VISIBLE);
                 mFilterExtendedLayout.setVisibility(View.VISIBLE);
                 btnFilterExtend.setVisibility(View.GONE);
@@ -342,7 +343,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         btnFilterLess.setOnClickListener(new ImageView.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 btnFilterExtend.setVisibility(View.VISIBLE);
                 mFilterExtendedLayout.setVisibility(View.GONE);
                 btnFilterLess.setVisibility(View.GONE);
@@ -351,7 +352,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         //Listener vor Seek Bar of Distance Changes
-        seekBarDistance.setOnSeekBarChangeListener (new SeekBar.OnSeekBarChangeListener(){
+        seekBarDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
@@ -363,7 +364,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textValueDistance.setText(seekBarDistance.getProgress() + " km");
             }
         });
@@ -393,28 +394,28 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
              */
             @Override
             public void onClick(View v) {
-               mEditText = findViewById(R.id.input_location);
-                if (!mEditText.getText().toString().equals("")){
+                mEditText = findViewById(R.id.input_location);
+                if (!mEditText.getText().toString().equals("")) {
 
-                   LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
-                   mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
-                   mPlatzhirsch = mMap.addMarker(new MarkerOptions()
+                    LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
-                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: CHF 107"));
-                   mPlatzhirsch.showInfoWindow();
-                   mHelmhaus = mMap.addMarker(new MarkerOptions()
-                           .position(WelcomeViewModel.HEMLHAUS)
-                           .title("Hotel Helmhaus")
-                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: CHF 97"));
+                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                            .snippet("price: CHF 107"));
+                    mPlatzhirsch.showInfoWindow();
+                    mHelmhaus = mMap.addMarker(new MarkerOptions()
+                            .position(WelcomeViewModel.HEMLHAUS)
+                            .title("Hotel Helmhaus")
+                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                            .snippet("price: CHF 97"));
 
-                   mHottingen =  mMap.addMarker(new MarkerOptions()
-                           .position(WelcomeViewModel.HOTTINGEN)
-                           .title("Hotel Hottingen")
-                           .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                           .snippet("price: CHF 120"));
+                    mHottingen = mMap.addMarker(new MarkerOptions()
+                            .position(WelcomeViewModel.HOTTINGEN)
+                            .title("Hotel Hottingen")
+                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                            .snippet("price: CHF 120"));
 
                     mHVillette = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.VILLETTE)
@@ -423,25 +424,22 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             .snippet("price: CHF 77"));
 
 
-               }
+                }
             }
         });
         mFiltersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (filterLayout.getVisibility() == View.VISIBLE){
+                if (filterLayout.getVisibility() == View.VISIBLE) {
                     filterLayout.setVisibility(View.GONE);
-                }
-                else{
+                } else {
                     filterLayout.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        //Internet connection check with alert
-        if (!cd.isConnected(WelcomeActivity.this)) {
-            cd.buildConnectionAlert(WelcomeActivity.this).show();
-        }
+        //call Connection
+        cd.internetRunnable.run();
 
         // call Countdown
         countdownRunnable.run();
@@ -469,18 +467,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.app_bar_hotel_list:{
-                        Intent listIntent= new Intent(WelcomeActivity.this, HotelListViewActivity.class);
+                    case R.id.app_bar_hotel_list: {
+                        Intent listIntent = new Intent(WelcomeActivity.this, HotelListViewActivity.class);
                         startActivity(listIntent);
                         return true;
                     }
-                    case R.id.app_bar_map_view:
-                    {
+                    case R.id.app_bar_map_view: {
                         return true;
                     }
                     case R.id.app_bar_profile: {
 
-                        Intent profileIntent= new Intent(WelcomeActivity.this, LoginActivity.class);
+                        Intent profileIntent = new Intent(WelcomeActivity.this, LoginActivity.class);
                         startActivity(profileIntent);
                         return true;
                     }
@@ -528,6 +525,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 this, errorCode, REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR);
         errorDialog.show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
@@ -551,7 +549,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -569,7 +566,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            LatLng mlastLatLng= new LatLng(mLastKnownLocation.getLatitude(),
+                            LatLng mlastLatLng = new LatLng(mLastKnownLocation.getLatitude(),
                                     mLastKnownLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
                             MarkerOptions markerOptions = new MarkerOptions();
@@ -586,7 +583,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -597,7 +594,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mMap.moveCamera(CameraUpdateFactory.newLatLng(getDefaultLocation()));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(getDefaultLocation());
-        markerOptions.icon(bitmapDescriptorFromVector(this,R.drawable.ic_marker));
+        markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
         //mMap.addMarker(markerOptions);
     }
 
@@ -614,10 +611,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
-        } else{
+        } else {
             //Requesting the Location permission
-            ActivityCompat.requestPermissions(this, new String[] {
-                    android.Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
             return;
         }
     }
@@ -654,6 +651,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             super.onSaveInstanceState(outState);
         }
     }
+
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
@@ -671,16 +669,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
         mGoogleApiClient.connect();
     }
+
     @Override
     public void onResume() {
         Log.d(TAG, "onResume() called");
@@ -693,12 +693,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         super.onPause();
     }
+
     @Override
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop() called");
         mGoogleApiClient.disconnect();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -714,23 +716,21 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
      * @param address_string String to Search
      * @return LatLng of First Result
      */
-    public LatLng getLocationFromAddress (String address_string){
+    public LatLng getLocationFromAddress(String address_string) {
         Geocoder address_geocoder = new Geocoder(this);
         LatLng coordinates;
         try {
             List<Address> address = address_geocoder.getFromLocationName(address_string, 5);
-            if (address == null){
-                coordinates = new LatLng(0,0);
-            }
-            else  {
+            if (address == null) {
+                coordinates = new LatLng(0, 0);
+            } else {
                 Address location = address.get(0);
                 coordinates = new LatLng(location.getLatitude(), location.getLongitude());
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            coordinates = new LatLng(0,0);
+            coordinates = new LatLng(0, 0);
         }
         return coordinates;
 
@@ -739,6 +739,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public Location getLastKnownLocation() {
         return mLastKnownLocation;
     }
+
     public LatLng getDefaultLocation() {
         return mDefaultLocation;
     }
@@ -776,9 +777,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             countdownHandler.postDelayed(this, 10000);
 
             try {
-             LocalTime localTime = LocalTime.now();
-                if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL){
-                startCountdown();
+                LocalTime localTime = LocalTime.now();
+                if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL) {
+                    startCountdown();
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -810,24 +811,24 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             public void onTick(long millisUntilFinished) {
 
                 // in Seconds
-                if ((millisUntilFinished/1000 % 60)>=10){
-                countdownTextSeconds.setText(""+millisUntilFinished/1000 % 60);
+                if ((millisUntilFinished / 1000 % 60) >= 10) {
+                    countdownTextSeconds.setText("" + millisUntilFinished / 1000 % 60);
                 } else {
-                    countdownTextSeconds.setText("0"+millisUntilFinished/1000 % 60);
+                    countdownTextSeconds.setText("0" + millisUntilFinished / 1000 % 60);
                 }
 
                 // in Minutes
-                if ((millisUntilFinished/(60 * 1000) % 60)>=10) {
+                if ((millisUntilFinished / (60 * 1000) % 60) >= 10) {
                     countdownTextMinutes.setText("" + millisUntilFinished / (60 * 1000) % 60);
                 } else {
                     countdownTextMinutes.setText("0" + millisUntilFinished / (60 * 1000) % 60);
                 }
 
                 // in Hours
-                if( (millisUntilFinished/(60 * 60 * 1000) % 24) >=10){
-                    countdownTextHours.setText(""+millisUntilFinished/(60 * 60 * 1000) % 24);
+                if ((millisUntilFinished / (60 * 60 * 1000) % 24) >= 10) {
+                    countdownTextHours.setText("" + millisUntilFinished / (60 * 60 * 1000) % 24);
                 } else {
-                    countdownTextHours.setText("0"+millisUntilFinished/(60 * 60 * 1000) % 24);
+                    countdownTextHours.setText("0" + millisUntilFinished / (60 * 60 * 1000) % 24);
                 }
                 countdownHandler.removeCallbacks(countdownRunnable);
             }
@@ -840,11 +841,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         }.start();
     }
 
-    public void startAnimation (){
 
+    public void startAnimation() {
         mBottomNavigationView.setVisibility(View.INVISIBLE);
         searchBar.setVisibility(View.INVISIBLE);
-        if (countdownBox != null){
+        if (countdownBox != null) {
             countdownBox.setVisibility(View.INVISIBLE);
         }
 
@@ -859,8 +860,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         int maxX = mdispSize.x;
         final ValueAnimator helpText1X = ValueAnimator.ofFloat(helpText1.getX(), 0);
         final ValueAnimator helpText1Y = ValueAnimator.ofFloat(helpText1.getY(), maxY - 280);
-        final ValueAnimator helpText1Width = ValueAnimator.ofInt(helpText1.getWidth(),width);
-        final ValueAnimator helpText1Height = ValueAnimator.ofInt(helpText1.getHeight(),  150);
+        final ValueAnimator helpText1Width = ValueAnimator.ofInt(helpText1.getWidth(), width);
+        final ValueAnimator helpText1Height = ValueAnimator.ofInt(helpText1.getHeight(), 150);
         helpText1X.setDuration(1500);
         helpText1Y.setDuration(1500);
         helpText1Width.setDuration(1500);
@@ -869,35 +870,34 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 helpText1.setText("");
-                helpText1.setX((float)animation.getAnimatedValue());
+                helpText1.setX((float) animation.getAnimatedValue());
             }
         });
         helpText1Y.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                helpText1.setY((float)animation.getAnimatedValue());
+                helpText1.setY((float) animation.getAnimatedValue());
             }
         });
         helpText1Width.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                helpText1.setWidth((int)animation.getAnimatedValue());
+                helpText1.setWidth((int) animation.getAnimatedValue());
             }
         });
 
         helpText1Height.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                helpText1.setHeight((int)animation.getAnimatedValue());
+                helpText1.setHeight((int) animation.getAnimatedValue());
             }
         });
 
 
-
-        final ValueAnimator BlankAnimationBarX = ValueAnimator.ofFloat(BlankAnimationBar.getX(), FABLocation.getX() );
+        final ValueAnimator BlankAnimationBarX = ValueAnimator.ofFloat(BlankAnimationBar.getX(), FABLocation.getX());
         final ValueAnimator BlankAnimationBarY = ValueAnimator.ofFloat(BlankAnimationBar.getY(), FABLocation.getY());
-        final ValueAnimator BlankAnimationBarWidth = ValueAnimator.ofInt(BlankAnimationBar.getWidth(),100);
-        final ValueAnimator BlankAnimationBarHeight = ValueAnimator.ofInt(BlankAnimationBar.getHeight(),FABLocation.getHeight());
+        final ValueAnimator BlankAnimationBarWidth = ValueAnimator.ofInt(BlankAnimationBar.getWidth(), 100);
+        final ValueAnimator BlankAnimationBarHeight = ValueAnimator.ofInt(BlankAnimationBar.getHeight(), FABLocation.getHeight());
         BlankAnimationBarX.setDuration(1500);
         BlankAnimationBarY.setDuration(1500);
         BlankAnimationBarWidth.setDuration(1500);
@@ -906,20 +906,20 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
 
-                BlankAnimationBar.setX((float)animation.getAnimatedValue() + 50);
+                BlankAnimationBar.setX((float) animation.getAnimatedValue() + 50);
             }
         });
         BlankAnimationBarY.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                BlankAnimationBar.setY((float)animation.getAnimatedValue() + 50);
+                BlankAnimationBar.setY((float) animation.getAnimatedValue() + 50);
             }
         });
         BlankAnimationBarWidth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
 
-                BlankAnimationBar.setLayoutParams(new ConstraintLayout.LayoutParams((int)animation.getAnimatedValue(), 100));
+                BlankAnimationBar.setLayoutParams(new ConstraintLayout.LayoutParams((int) animation.getAnimatedValue(), 100));
 
 
             }
@@ -928,7 +928,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         BlankAnimationBarHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                BlankAnimationBar.setMinimumHeight((int)animation.getAnimatedValue());
+                BlankAnimationBar.setMinimumHeight((int) animation.getAnimatedValue());
             }
         });
 
@@ -951,7 +951,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     public void run() {
                         mBottomNavigationView.setVisibility(View.VISIBLE);
                         searchBar.setVisibility(View.VISIBLE);
-                        if (countdownBox != null){
+                        if (countdownBox != null) {
                             countdownBox.setVisibility(View.VISIBLE);
                         }
 
@@ -989,10 +989,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }, 1500);
             }
         });
-
-
-
-
 
 
     }
