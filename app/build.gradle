@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.robolectric:robolectric:${robolectric_version}"
