@@ -229,11 +229,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         btnFilterLess.setVisibility(View.GONE);
         btnLessPeople = (ImageView) findViewById(R.id.lessPeople);
         btnMorePeople = (ImageView) findViewById(R.id.morepeople);
-        btnLessNights = (ImageView) findViewById(R.id.lessNights);
-        btnMoreNights = (ImageView) findViewById(R.id.moreNights);
+        /*btnLessNights = (ImageView) findViewById(R.id.lessNights);
+        btnMoreNights = (ImageView) findViewById(R.id.moreNights);*/
         btnLessRooms = (ImageView) findViewById(R.id.lessRooms);
         btnMoreRooms = (ImageView) findViewById(R.id.moreRooms);
-        textValueNights = (TextView) findViewById(R.id.textNightValue);
+       // textValueNights = (TextView) findViewById(R.id.textNightValue);
         textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
         textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
         applyFilter = (ImageButton) findViewById(R.id.imageApply);
@@ -317,7 +317,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 textValueRooms.setText(RoomsValue);
             }
         });
-        btnLessNights.setOnClickListener(new ImageView.OnClickListener() {
+     /* btnLessNights.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String NightsValue = textValueNights.getText().toString();
@@ -328,14 +328,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
             }
         });
-        btnMoreNights.setOnClickListener(new ImageView.OnClickListener() {
+       btnMoreNights.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String NightsValue = textValueNights.getText().toString();
                 NightsValue = String.valueOf(Integer.parseInt(NightsValue) + 1);
                 textValueNights.setText(NightsValue);
             }
-        });
+        });*/
         btnFilterExtend.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
