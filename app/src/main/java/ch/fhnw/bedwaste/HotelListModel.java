@@ -65,5 +65,13 @@ public class HotelListModel {
         }
 
     }*/
+    public HotelItem return_hotel(String hotelname){
+
+        int list_length = items.size();
+        HotelItem hotel = new HotelItem("123", "HOTEL");
+
+        return hotel;
+    }
+
 
 }
