@@ -1,5 +1,7 @@
 package ch.fhnw.bedwaste.server;
 
+import android.content.Context;
+
 import java.util.concurrent.TimeUnit;
 
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
@@ -19,12 +21,13 @@ public class HotelDescriptiveInfoService {
     public static final int STATUS_SERVER_ERROR = 500;
     public static final int TIMEOUT = 15;
 
+
     private String errorCode = null;
     private HotelDescriptiveInfo hotelinfo = null;
     private FetchDataError descriptiveInfoError= null;
-    public void start( FetchDataError descriptionError){
+    public void start(/*FetchDataError descriptionError*/){
         LoggingInterceptor logging = new LoggingInterceptor();
-
+       // this.context = context;
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .readTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -37,7 +40,7 @@ public class HotelDescriptiveInfoService {
 
         Retrofit retrofit = retrofitBuilder.build();
         jsonDescriptiveInfoAPI = retrofit.create(HotelDescriptiveInfoInterface.class);
-        descriptiveInfoError = descriptionError;
+        //descriptiveInfoError = descriptionError;
 
     }
     public void fetchDescriptiveInfo(String lang, String hotelId){
@@ -49,7 +52,7 @@ public class HotelDescriptiveInfoService {
                     hotelinfo = response.body();
                 } else {
                     errorCode = response.errorBody().toString();
-                    descriptiveInfoError.onServerError();
+                    //descriptiveInfoError.onServerError();
                 }
             }
 

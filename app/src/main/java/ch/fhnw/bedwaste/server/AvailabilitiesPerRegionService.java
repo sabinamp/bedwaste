@@ -13,7 +13,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AvailabilitiesPerRegionService implements Callback<Map<String,AvailabilityResult>> {
+public class AvailabilitiesPerRegionService {
     static final String BASE_URL = "http://86.119.40.244:8888";
     private AvailabilitiesPerRegionInterface jsonAPI;
     private static final String USER_ID = "test";
@@ -43,22 +43,30 @@ public class AvailabilitiesPerRegionService implements Callback<Map<String,Avail
 
         Call<Map<String,AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
                 today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms);
-        callApi.enqueue(this);
+        callApi.enqueue(new Callback<Map<String, AvailabilityResult>>() {
+            @Override
+            public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
+                if(!response.isSuccessful()){
+                    errorCode = response.errorBody().toString();
+                    return;
+
+                } else {
+                    availabilitiesPerRegionResponse = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, AvailabilityResult>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
-    @Override
-    public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
-        if(response.isSuccessful()) {
-            availabilitiesPerRegionResponse = response.body();
-        } else {
-            errorCode = response.errorBody().toString();
-        }
-    }
 
-    @Override
-    public void onFailure(Call<Map<String, AvailabilityResult>> call, Throwable t) {
-        t.printStackTrace();
-    }
+
+
     public String getErrorCode() {
         return errorCode;
     }

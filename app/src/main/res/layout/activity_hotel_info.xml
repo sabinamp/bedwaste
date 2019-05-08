@@ -48,6 +48,8 @@
             android:id="@+id/layout_minutesBookingCost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -55,23 +57,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:text="3 Minuten"
-                android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
-                android:textColor= "@color/min_color"
+                android:textColor="@color/min_color"
                 android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
             <Button
                 android:id="@+id/button_booking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@color/bookbtn_color"
-                android:layout_gravity="center"
-                android:text="Button"
+                android:text="Buchen"
                 android:textColor="@color/white" />
 
             <TextView
@@ -79,9 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="X"
                 android:textAlignment="center"
-                android:textSize="32dp"
-                android:text="X" />
+                android:textSize="32dp" />
 
             <LinearLayout
                 android:id="@+id/layout_pricePerNight"
@@ -149,6 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Addresse"
+                        android:textStyle="bold"
                         android:textAlignment="center" />
 
                     <TextView
@@ -156,6 +159,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="Tel"
                         android:textAlignment="center" />
                 </LinearLayout>
@@ -168,12 +172,13 @@
 
 
                     <TextView
-                        android:id="@+id/ph_streetPlusNr"
+                        android:id="@+id/ph_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Strasse xy"
                         android:textAlignment="center" />
+
 
                     <TextView
                         android:id="@+id/ph_phoneNr"
@@ -234,33 +239,36 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/layout_additionalFeatures"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+                        android:id="@+id/checkBox_Breakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="false"
+                        android:text="Frühstück"
+                        android:textAlignment="center" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox_Wlan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:text="WLAN"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
 
             </LinearLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/layout_additionalFeatures"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <CheckBox
-                android:id="@+id/checkBox_Breakfast"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:text="Frühstück" />
-
-            <CheckBox
-                android:id="@+id/checkBox_Wlan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:text="WLAN" />
-        </LinearLayout>
 
 
     </LinearLayout>

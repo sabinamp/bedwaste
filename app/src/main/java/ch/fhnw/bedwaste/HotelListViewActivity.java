@@ -17,15 +17,14 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.fhnw.bedwaste.client.HotelItem;
-import ch.fhnw.bedwaste.model.Address;
+import ch.fhnw.bedwaste.client.HotelDTO;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
     private RecyclerView recyclerView;
-    private final static List<HotelItem> items= new ArrayList<>();
+    private final static List<HotelDTO> items= new ArrayList<>();
     private ConnectionDetector cd = new ConnectionDetector(HotelListViewActivity.this);
 
     /**
@@ -90,7 +89,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
-    private void setViewAdapter(List<HotelItem> hotels){
+    private void setViewAdapter(List<HotelDTO> hotels){
         HotelListAdapter myAdapter = new HotelListAdapter(hotels, HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
     }

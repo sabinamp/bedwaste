@@ -13,18 +13,18 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
-import ch.fhnw.bedwaste.client.HotelItem;
+import ch.fhnw.bedwaste.client.HotelDTO;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
-    private List<HotelItem> hotelList;
+    private List<HotelDTO> hotelList;
     private HotelDescriptiveInfoService controller;
     private Context context;
 
     private LatLng userLocation;
 
-    public HotelListAdapter(List<HotelItem> list,Context context) {
+    public HotelListAdapter(List<HotelDTO> list, Context context) {
         this.context = context;
         hotelList = list;
     }
@@ -40,20 +40,19 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final HotelItem hotel = hotelList.get(position);
+        final HotelDTO hotel = hotelList.get(position);
         final String hotelName = hotelList.get(position).getName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
-        final String hotel_id = hotelList.get(position).getHotelId();
+        final String hotelId = hotelList.get(position).getHotelId();
        // holder.hotelNameTextView.setText(hotelName);
         holder.bind(hotel, userLocation);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelList.get(position).getHotelId());
+                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
 
-                //pass a value to HotelInfoActivity, Hotelname FOR NOW, the hotel id extra is passed above as param to makeHotelInfoIntent
-                hotelDescriptionIntent.putExtra("key", hotelName);
+                hotelDescriptionIntent.putExtra("key", hotelId);
                 context.startActivity(hotelDescriptionIntent);
             }
         });
@@ -76,7 +75,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private HotelItem hotelItem;
+        private HotelDTO hotelItem;
         TextView hotelNameTextView;
         TextView hotelAddressLine;
         TextView hotelCity;
@@ -99,7 +98,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         }
 
         //method to call within the adapter's onBindViewHolder() after fetching data from the server
-        private void bind(HotelItem hotelItem, LatLng userLocation){
+        private void bind(HotelDTO hotelItem, LatLng userLocation){
             this.hotelItem = hotelItem;
             String name = hotelItem.getName() != null ? hotelItem.getName() : "";
             String description = hotelItem.getDescription() != null ? hotelItem.getDescription() : "";

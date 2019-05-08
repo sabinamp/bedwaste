@@ -14,12 +14,12 @@ import ch.fhnw.bedwaste.model.GuestRoom;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
 import ch.fhnw.bedwaste.model.Phone;
 
-public class HotelItem {
+public class HotelDTO {
     private String name;
     private Address address;
     private String hotelId;
     private int distanceUnitOfMeasureCode;
-    private CurrencyCode currencyCode;
+    private String currencyCode;
     private Phone phone;
     private String email;
     private int rating;
@@ -30,9 +30,9 @@ public class HotelItem {
     private int nbStars;
 
 
-    public HotelItem(String hotelId, String hotelName){
+    public HotelDTO(String hotelId, String hotelName){
         this.hotelId=hotelId;
-        currencyCode = null;
+        currencyCode = "CHF";
         phone=null;
         rooms= new ArrayList<>();
         availabilities = new ArrayList<>();
@@ -73,11 +73,11 @@ public class HotelItem {
         this.distanceUnitOfMeasureCode = distanceUnitOfMeasureCode;
     }
 
-    public CurrencyCode getCurrencyCode() {
+    public String getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(CurrencyCode currencyCode) {
+    public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
     }
 
@@ -144,7 +144,7 @@ public class HotelItem {
       /*  double hotelAltitude = this.getPosition().getAltitude().doubleValue();
         double hotelLongitude = this.getPosition().getLongitude().doubleValue();
         LatLng hotelLocation = new LatLng(hotelAltitude, hotelLongitude) ;*/
-        //todo calculate the distance from the current hotel hotelLocation to userLocation
+        //todo calculate the distance from the current userLocation to the hotel hotelLocation
         return 3;
     }
     public int getNbStars() {
