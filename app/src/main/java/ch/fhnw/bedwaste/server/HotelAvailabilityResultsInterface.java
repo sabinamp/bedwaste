@@ -12,4 +12,6 @@ public interface HotelAvailabilityResultsInterface {
                                                      @Query ("start") String startDate, @Query("end") String endDate,
                                                      @Query("nbAdults") int nbAdults, @Query("nbChildren") int nbChildren,
                                                      @Query("nbInfants") int nbInfants);
+
+
 }

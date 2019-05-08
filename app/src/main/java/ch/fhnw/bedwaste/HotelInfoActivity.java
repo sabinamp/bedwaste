@@ -38,10 +38,7 @@ public class HotelInfoActivity extends AppCompatActivity {
         TextView hotelname = (TextView) findViewById(R.id.ph_hotelName);
         hotelname.setText(hotellist_value);
         TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
-        /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
-        if(hotelToDisplay!= null){
-            hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
-        }*/
+
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HotelDescriptiveInfoService {
-    static final String BASE_URL = "http://86.119.40.244:8888/";
+    static final String BASE_URL = "http://86.119.40.244:8888";
     private HotelDescriptiveInfoInterface jsonDescriptiveInfoAPI;
     public static final int STATUS_OK = 200;
     public static final int STATUS_SERVER_ERROR = 500;
