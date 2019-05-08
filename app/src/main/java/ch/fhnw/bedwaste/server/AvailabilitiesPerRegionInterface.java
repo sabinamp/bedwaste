@@ -7,9 +7,11 @@ import ch.fhnw.bedwaste.model.AvailabilityResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface AvailabilitiesPerRegionInterface {
+    @Headers("Accept: application/json")
     @GET("availabilities/")
     Call<Map<String, AvailabilityResult>> getHotelAvailabilitiesPerRegion(@Query("region") String hotelId, @Query("sessionId") String sessionId,
                                                                           @Query ("start") String startDate, @Query("end") String endDate,
