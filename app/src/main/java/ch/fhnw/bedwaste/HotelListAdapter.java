@@ -43,7 +43,6 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         final HotelItem hotel = hotelList.get(position);
         final String hotelName = hotelList.get(position).getName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
-        final String hotel_id = hotelList.get(position).getHotelId();
        // holder.hotelNameTextView.setText(hotelName);
         holder.bind(hotel, userLocation);
 
@@ -53,7 +52,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
                 Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelList.get(position).getHotelId());
 
                 //pass a value to HotelInfoActivity, Hotelname FOR NOW, the hotel id extra is passed above as param to makeHotelInfoIntent
-                hotelDescriptionIntent.putExtra("key", hotel_id);
+                hotelDescriptionIntent.putExtra("key", hotelName);
                 context.startActivity(hotelDescriptionIntent);
             }
         });

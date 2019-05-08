@@ -39,14 +39,6 @@ public class HotelListModel {
         return items;
     }
 
-    public HotelItem return_hotel(String hotelname){
-
-        int list_length = items.size();
-        HotelItem hotel = new HotelItem("123", "HOTEL");
-
-        return hotel;
-    }
-
     /*public static HotelItem fetchHotel(String hotelId, AppCompatActivity activity){
         HotelDescriptiveInfoService service = new HotelDescriptiveInfoService();
         Log.d(TAG, "start fetching data from the server");

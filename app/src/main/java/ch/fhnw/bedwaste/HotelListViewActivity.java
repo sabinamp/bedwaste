@@ -26,6 +26,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     private Button btn;
     private RecyclerView recyclerView;
     private final static List<HotelItem> items= new ArrayList<>();
+    private ConnectionDetector cd = new ConnectionDetector(HotelListViewActivity.this);
 
     /**
      * Debugging tag LoginActivity used by the Android logger.
@@ -44,6 +45,8 @@ public class HotelListViewActivity extends AppCompatActivity {
         setViewAdapter(new HotelListModel().getItems());
 
         addBottomNavigation();
+
+        cd.internetRunnable.run();
 
     }
 

@@ -13,6 +13,8 @@ import android.widget.TextView;
 public class ProfileActivity extends AppCompatActivity {
     public static final String PROFILE_EXTRA_MESSAGE = "ch.fhnw.bedwaste.PROFILE_MESSAGE";
     private BottomNavigationView mBottomNavigationView;
+    private ConnectionDetector cd = new ConnectionDetector(ProfileActivity.this);
+
     /**
      * Debugging tag LoginActivity used by the Android logger.
      */
@@ -26,6 +28,8 @@ public class ProfileActivity extends AppCompatActivity {
       //  TextView txtView = findViewById(R.id.profile_activity_text);
 
      //   addBottomNav();
+
+        cd.internetRunnable.run();
     }
 
     private void addBottomNav() {

@@ -95,7 +95,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private boolean mLocationPermissionGranted;
 
     //Object for Internet Connection
-    private ConnectionDetector cd = new ConnectionDetector();
+    private ConnectionDetector cd = new ConnectionDetector(WelcomeActivity.this);
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -438,10 +438,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        //Internet connection check with alert
-        if (!cd.isConnected(WelcomeActivity.this)) {
-            cd.buildConnectionAlert(WelcomeActivity.this).show();
-        }
+        //call Connection
+        cd.internetRunnable.run();
 
         // call Countdown
         countdownRunnable.run();
@@ -843,8 +841,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         }.start();
     }
 
-    public void startAnimation() {
 
+    public void startAnimation() {
         mBottomNavigationView.setVisibility(View.INVISIBLE);
         searchBar.setVisibility(View.INVISIBLE);
         if (countdownBox != null) {
