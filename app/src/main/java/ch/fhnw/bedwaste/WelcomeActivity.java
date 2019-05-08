@@ -72,6 +72,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Marker mHottingen;
     private Marker mHelmhaus;
     private Marker mHVillette;
+    private WelcomeViewModel pmodel;
+
 
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
@@ -113,12 +115,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private ImageView btnFilterLess;
     private ImageView btnMoreRooms;
     private ImageView btnLessRooms;
-    private ImageView btnMoreNights;
-    private ImageView btnLessNights;
+   /* private ImageView btnMoreNights;
+    private ImageView btnLessNights;*/
     private ImageView btnMorePeople;
     private ImageView btnLessPeople;
     private TextView textValueRooms;
-    private TextView textValueNights;
+   // private TextView textValueNights;
     private TextView textValuePeople;
     private ImageButton declineFilter;
     private ImageButton applyFilter;
@@ -134,7 +136,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private BottomNavigationView mBottomNavigationView;
     private FloatingActionButton FABLocation;
     private View BlankAnimationBar;
-
+    private int distanceToHotel;
+    private int maxprice;
+    private int nbadults;
+    private int nbrooms;
+    private boolean breakfast;
+    private boolean wifi;
 
     //GoogleAPI Client related
     private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR = 1;
@@ -268,7 +275,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 textValueDistance.setText("100 CHF");
                 textValueDistance.setText("10 km");
                 textValuePeople.setText("1");
-                textValueNights.setText("1");
+                //textValueNights.setText("1");
                 textValueRooms.setText("1");
                 checkBoxBreakfast.setChecked(false);
                 checkBoxWLAN.setChecked(false);
@@ -283,6 +290,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 if (Integer.parseInt(PeopleValue) != 1) {
                     PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) - 1);
                     textValuePeople.setText(PeopleValue);
+                    nbadults= Integer.parseInt(PeopleValue);
                 }
 
 
@@ -294,6 +302,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 String PeopleValue = textValuePeople.getText().toString();
                 PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) + 1);
                 textValuePeople.setText(PeopleValue);
+                nbadults= Integer.parseInt(PeopleValue);
 
             }
         });
@@ -304,6 +313,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 if (Integer.parseInt(RoomsValue) != 1) {
                     RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) - 1);
                     textValueRooms.setText(RoomsValue);
+                    nbrooms= Integer.parseInt(RoomsValue);
                 }
 
 
@@ -315,6 +325,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 String RoomsValue = textValueRooms.getText().toString();
                 RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) + 1);
                 textValueRooms.setText(RoomsValue);
+                nbrooms= Integer.parseInt(RoomsValue);
             }
         });
      /* btnLessNights.setOnClickListener(new ImageView.OnClickListener() {
@@ -371,6 +382,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textValueDistance.setText(seekBarDistance.getProgress() + " km");
+                distanceToHotel = seekBarDistance.getProgress();
             }
         });
 
@@ -379,6 +391,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textValuePrice.setText(seekBarPrice.getProgress() + " CHF");
+                maxprice= seekBarPrice.getProgress();
             }
 
             @Override
