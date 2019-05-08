@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import ch.fhnw.bedwaste.client.HotelItem;
 import ch.fhnw.bedwaste.model.Address;
@@ -64,8 +66,6 @@ public class HotelInfoActivity extends AppCompatActivity {
         final TextView insert_village = (TextView) findViewById(R.id.ph_location);
         final TextView insert_telnr = (TextView) findViewById(R.id.ph_phoneNr);
 
-
-        insert_hotelname.setText(hotellist_value);
 
         TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
 
