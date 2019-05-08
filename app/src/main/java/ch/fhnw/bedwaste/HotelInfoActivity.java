@@ -36,7 +36,8 @@ public class HotelInfoActivity extends AppCompatActivity {
      */
     private static final String TAG = "HotelInfoActivity";
     private BottomNavigationView mBottomNavigationView;
-
+    private TextView hotelAddress;
+    private TextView infoTextView;
     private TextView insert_hotelname;
     private TextView insert_starRating;
     private ImageView insert_banner;
@@ -46,9 +47,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private TextView insert_village;
     private TextView insert_telnr;
 
-
-    private TextView hotelAddress;
-    private TextView infoTextView;
+    private ConnectionDetector cd = new ConnectionDetector(HotelInfoActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +68,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
 
         TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
-        /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
-        if(hotelToDisplay!= null){
-            hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
-        }*/
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://86.119.40.244:8888/")
@@ -81,7 +77,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
-        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("eng", hotellist_value);
+        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", hotellist_value);
 
         call.enqueue(new Callback<HotelDescriptiveInfo>() {
             @Override
@@ -96,7 +92,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
                 insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
-                /**
+
                 //iterate thrpugh amount of stars to create *** String
                 java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
                 award_list = hotelDescriptiveInfo.getAffiliationInfo().getAwards();
@@ -120,7 +116,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
-                //Not in Hotel DescriptiveInfo nut Availabilies()
+                //Not in Hotel DescriptiveInfo but Availabilities()
                 //insert_price.setText(hotelDescriptiveInfo.get());
 
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
@@ -135,7 +131,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 Phone phone = phones.get(0);
 
                 insert_telnr.setText(phone.getPhoneNumber());
-*/
+
 
             }
 
@@ -144,6 +140,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 insert_hotelname.setText(t.getMessage());
             }
         });
+
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
@@ -158,6 +155,8 @@ public class HotelInfoActivity extends AppCompatActivity {
             layout.addView(imageView);
         }
         addBottomNavigation();
+
+        cd.internetRunnable.run();
 
     }
 

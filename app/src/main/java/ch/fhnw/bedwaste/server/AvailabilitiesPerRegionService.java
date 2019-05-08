@@ -1,13 +1,11 @@
 package ch.fhnw.bedwaste.server;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Map;
 
+import ch.fhnw.bedwaste.model.AvailabilityResult;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
-import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,20 +13,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HotelAvailabilityResultsService implements Callback<AvailabilityResults> {
+public class AvailabilitiesPerRegionService implements Callback<Map<String,AvailabilityResult>> {
     static final String BASE_URL = "http://86.119.40.244:8888";
-    private HotelAvailabilityResultsInterface jsonAPI;
+    private AvailabilitiesPerRegionInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
+    private Map<String,AvailabilityResult> availabilitiesPerRegionResponse= null;
 
-
-    public AvailabilityResults getAvailabilitiesResponse() {
-        return availabilitiesResponse;
-    }
-
-    private AvailabilityResults availabilitiesResponse= null;
-
-    public void start(String hotelId, int nbAdults, int nbChildren, int nbInfants){
+    public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms){
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -36,13 +28,12 @@ public class HotelAvailabilityResultsService implements Callback<AvailabilityRes
                 .client(httpClient.build());
 
         Retrofit retrofit = retrofitBuilder.build();
-        jsonAPI = retrofit.create(HotelAvailabilityResultsInterface.class);
-        getAvailabilities(hotelId, nbAdults, nbChildren, nbInfants);
+        jsonAPI = retrofit.create(AvailabilitiesPerRegionInterface.class);
+        fetchAvailabilitiesPerRegion(region, nbAdults, nbChildren, nbInfants, maxprice, nbrooms);
 
     }
-
-    private void getAvailabilities( String hotelId, int nbAdults, int nbChildren, int nbInfants){
-         Calendar calendar = Calendar.getInstance();
+    private void fetchAvailabilitiesPerRegion( String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms){
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String today = format.format(calendar);
 
@@ -50,27 +41,28 @@ public class HotelAvailabilityResultsService implements Callback<AvailabilityRes
         String tomorrow = format.format(calendar);
         //format the dates in the required format expected by Hotel Spider CRS API
 
-        Call<AvailabilityResults> callApi = jsonAPI.getHotelAvailabilities(hotelId, USER_ID,
-                today, tomorrow , nbAdults, nbChildren, nbInfants);
+        Call<Map<String,AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
+                today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms);
         callApi.enqueue(this);
     }
 
-
     @Override
-    public void onResponse(Call<AvailabilityResults> call, Response<AvailabilityResults> response) {
+    public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
         if(response.isSuccessful()) {
-            availabilitiesResponse = response.body();
+            availabilitiesPerRegionResponse = response.body();
         } else {
             errorCode = response.errorBody().toString();
         }
     }
 
     @Override
-    public void onFailure(Call<AvailabilityResults> call, Throwable t) {
+    public void onFailure(Call<Map<String, AvailabilityResult>> call, Throwable t) {
         t.printStackTrace();
     }
-
     public String getErrorCode() {
         return errorCode;
+    }
+    public Map<String, AvailabilityResult> getAvailabilitiesResponse() {
+        return availabilitiesPerRegionResponse;
     }
 }
