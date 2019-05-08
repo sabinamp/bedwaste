@@ -59,7 +59,10 @@ import com.google.android.gms.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.LocalTime;
+
 import java.util.Date;
 import java.util.List;
 
@@ -192,6 +195,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidThreeTen.init(this);
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -563,9 +568,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
+                        if (task.getResult() != null) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
+
                             LatLng mlastLatLng = new LatLng(mLastKnownLocation.getLatitude(),
                                     mLastKnownLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
@@ -777,6 +783,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             countdownHandler.postDelayed(this, 10000);
 
             try {
+
                 LocalTime localTime = LocalTime.now();
                 if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL) {
                     startCountdown();
