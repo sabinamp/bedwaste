@@ -43,7 +43,7 @@
 
         <activity android:name=".HotelListViewActivity" />
         <activity android:name=".HotelInfoActivity"></activity>
-        
+
 
     </application>
 

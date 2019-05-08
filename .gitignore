@@ -4,9 +4,12 @@
 /.idea/caches/build_file_checksums.ser
 /.idea/libraries
 /.idea/modules.xml
-/.idea/workspace.xml
-/.idea/gradle.xml
-/.idea/caches
+.idea/workspace.xml
+.idea/gradle.xml
+.idea/caches
+.idea/tasks.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
 
 .DS_Store
 /build
