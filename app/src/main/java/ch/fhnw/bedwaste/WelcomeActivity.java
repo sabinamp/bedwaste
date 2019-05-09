@@ -101,7 +101,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private static final int DEFAULT_ZOOM = 15;
     private boolean mLocationPermissionGranted;
 
-    //Object for Internet Connection
+    //Object for internet connection check
     private ConnectionDetector cd = new ConnectionDetector(WelcomeActivity.this);
 
     // Keys for storing activity state.
@@ -476,7 +476,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        //call Connection
+        // start of internet connection check
         cd.internetRunnable.run();
 
         // call Countdown
