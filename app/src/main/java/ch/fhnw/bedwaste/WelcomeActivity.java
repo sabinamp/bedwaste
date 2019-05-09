@@ -145,6 +145,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private boolean breakfast;
     private boolean wifi;
 
+
     //GoogleAPI Client related
     private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR = 1;
     boolean mResolvingError;
@@ -153,7 +154,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             new GoogleApiClient.ConnectionCallbacks() {
                 @Override
                 public void onConnected(Bundle bundle) {
-                    Toast.makeText(WelcomeActivity.this, "Google API Client - onConnected()", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(WelcomeActivity.this, "Google API Client - onConnected()", Toast.LENGTH_LONG).show();
                     try {
                         getDeviceLocation();
                     } catch (SecurityException e) {
