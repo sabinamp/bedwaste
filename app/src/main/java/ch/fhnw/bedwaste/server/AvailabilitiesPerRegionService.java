@@ -22,14 +22,8 @@ public class AvailabilitiesPerRegionService {
     private Map<String,AvailabilityResult> availabilitiesPerRegionResponse= null;
 
     public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build());
 
-        Retrofit retrofit = retrofitBuilder.build();
-        jsonAPI = retrofit.create(AvailabilitiesPerRegionInterface.class);
+        jsonAPI = APIClient.getClient().create(AvailabilitiesPerRegionInterface.class);
 
 
 

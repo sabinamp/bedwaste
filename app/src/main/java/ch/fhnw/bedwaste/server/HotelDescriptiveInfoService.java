@@ -27,15 +27,7 @@ public class HotelDescriptiveInfoService {
     private FetchDataError descriptiveInfoError= null;
     public void start(/*FetchDataError descriptionError*/){
 
-       // this.context = context;
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://86.119.40.244:8888/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        jsonDescriptiveInfoAPI = retrofit.create(HotelDescriptiveInfoInterface.class);
+        jsonDescriptiveInfoAPI = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
         //descriptiveInfoError = descriptionError;
 
     }
@@ -49,7 +41,7 @@ public class HotelDescriptiveInfoService {
 
             @Override
             public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
-
+                call.cancel();
             }
         });
 

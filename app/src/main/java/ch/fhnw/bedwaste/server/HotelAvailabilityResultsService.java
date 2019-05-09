@@ -29,14 +29,8 @@ public class HotelAvailabilityResultsService implements Callback<AvailabilityRes
     private AvailabilityResults availabilitiesResponse= null;
 
     public void start(String hotelId, int nbAdults, int nbChildren, int nbInfants){
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build());
 
-        Retrofit retrofit = retrofitBuilder.build();
-        jsonAPI = retrofit.create(HotelAvailabilityResultsInterface.class);
+        jsonAPI = APIClient.getClient().create(HotelAvailabilityResultsInterface.class);
         getAvailabilities(hotelId, nbAdults, nbChildren, nbInfants);
 
     }

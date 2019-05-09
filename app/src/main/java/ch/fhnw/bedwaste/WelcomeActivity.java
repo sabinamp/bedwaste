@@ -68,6 +68,7 @@ import java.util.List;
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
+import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -435,7 +436,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     //return availabilities in Brugg/Aargau
                     if(locationSearched.equalsIgnoreCase("Brugg")){
                         hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, true, true);
-                        //hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
+
                     }else{
                         //return availabilities in ZH
                         hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, null, null);
@@ -445,12 +446,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
                     List<Marker> markers = new ArrayList<Marker>();
                     HotelInfoPosition position = null;
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://86.119.40.244:8888/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
 
-                    HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+                    HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
 
                     for (AvailabilityDTO each: hotelsearch ) {
 
