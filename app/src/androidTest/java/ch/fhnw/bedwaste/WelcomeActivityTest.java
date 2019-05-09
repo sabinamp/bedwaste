@@ -47,6 +47,8 @@ public class WelcomeActivityTest {
         Assert.assertEquals(people_nr_string, "1");
     }
 
+
+
     @Test
     public void check_default_rooms(){
         TextView room_nr = welcomeActivity.findViewById(R.id.textRoomsValue);
