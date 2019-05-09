@@ -283,12 +283,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             public void onClick(View view) {
                 mFiltersButton.callOnClick();
                 //return availabilities in Brugg
-                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
+/*                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
                     hotelsearch = pmodel.getAvailableRoomsInRegion("ZH", nbadults,
                             0,0,400, nbrooms, breakfast, wifi);
                 }else{
 
-                }
+                }*/
             }
         });
         declineFilter.setOnClickListener(new ImageView.OnClickListener() {
@@ -421,16 +421,20 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 mEditText = findViewById(R.id.input_location);
                 if (!mEditText.getText().toString().equals("")) {
                     String locationSearched=mEditText.getText().toString();
-                    //return availabilities in Brugg/Aargau
-                    if(locationSearched.equalsIgnoreCase("Aargau")){
+/*                    //return availabilities in Brugg/Aargau
+                    if(locationSearched.equalsIgnoreCase("Brugg")){
                        hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
                     }else{
                         //return availabilities in ZH
                         hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, null, null);
-                    }
+                    }*/
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+
+/*                    for (AvailabilityDTO each: hotelsearch ) {
+                        //
+                    }*/
                     //markers and prices
                     mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.PLATZHIRSCH)
