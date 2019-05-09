@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent backToWelcomeIntent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                backToWelcomeIntent.putExtra("Startup", true);
                 startActivity(backToWelcomeIntent);
             }
             });

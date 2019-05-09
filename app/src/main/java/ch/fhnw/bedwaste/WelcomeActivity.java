@@ -223,7 +223,22 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mEditText = findViewById(R.id.input_location);
         addBottomNavigation();
-        addIntroAnimation();
+        Intent intent = getIntent();
+        boolean Startup = intent.getBooleanExtra("Startup", false);
+        if (Startup){
+            addIntroAnimation();
+        }
+        else {
+            helpText1 = (TextView) findViewById(R.id.firstHelpBox);
+            helpText2 = (TextView) findViewById(R.id.secondHelpBox);
+            BlankAnimationBar = (View) findViewById(R.id.blank_bar);
+            helpText1.setVisibility(View.INVISIBLE);
+            helpText2.setVisibility(View.INVISIBLE);
+            BlankAnimationBar.setVisibility(View.INVISIBLE);
+
+
+        }
+
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
 
