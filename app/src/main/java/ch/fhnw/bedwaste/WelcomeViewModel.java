@@ -33,6 +33,21 @@ public class WelcomeViewModel extends ViewModel {
     static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
     static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
+    static final LatLng BARAULAC= new LatLng(47.367301, 8.539349);
+    static final LatLng HELMHAUS= new LatLng(47.369158397978, 8.54404538869858);
+    static final LatLng GOTTHARD= new LatLng(47.480866, 8.207631);
+    static final LatLng GLOCKENHOF= new LatLng(47.37290, 8.53652);
+    static final LatLng LEONECK= new LatLng(47.379, 8.546);
+    static final LatLng MARRIOTT= new LatLng(47.3825796207, 8.54042923447);
+    static final LatLng NOWIFIBRUGG= new LatLng(47.483683, 8.207625);
+    static final LatLng NOWIFIBRUGG2= new LatLng(47.484220, 8.205203);
+    static final LatLng RIGIBLICK= new LatLng(47.388256, 8.553537);
+    static final LatLng TERMINUS= new LatLng(47.480889, 8.208165);
+    static final LatLng UTOKULM= new LatLng(47.349647, 8.491144);
+    static final LatLng JUGENDHERBERGE= new LatLng(47.481790, 8.194111);
+    static final LatLng MARCOPOLO= new LatLng(47.485581, 8.208088);
+    static final LatLng DESIGNBOUTIQUE= new LatLng(47.480177, 8.247090);
+    static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);
 
     private List<AvailabilityDTO> availabilityDTOList=null;
     private AvailabilitiesPerRegionService availabilitiesPerRegionService;
