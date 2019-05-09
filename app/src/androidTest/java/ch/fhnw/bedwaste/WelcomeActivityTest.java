@@ -1,5 +1,7 @@
 package ch.fhnw.bedwaste;
 
+import android.opengl.Visibility;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,20 +55,7 @@ public class WelcomeActivityTest {
         Assert.assertEquals(room_nr_string, "1");
     }
 
-    @Test
-    public void AnimationTest() {
-        boolean  Startup = welcomeActivity.getIntent().getBooleanExtra("Startup",false);
-        int VisibilityHelpBox1 = welcomeActivity.findViewById(R.id.firstHelpBox).getVisibility();
-        int VisibilityHelpBox2 = welcomeActivity.findViewById(R.id.secondHelpBox).getVisibility();
-        assertEquals(VisibilityHelpBox1, VisibilityHelpBox2);
-        if (Startup){
-            assertEquals(VisibilityHelpBox1, View.VISIBLE);
-        }
-        else {
-            assertEquals(VisibilityHelpBox1, View.INVISIBLE);
-        }
 
-    }
 
 
 
