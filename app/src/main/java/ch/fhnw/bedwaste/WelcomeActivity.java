@@ -57,16 +57,34 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalTime;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
+import ch.fhnw.bedwaste.model.ContactInfo;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.model.HotelInfo;
+import ch.fhnw.bedwaste.model.HotelInfoPosition;
+import ch.fhnw.bedwaste.model.MultimediaDescription;
+import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
+import ch.fhnw.bedwaste.model.Phone;
+import ch.fhnw.bedwaste.model.Service;
+import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
+import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -206,6 +224,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidThreeTen.init(this);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -420,23 +439,69 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 mEditText = findViewById(R.id.input_location);
+
                 if (!mEditText.getText().toString().equals("")) {
                     String locationSearched=mEditText.getText().toString();
-/*                    //return availabilities in Brugg/Aargau
+                    pmodel = new WelcomeViewModel();
+                    //return availabilities in Brugg/Aargau
                     if(locationSearched.equalsIgnoreCase("Brugg")){
-                       hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
+                        hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, true, true);
+                        //hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
                     }else{
                         //return availabilities in ZH
                         hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, null, null);
-                    }*/
+                    }
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                    List<Marker> markers = new ArrayList<Marker>();
+                    HotelInfoPosition position = null;
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://86.119.40.244:8888/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
 
-/*                    for (AvailabilityDTO each: hotelsearch ) {
-                        //
-                    }*/
-                    //markers and prices
+                    HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+
+                    for (AvailabilityDTO each: hotelsearch ) {
+
+                        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en",each.getHotelId() );
+                        call.enqueue(new Callback<HotelDescriptiveInfo>() {
+                            @Override
+                            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+
+                                if(!response.isSuccessful()) {
+
+
+
+                                    return;
+                                }
+
+                                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+
+                                 HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
+
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                                return;
+                            }
+                        });
+                        Marker marker = mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue()))
+                                .title(each.getName())
+                                .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                                .snippet("price: CHF "+each.getHotelPrice()));
+                        markers.add(marker);
+
+                    }
+                    for (Marker marker: markers) {
+                        marker.showInfoWindow();
+                    }
+                    /*//markers and prices
                     mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
@@ -460,7 +525,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             .title("Hotel Villette")
                             .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
                             .snippet("price: CHF 77"));
-
+*/
 
                 }
             }

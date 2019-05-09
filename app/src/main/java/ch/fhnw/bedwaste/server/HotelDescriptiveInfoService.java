@@ -26,41 +26,33 @@ public class HotelDescriptiveInfoService {
     private HotelDescriptiveInfo hotelinfo = null;
     private FetchDataError descriptiveInfoError= null;
     public void start(/*FetchDataError descriptionError*/){
-        LoggingInterceptor logging = new LoggingInterceptor();
+
        // this.context = context;
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://86.119.40.244:8888/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client);
-
-        Retrofit retrofit = retrofitBuilder.build();
         jsonDescriptiveInfoAPI = retrofit.create(HotelDescriptiveInfoInterface.class);
         //descriptiveInfoError = descriptionError;
 
     }
-    public void fetchDescriptiveInfo(String lang, String hotelId){
+    public  void fetchDescriptiveInfo(String lang, String hotelId){
         Call<HotelDescriptiveInfo> callApi = jsonDescriptiveInfoAPI.getDescriptiveInfo(lang, hotelId);
         callApi.enqueue(new Callback<HotelDescriptiveInfo>() {
             @Override
             public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
-                if(response.isSuccessful()) {
-                    hotelinfo = response.body();
-                } else {
-                    errorCode = response.errorBody().toString();
-                    //descriptiveInfoError.onServerError();
-                }
+                hotelinfo = response.body();
             }
 
             @Override
             public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
-                t.printStackTrace();
+
             }
         });
+
     }
 
 
