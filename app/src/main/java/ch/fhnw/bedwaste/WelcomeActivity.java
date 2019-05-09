@@ -31,9 +31,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AnimationSet;
 import android.widget.*;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -57,7 +55,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -69,16 +66,8 @@ import java.util.Date;
 import java.util.List;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
-import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
-import ch.fhnw.bedwaste.model.HotelInfo;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
-import ch.fhnw.bedwaste.model.MultimediaDescription;
-import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
-import ch.fhnw.bedwaste.model.Phone;
-import ch.fhnw.bedwaste.model.Service;
-import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
-import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,8 +108,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private static final int DEFAULT_ZOOM = 15;
     private boolean mLocationPermissionGranted;
 
-    //Object for internet connection check
-    private ConnectionDetector cd = new ConnectionDetector(WelcomeActivity.this);
+    //Object for network connection check
+    private NetworkDetector netDetector = new NetworkDetector(WelcomeActivity.this);
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -541,8 +530,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        // start of internet connection check
-        cd.internetRunnable.run();
+        // start of network connection check
+        netDetector.networkRunnable.run();
 
         // call Countdown
         countdownRunnable.run();

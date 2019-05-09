@@ -8,12 +8,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
     public static final String PROFILE_EXTRA_MESSAGE = "ch.fhnw.bedwaste.PROFILE_MESSAGE";
     private BottomNavigationView mBottomNavigationView;
-    private ConnectionDetector cd = new ConnectionDetector(ProfileActivity.this);
+    private NetworkDetector netDetector = new NetworkDetector(ProfileActivity.this);
 
     /**
      * Debugging tag LoginActivity used by the Android logger.
@@ -29,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
 
      //   addBottomNav();
 
-        cd.internetRunnable.run();
+        netDetector.networkRunnable.run();
     }
 
     private void addBottomNav() {

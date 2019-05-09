@@ -25,7 +25,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     private Button btn;
     private RecyclerView recyclerView;
     private final static List<HotelDTO> items= new ArrayList<>();
-    private ConnectionDetector cd = new ConnectionDetector(HotelListViewActivity.this);
+    private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
 
     /**
      * Debugging tag LoginActivity used by the Android logger.
@@ -45,7 +45,7 @@ public class HotelListViewActivity extends AppCompatActivity {
 
         addBottomNavigation();
 
-        cd.internetRunnable.run();
+        netDetector.networkRunnable.run();
 
     }
 

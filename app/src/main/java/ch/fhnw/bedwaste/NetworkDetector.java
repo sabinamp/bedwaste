@@ -8,24 +8,39 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 
-public class ConnectionDetector {
+class NetworkDetector {
 
-    boolean isShown;
-    Context context;
+    private boolean dialogShown;
+    private Context context;
 
-    ConnectionDetector(Context context) {
+    private Handler networkHandler = new Handler();
+
+    NetworkDetector(Context context) {
         this.context = context;
-        this.isShown = false;
+        this.dialogShown = false;
     }
 
-    public void checkConnected() {
-        if (!isConnected() && !isShown) {
-            isShown = true;
-            buildConnectionAlert().show();
+    Runnable networkRunnable = new Runnable() {
+        @Override
+        public void run() {
+            networkHandler.postDelayed(this, 5000);
+            if (!dialogShown) {
+                checkNetwork();
+            }
+
+
+        }
+    };
+
+    // Reacts to missing connection
+    private void checkNetwork() {
+        if (!isConnected()) {
+            dialogShown = true;
+            buildNetworkAlert().show();
         }
     }
 
-    public boolean isConnected() {
+    private boolean isConnected() {
         ConnectivityManager connectivity = (ConnectivityManager)
                 context.getSystemService(Service.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
@@ -37,38 +52,25 @@ public class ConnectionDetector {
         return false;
     }
 
-    public AlertDialog.Builder buildConnectionAlert() {
+    private AlertDialog.Builder buildNetworkAlert() {
         AlertDialog.Builder build = new AlertDialog.Builder(context);
-        build.setTitle("No Internet Connection");
-        build.setMessage("You need to have Mobile Data or wifi to use this app.");
-        build.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+        build.setTitle("Keine Internetverbindung");
+        build.setMessage("Bitte überprüfen Sie Ihre Netzwerkverbindung.");
+        build.setPositiveButton("Versuchen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                isShown = false;
-                checkConnected();
+                dialogShown = false;
+                checkNetwork();
             }
         });
         build.setCancelable(false);
         /*build.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                isShown = false;
+                dialogShown = false;
             }
-        });*/
+        });
+        */
         return build;
     }
-
-    Handler connectionHandler = new Handler();
-
-    Runnable internetRunnable = new Runnable() {
-        @Override
-        public void run() {
-            connectionHandler.postDelayed(this, 5000);
-            checkConnected();
-
-
-        }
-    };
 }
-
-

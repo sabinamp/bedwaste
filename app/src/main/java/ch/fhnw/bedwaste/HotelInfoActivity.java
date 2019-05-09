@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ch.fhnw.bedwaste.model.Address;
-import ch.fhnw.bedwaste.model.Award;
 import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfo;
@@ -52,7 +51,8 @@ public class HotelInfoActivity extends AppCompatActivity {
     private CheckBox checkBox_breakfast;
     private CheckBox checkBox_wlan;
 
-    private ConnectionDetector cd = new ConnectionDetector(HotelInfoActivity.this);
+    private NetworkDetector netDetector = new NetworkDetector(HotelInfoActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,8 +198,8 @@ public class HotelInfoActivity extends AppCompatActivity {
         }
         addBottomNavigation();
 
-
-        cd.internetRunnable.run();
+        // start of network connection check
+        netDetector.networkRunnable.run();
 
     }
 
