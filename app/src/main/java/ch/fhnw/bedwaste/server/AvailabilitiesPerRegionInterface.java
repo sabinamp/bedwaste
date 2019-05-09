@@ -17,8 +17,8 @@ public interface AvailabilitiesPerRegionInterface {
                                                                           @Query ("start") String startDate, @Query("end") String endDate,
                                                                           @Query("nbAdults") int nbAdults, @Query("nbChildren") int nbChildren,
                                                                           @Query("nbInfants") int nbInfants,
-                                                                          @Query("nbInfants") int maxprice,
-                                                                          @Query("nbInfants") int nbrooms,
+                                                                          @Query("maxprice") int maxprice,
+                                                                          @Query("nbrooms") int nbrooms,
                                                                           @Query("breakfast") boolean breakfast,
                                                                           @Query("wifi") boolean wifi);
 }

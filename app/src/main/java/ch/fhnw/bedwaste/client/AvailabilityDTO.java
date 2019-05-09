@@ -19,7 +19,13 @@ public class AvailabilityDTO {
     public String getName() {
         return name;
     }
+    public float getHotelPrice() {
+        return availableRoom.getTotalPrice();
+    }
 
+    public String getHotelId() {
+        return hotelId;
+    }
     public void setName(String name) {
         this.name = name;
     }
