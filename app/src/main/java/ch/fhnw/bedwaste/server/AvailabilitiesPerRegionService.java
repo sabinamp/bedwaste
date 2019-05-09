@@ -20,7 +20,7 @@ public class AvailabilitiesPerRegionService {
     private String errorCode = null;
     private Map<String,AvailabilityResult> availabilitiesPerRegionResponse= null;
 
-    public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms){
+    public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -29,10 +29,10 @@ public class AvailabilitiesPerRegionService {
 
         Retrofit retrofit = retrofitBuilder.build();
         jsonAPI = retrofit.create(AvailabilitiesPerRegionInterface.class);
-        fetchAvailabilitiesPerRegion(region, nbAdults, nbChildren, nbInfants, maxprice, nbrooms);
+        fetchAvailabilitiesPerRegion(region, nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
 
     }
-    private void fetchAvailabilitiesPerRegion( String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms){
+    private void fetchAvailabilitiesPerRegion( String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, boolean breakfast, boolean wifi){
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String today = format.format(calendar);
@@ -42,7 +42,7 @@ public class AvailabilitiesPerRegionService {
         //format the dates in the required format expected by Hotel Spider CRS API
 
         Call<Map<String,AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
-                today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms);
+                today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
         callApi.enqueue(new Callback<Map<String, AvailabilityResult>>() {
             @Override
             public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
@@ -57,7 +57,7 @@ public class AvailabilitiesPerRegionService {
 
             @Override
             public void onFailure(Call<Map<String, AvailabilityResult>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

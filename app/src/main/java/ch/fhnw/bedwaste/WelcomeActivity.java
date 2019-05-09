@@ -66,6 +66,8 @@ import org.threeten.bp.LocalTime;
 import java.util.Date;
 import java.util.List;
 
+import ch.fhnw.bedwaste.client.AvailabilityDTO;
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Marker mPlatzhirsch;
@@ -73,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Marker mHelmhaus;
     private Marker mHVillette;
     private WelcomeViewModel pmodel;
-
+    List<AvailabilityDTO> hotelsearch;
 
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
@@ -280,6 +282,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 mFiltersButton.callOnClick();
+                //return availabilities in Brugg
+                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
+                    hotelsearch = pmodel.getAvailableRoomsInRegion("ZH", nbadults,
+                            0,0,400, nbrooms, breakfast, wifi);
+                }else{
+
+                }
             }
         });
         declineFilter.setOnClickListener(new ImageView.OnClickListener() {
@@ -343,25 +352,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 nbrooms= Integer.parseInt(RoomsValue);
             }
         });
-     /* btnLessNights.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String NightsValue = textValueNights.getText().toString();
-                if (Integer.parseInt(NightsValue) != 1) {
-                    NightsValue = String.valueOf(Integer.parseInt(NightsValue) - 1);
-                    textValueNights.setText(NightsValue);
-                }
 
-            }
-        });
-       btnMoreNights.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String NightsValue = textValueNights.getText().toString();
-                NightsValue = String.valueOf(Integer.parseInt(NightsValue) + 1);
-                textValueNights.setText(NightsValue);
-            }
-        });*/
         btnFilterExtend.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -429,9 +420,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             public void onClick(View v) {
                 mEditText = findViewById(R.id.input_location);
                 if (!mEditText.getText().toString().equals("")) {
+                    String locationSearched=mEditText.getText().toString();
+                    //return availabilities in Brugg/Aargau
+                    if(locationSearched.equalsIgnoreCase("Aargau")){
+                       hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
+                    }else{
+                        //return availabilities in ZH
+                        hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, null, null);
+                    }
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                    //markers and prices
                     mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.PLATZHIRSCH)
                             .title("Hotel Platzhirsch")

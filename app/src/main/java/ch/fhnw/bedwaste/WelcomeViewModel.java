@@ -65,8 +65,8 @@ public class WelcomeViewModel extends ViewModel {
 
     }
 
-    public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms){
-        availabilitiesPerRegionService.start(region,nbAdults, nbChildren, nbInfants, maxprice, nbrooms);
+    public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
+        availabilitiesPerRegionService.start(region,nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
         availabilitiesPerRegion = availabilitiesPerRegionService.getAvailabilitiesResponse();
 
         for (Map.Entry<String,AvailabilityResult> each : availabilitiesPerRegion.entrySet() ) {
@@ -78,7 +78,7 @@ public class WelcomeViewModel extends ViewModel {
         return availabilityDTOList;
     }
 
-    public List<HotelDescriptiveInfo> getHotelDescriptiveInfo_HotelsPerRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms) {
+    public List<HotelDescriptiveInfo> getHotelDescriptiveInfo_HotelsPerRegion(String region) {
         List<HotelDescriptiveInfo> hotelDescriptiveInfoList=new ArrayList<>();
         descriptiveInfoService.start();
         for (String hotelId: hotelIdsInRegion ) {
