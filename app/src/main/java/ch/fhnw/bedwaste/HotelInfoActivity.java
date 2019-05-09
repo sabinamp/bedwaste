@@ -21,6 +21,7 @@ import ch.fhnw.bedwaste.model.MultimediaDescription;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.model.Phone;
 import ch.fhnw.bedwaste.model.Service;
+import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,12 +87,12 @@ public class HotelInfoActivity extends AppCompatActivity {
             hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
         }*/
 
-        Retrofit retrofit = new Retrofit.Builder()
+/*        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://86.119.40.244:8888/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build();*/
 
-        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
 
         Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", hotellist_value);
 

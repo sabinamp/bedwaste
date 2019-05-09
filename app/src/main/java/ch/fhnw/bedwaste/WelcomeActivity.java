@@ -64,6 +64,8 @@ import org.threeten.bp.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
@@ -83,7 +85,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Marker mHelmhaus;
     private Marker mHVillette;
     private WelcomeViewModel pmodel;
-    List<AvailabilityDTO> hotelsearch;
+    //List<AvailabilityDTO> hotelsearch;
+    Map<String, LatLng> hotelsToDisplay=null;
 
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
@@ -431,44 +434,48 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 mEditText = findViewById(R.id.input_location);
 
                 if (!mEditText.getText().toString().equals("")) {
-                    String locationSearched=mEditText.getText().toString();
+                    String locationSearched = mEditText.getText().toString();
                     pmodel = new WelcomeViewModel();
                     //return availabilities in Brugg/Aargau
-                    if(locationSearched.equalsIgnoreCase("Brugg")){
-                        hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, true, true);
+                    if (locationSearched.equalsIgnoreCase("Brugg")) {
+                        //hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, false, false);
+                       hotelsToDisplay= pmodel.getHotelIdsInRegion("Brugg");
 
-                    }else{
+                    } else {
                         //return availabilities in ZH
-                        hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, null, null);
+                        // hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, false, false);
+                        hotelsToDisplay=pmodel.getHotelIdsInRegion("ZH");
                     }
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
-                    List<Marker> markers = new ArrayList<Marker>();
-                    HotelInfoPosition position = null;
+                    final List<Marker> markers = new ArrayList<Marker>();
+                    //HotelInfoPosition position = null;
 
                     HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
 
-                    for (AvailabilityDTO each: hotelsearch ) {
+                    Set<String> ids = hotelsToDisplay.keySet();
+                    for (String eachId : ids) {
 
-                        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en",each.getHotelId() );
+                        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", eachId);
                         call.enqueue(new Callback<HotelDescriptiveInfo>() {
                             @Override
                             public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
 
-                                if(!response.isSuccessful()) {
-
-
-
+                                if (!response.isSuccessful()) {
                                     return;
                                 }
 
                                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+                                HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
+                                String hotelName = hotelDescriptiveInfo.getHotelName();
 
-                                 HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
-
-
-
+                                Marker marker = mMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(position.getLatitude().doubleValue(), position.getLongitude().doubleValue()))
+                                        .title(hotelName)
+                                        .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                                        .snippet("price: CHF " + "xxx"));
+                                markers.add(marker);
                             }
 
                             @Override
@@ -476,19 +483,16 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                                 return;
                             }
                         });
-                        Marker marker = mMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue()))
-                                .title(each.getName())
-                                .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                                .snippet("price: CHF "+each.getHotelPrice()));
-                        markers.add(marker);
+
 
                     }
+
+
                     for (Marker marker: markers) {
                         marker.showInfoWindow();
                     }
-                    /*//markers and prices
-                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
+                    //markers and prices
+/*                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
                             .position(WelcomeViewModel.PLATZHIRSCH)
                             .title("Hotel Platzhirsch")
                             .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
@@ -510,8 +514,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             .position(WelcomeViewModel.VILLETTE)
                             .title("Hotel Villette")
                             .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: CHF 77"));
-*/
+                            .snippet("price: CHF 77"));*/
+
 
                 }
             }

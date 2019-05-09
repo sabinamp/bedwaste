@@ -1,6 +1,4 @@
 package ch.fhnw.bedwaste;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import android.arch.lifecycle.ViewModel;
@@ -9,11 +7,8 @@ import android.graphics.Movie;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +29,6 @@ public class WelcomeViewModel extends ViewModel {
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
     static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
     static final LatLng BARAULAC= new LatLng(47.367301, 8.539349);
-    static final LatLng HELMHAUS= new LatLng(47.369158397978, 8.54404538869858);
     static final LatLng GOTTHARD= new LatLng(47.480866, 8.207631);
     static final LatLng GLOCKENHOF= new LatLng(47.37290, 8.53652);
     static final LatLng LEONECK= new LatLng(47.379, 8.546);
@@ -53,7 +47,10 @@ public class WelcomeViewModel extends ViewModel {
     private AvailabilitiesPerRegionService availabilitiesPerRegionService;
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
     private HotelDescriptiveInfoService descriptiveInfoService;
-    private List<String> hotelIdsInRegion=null;
+
+
+    private Map<String, LatLng> hotelIdsInRegionAargau=null;
+    private Map<String, LatLng> hotelIdsInRegionZH=null;
 
 
     public WelcomeViewModel(){
@@ -61,11 +58,31 @@ public class WelcomeViewModel extends ViewModel {
         availabilityDTOList = new ArrayList<>();
         availabilitiesPerRegionService = new AvailabilitiesPerRegionService();
         descriptiveInfoService = new HotelDescriptiveInfoService();
-        hotelIdsInRegion = new ArrayList<>();
+        hotelIdsInRegionZH = new HashMap<>();
+        hotelIdsInRegionAargau = new HashMap<>();
+        hotelIdsInRegionZH.put("00I5846a022h291r",HOTTINGEN);
+        hotelIdsInRegionZH.put("00U5846f022c291a", PLATZHIRSCH);
+        hotelIdsInRegionZH.put("00U5846j022d292h",HEMLHAUS);
+        hotelIdsInRegionZH.put("00U5846j022d291s",VILLETTE);
+        hotelIdsInRegionZH.put("00B5846B02barlac",BARAULAC );
 
+        hotelIdsInRegionZH.put("00U5846j020d210g", GLOCKENHOF);
+        hotelIdsInRegionZH.put("00U5845j020s210l", LEONECK);
+        hotelIdsInRegionZH.put("00U5847f022marri", MARRIOTT);
+        hotelIdsInRegionZH.put("00U5844f022rigib", RIGIBLICK);
+        hotelIdsInRegionZH.put("00B5846t02termin", TERMINUS);
+        hotelIdsInRegionZH.put("00U5846e0f2ukulm", UTOKULM);
+
+        hotelIdsInRegionAargau.put("00F5846A022nowifi", NOWIFIBRUGG);
+        hotelIdsInRegionAargau.put("00F5846A02nowifi2", NOWIFIBRUGG2);
+        hotelIdsInRegionAargau.put("00G5846t022gotth", GOTTHARD);
+        hotelIdsInRegionAargau.put("00U5845f022gbrugg", JUGENDHERBERGE);
+        hotelIdsInRegionAargau.put("00U5846f022marco", MARCOPOLO);
+        hotelIdsInRegionAargau.put("00U5556f030plb91", DESIGNBOUTIQUE);
+        hotelIdsInRegionAargau.put("00U5845f022rotesh", ROTESHAUS);
     }
 
-    public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
+/*    public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
         availabilitiesPerRegionService.start(region,nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
         availabilitiesPerRegion = availabilitiesPerRegionService.getAvailabilitiesResponse();
         System.out.println("WelcomeViewModel");
@@ -88,8 +105,17 @@ public class WelcomeViewModel extends ViewModel {
         }
         return hotelDescriptiveInfoList;
 
+    }*/
+
+
+    public Map<String, LatLng> getHotelIdsInRegion(String reg) {
+        if (reg.equals("ZH")) {
+            return hotelIdsInRegionZH;
+        }
+        else if(reg.equals("Brugg")){
+            return hotelIdsInRegionZH;
+        }
+       return null;
     }
-    private List<String> getHotelIdsInRegion(){
-        return hotelIdsInRegion;
-    }
+
 }
