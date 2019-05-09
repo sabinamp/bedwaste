@@ -68,9 +68,10 @@ public class WelcomeViewModel extends ViewModel {
     public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
         availabilitiesPerRegionService.start(region,nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
         availabilitiesPerRegion = availabilitiesPerRegionService.getAvailabilitiesResponse();
-
+        System.out.println("WelcomeViewModel");
         for (Map.Entry<String,AvailabilityResult> each : availabilitiesPerRegion.entrySet() ) {
             AvailabilityResult resultAv = each.getValue();
+            System.out.println("WelcomeViewModel-inloop");
             String[] rateplanIdElem= resultAv.getRateplanId().split("-");
             availabilityDTOList.add(new AvailabilityDTO(each.getKey(), rateplanIdElem[0], resultAv ));
             hotelIdsInRegion.add(each.getKey());

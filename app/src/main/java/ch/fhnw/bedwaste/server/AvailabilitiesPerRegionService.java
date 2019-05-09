@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AvailabilitiesPerRegionService {
-    static final String BASE_URL = "http://86.119.40.244:8888";
+    static final String BASE_URL = "http://86.119.40.244:8888/";
     private AvailabilitiesPerRegionInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
@@ -30,10 +30,9 @@ public class AvailabilitiesPerRegionService {
 
         Retrofit retrofit = retrofitBuilder.build();
         jsonAPI = retrofit.create(AvailabilitiesPerRegionInterface.class);
-        fetchAvailabilitiesPerRegion(region, nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
 
-    }
-    private void fetchAvailabilitiesPerRegion( String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, boolean breakfast, boolean wifi){
+
+
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd") ;
@@ -45,11 +44,14 @@ public class AvailabilitiesPerRegionService {
 
         Call<Map<String,AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
                 today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
-        System.out.println(callApi.request());
+        System.out.println("Before enque");
         callApi.enqueue(new Callback<Map<String, AvailabilityResult>>() {
+
             @Override
             public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
+                System.out.println("inside Enque");
                 if(response.isSuccessful()){
+                    ;
                     availabilitiesPerRegionResponse = response.body();
                     System.out.println(response.body().toString());
 

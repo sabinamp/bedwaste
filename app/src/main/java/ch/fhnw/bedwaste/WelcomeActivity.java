@@ -439,14 +439,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 mEditText = findViewById(R.id.input_location);
+
                 if (!mEditText.getText().toString().equals("")) {
                     String locationSearched=mEditText.getText().toString();
+                    pmodel = new WelcomeViewModel();
                     //return availabilities in Brugg/Aargau
                     if(locationSearched.equalsIgnoreCase("Brugg")){
-                        AvailabilitiesPerRegionService availabilitiesPerRegionService = new AvailabilitiesPerRegionService();
-                        availabilitiesPerRegionService.start("Aargau",1,0,0,400,1,true,true);
-                        availabilitiesPerRegionService.getAvailabilitiesResponse();
-
+                        hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, true, true);
                         //hotelsearch= pmodel.getAvailableRoomsInRegion("Aargau", 1,0,0,400,1,null,null);
                     }else{
                         //return availabilities in ZH
