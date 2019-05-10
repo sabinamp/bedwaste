@@ -57,6 +57,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -64,6 +65,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.LocalTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +73,7 @@ import java.util.Set;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.model.HotelInfo;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
 import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
@@ -158,8 +161,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private boolean breakfast;
     private boolean wifi;
 
+    private  List<String> all_ids;
     private CardView hotel_overview_layout;
     private TextView ho_hotelname;
+    private  Retrofit retrofit;
+    private HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface;
+    private Call<HotelDescriptiveInfo> call;
+
 
 
     //GoogleAPI Client related
@@ -297,7 +305,16 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         filterLayout.setVisibility(View.GONE);
 
         //HotelOverview Items
+        all_ids = Arrays.asList("00B5846B02barlac", "00U5846j020d210g", "00G5846t022gotth", "00U5846j022d292h", "00I5846a022h291r", "00U5845j020s210l", "00U5847f022marri", "00F5846A022nowifi", "00F5846A02nowifi2", "00U5846f022c291a", "00U5844f022rigib", "00B5846t02termin", "00U5846e0f2ukulm", "00U5846j022d291s", "00U5845f022gbrugg", "00U5846f022marco", "00U5556f030plb91", "00U5845f022rotesh");
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://86.119.40.244:8888/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
+
 
         applyFilter.setOnClickListener(new ImageView.OnClickListener() {
             @Override
@@ -565,6 +582,48 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         });
     }
 
+    private String return_matching_id(final Marker marker, List<String> id_list){
+        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+
+        for (String id : id_list){
+            Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", "id");
+            call.enqueue(new Callback<HotelDescriptiveInfo>() {
+                @Override
+                public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+
+                    if(!response.isSuccessful()) {
+
+                        ho_hotelname.setText("Code: " + response.code());
+
+                        return;
+                    }
+
+                    HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+
+                    HotelInfo hotelInfo = hotelDescriptiveInfo.getHotelInfo();
+                    HotelInfoPosition hotelInfoPosition = hotelInfo.getPosition();
+                    BigDecimal hotel_latitude = hotelInfoPosition.getLatitude();
+                    BigDecimal hotel_longitude= hotelInfoPosition.getLongitude();
+                    LatLng markerPosition = marker.getPosition();
+
+
+                }
+
+                @Override
+                public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                    ho_hotelname.setText(t.getMessage());
+                    System.out.println(t.getMessage());
+                }
+            });
+
+        }
+
+
+
+
+        return "";
+    }
+
     private void addBottomNavigation() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -631,10 +690,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         hotel_overview_layout.setVisibility(View.VISIBLE);
         ho_hotelname.setText("WORKS");
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://86.119.40.244:8888/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        String matching_hotel_id = return_matching_id(marker, all_ids);
 
         /*HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
