@@ -85,10 +85,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-    private Marker mPlatzhirsch;
-    private Marker mHottingen;
-    private Marker mHelmhaus;
-    private Marker mHVillette;
+
     private WelcomeViewModel pmodel;
     //List<AvailabilityDTO> hotelsearch;
     Map<String, LatLng> hotelsToDisplay=null;
@@ -481,7 +478,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
                     Set<String> ids = hotelsToDisplay.keySet();
                     for (String eachId : ids) {
-
+                        Log.d(TAG, "start fetching data from the server");
                         Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", eachId);
                         call.enqueue(new Callback<HotelDescriptiveInfo>() {
                             @Override
@@ -490,16 +487,16 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                                 if (!response.isSuccessful()) {
                                     return;
                                 }
-
+                                int price=250;
                                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
                                 HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
                                 String hotelName = hotelDescriptiveInfo.getHotelName();
-
+                                //markers and prices
                                 Marker marker = mMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(position.getLatitude().doubleValue(), position.getLongitude().doubleValue()))
                                         .title(hotelName)
                                         .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                                        .snippet("price: CHF " + "xxx"));
+                                        .snippet( hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10"+" CHF " + price));
                                 markers.add(marker);
                             }
 
@@ -516,30 +513,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     for (Marker marker: markers) {
                         marker.showInfoWindow();
                     }
-                    //markers and prices
-/*                    mPlatzhirsch = mMap.addMarker(new MarkerOptions()
-                            .position(WelcomeViewModel.PLATZHIRSCH)
-                            .title("Hotel Platzhirsch")
-                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: CHF 107"));
-                    mPlatzhirsch.showInfoWindow();
-                    mHelmhaus = mMap.addMarker(new MarkerOptions()
-                            .position(WelcomeViewModel.HEMLHAUS)
-                            .title("Hotel Helmhaus")
-                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: CHF 97"));
-
-                    mHottingen = mMap.addMarker(new MarkerOptions()
-                            .position(WelcomeViewModel.HOTTINGEN)
-                            .title("Hotel Hottingen")
-                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: CHF 120"));
-
-                    mHVillette = mMap.addMarker(new MarkerOptions()
-                            .position(WelcomeViewModel.VILLETTE)
-                            .title("Hotel Villette")
-                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet("price: CHF 77"));*/
 
 
                 }
