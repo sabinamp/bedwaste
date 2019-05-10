@@ -496,7 +496,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                                         .position(new LatLng(position.getLatitude().doubleValue(), position.getLongitude().doubleValue()))
                                         .title(hotelName)
                                         .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                                        .snippet( hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10"+" CHF " + price));
+                                        .snippet( /*hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10"+*/" CHF " + price));
                                 markers.add(marker);
                             }
 
