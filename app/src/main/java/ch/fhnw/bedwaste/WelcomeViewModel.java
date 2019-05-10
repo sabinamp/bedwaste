@@ -118,16 +118,7 @@ public class WelcomeViewModel extends ViewModel {
         return availabilityDTOList;
     }
 
-    public List<HotelDescriptiveInfo> getHotelDescriptiveInfo_HotelsPerRegion(String region) {
-        List<HotelDescriptiveInfo> hotelDescriptiveInfoList=new ArrayList<>();
-        descriptiveInfoService.start();
-        for (String hotelId: hotelIdsInRegion ) {
-            descriptiveInfoService.fetchDescriptiveInfo("en",hotelId);
-            hotelDescriptiveInfoList.add(descriptiveInfoService.getHotelinfo());
-        }
-        return hotelDescriptiveInfoList;
-
-    }*/
+    */
 
 
     public Map<String, LatLng> getHotelIdsInRegion(String reg) {
