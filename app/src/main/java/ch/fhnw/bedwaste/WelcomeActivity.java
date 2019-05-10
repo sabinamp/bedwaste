@@ -323,11 +323,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
         ho_image = (ImageView) findViewById(R.id.wel_icon);
-        //ho_star_rating = (TextView) findViewById(R.id.wel_star);
+        ho_star_rating = (TextView) findViewById(R.id.wel_stars);
         ho_price_per_night =(TextView) findViewById(R.id.wel_hotel_price);
         ho_address =(TextView) findViewById(R.id.wel_hotel_address_line);
         ho_city = (TextView) findViewById(R.id.wel_otel_city);
-        ho_rating =(TextView) findViewById(R.id.wel_stars);
         ho_minutes =(TextView) findViewById(R.id.wel_min_hotel);
 
 
@@ -713,13 +712,26 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 ch.fhnw.bedwaste.model.Award hotel_association_rating = award_list.get(0);
 
                 String star_amount = hotel_association_rating.getRating();
-                int stars = Integer.parseInt(star_amount);
+                String star_string;
+                if (star_amount == null){
+                    star_string = "No Rating";
+                }
+                else {
+                    int stars = Integer.parseInt(star_amount);
+                    star_string = new String(new char[stars]).replace("", "*");
+                    ho_star_rating.setText(star_string);
 
-                String starstring = new String(new char[stars]).replace("", "*");
-
-                //ho_star_rating.setText(starstring);
-
+                }
                 */
+
+
+
+
+
+
+
+
+
 
                 //insert_banner?!
                 HotelInfo hotelInfo = hotelDescriptiveInfo.getHotelInfo();
