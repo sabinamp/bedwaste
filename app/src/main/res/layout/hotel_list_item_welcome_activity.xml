@@ -39,31 +39,21 @@
                 android:cropToPadding="true"
                 android:paddingLeft="0dp"
                 android:src="@drawable/ic_location_city_blue_240dp" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/wel_hotel_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="12dp"
-                    android:paddingBottom="2dp"
-                    android:text="9/10"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/wel_min_hotel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
                     android:paddingLeft="22dp"
                     android:paddingBottom="2dp"
                     android:text="3min"
+                    android:textAlignment="center"
                     android:textColor="@color/min_color"
                     android:textSize="18sp"
                     android:textStyle="bold" />
