@@ -38,7 +38,7 @@
         <ImageView
             android:id="@+id/ph_hotelGeneralImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="221dp"
             android:layout_weight="1"
             android:minHeight="100dp"
             android:visibility="visible"

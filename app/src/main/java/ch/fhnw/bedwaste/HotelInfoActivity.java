@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import ch.fhnw.bedwaste.model.Address;
 import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
@@ -53,6 +55,8 @@ public class HotelInfoActivity extends AppCompatActivity {
     private CheckBox checkBox_wlan;
 
     private NetworkDetector netDetector = new NetworkDetector(HotelInfoActivity.this);
+
+    java.util.List<MultimediaDescriptionImages> hotel_images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +137,8 @@ public class HotelInfoActivity extends AppCompatActivity {
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
 
-                //insert_banner.setImageURI(imageUrl_banner);
+
+                Picasso.get().load(imageUrl_banner).fit().into(insert_banner);
 
 
 
@@ -187,15 +192,17 @@ public class HotelInfoActivity extends AppCompatActivity {
         insert_hotelname.setText(test);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
-        for (int i = 0; i < amount_hotel_pictures; i++) {
+        for (int i = 1; i < amount_hotel_pictures; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setId(i);
             imageView.setPadding(2, 2, 2, 2);
             //imageView.setImageBitmap(BitmapFactory.decodeResource(
             //        getResources(), R.drawable.ic_launcher_foreground));
-            imageView.setImageResource(R.drawable.ic_launcher_background);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            layout.addView(imageView);
+            String ImageURL = hotel_images.get(i).getImageUrl();
+            System.out.print(ImageURL);
+
+            insert_hotelname.setText(ImageURL);
+            Picasso.get().load(ImageURL).fit().into(imageView);
         }
         addBottomNavigation();
 

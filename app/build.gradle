@@ -59,4 +59,7 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    //Picasso for placing images from links into ImageViews
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
