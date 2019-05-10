@@ -47,8 +47,30 @@ public class WelcomeViewModel extends ViewModel {
     private AvailabilitiesPerRegionService availabilitiesPerRegionService;
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
     private HotelDescriptiveInfoService descriptiveInfoService;
+    public static Map<LatLng, String > hotelIdBaasedOnPosition= null;
+    static  {
+        hotelIdBaasedOnPosition = new HashMap<>();
+        hotelIdBaasedOnPosition.put(HOTTINGEN, "00I5846a022h291r");
+        hotelIdBaasedOnPosition.put( PLATZHIRSCH,"00U5846f022c291a");
+        hotelIdBaasedOnPosition.put(HEMLHAUS,"00U5846j022d292h");
+        hotelIdBaasedOnPosition.put(VILLETTE,"00U5846j022d291s");
+        hotelIdBaasedOnPosition.put(BARAULAC,"00B5846B02barlac" );
 
+        hotelIdBaasedOnPosition.put( GLOCKENHOF,"00U5846j020d210g");
+        hotelIdBaasedOnPosition.put( LEONECK,"00U5845j020s210l");
+        hotelIdBaasedOnPosition.put( MARRIOTT,"00U5847f022marri");
+        hotelIdBaasedOnPosition.put( RIGIBLICK,"00U5844f022rigib");
+        hotelIdBaasedOnPosition.put( TERMINUS,"00B5846t02termin");
+        hotelIdBaasedOnPosition.put( UTOKULM,"00U5846e0f2ukulm");
 
+        hotelIdBaasedOnPosition.put( NOWIFIBRUGG,"00F5846A022nowifi");
+        hotelIdBaasedOnPosition.put( NOWIFIBRUGG2,"00F5846A02nowifi2");
+        hotelIdBaasedOnPosition.put( GOTTHARD, "00G5846t022gotth");
+        hotelIdBaasedOnPosition.put( JUGENDHERBERGE,"00U5845f022gbrugg");
+        hotelIdBaasedOnPosition.put( MARCOPOLO, "00U5846f022marco");
+        hotelIdBaasedOnPosition.put( DESIGNBOUTIQUE, "00U5556f030plb91");
+        hotelIdBaasedOnPosition.put( ROTESHAUS,"00U5845f022rotesh");
+    }
     private Map<String, LatLng> hotelIdsInRegionAargau=null;
     private Map<String, LatLng> hotelIdsInRegionZH=null;
 

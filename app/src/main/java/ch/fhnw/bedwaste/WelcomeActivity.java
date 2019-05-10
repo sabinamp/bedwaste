@@ -663,11 +663,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         hotel_overview_layout.setVisibility(View.VISIBLE);
         ho_hotelname.setText("WORKS");
-        String matching_hotel_id = return_matching_id(marker, all_ids);
+        //String matching_hotel_id = return_matching_id(marker, all_ids);
+        String matched_hotel_id = WelcomeViewModel.hotelIdBaasedOnPosition.get( marker.getPosition());
+        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
 
-        /*HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
-        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", "HOTELID");
+        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", matched_hotel_id);
 
         call.enqueue(new Callback<HotelDescriptiveInfo>() {
             @Override
@@ -676,13 +677,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 if(!response.isSuccessful()) {
 
                     ho_hotelname.setText("Code: " + response.code());
-
                     return;
                 }
 
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-
-                //ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+                String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
+                ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
 
             }
@@ -692,7 +692,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 ho_hotelname.setText(t.getMessage());
                 System.out.println(t.getMessage());
             }
-        });*/
+        });
 
         return false;
     }
