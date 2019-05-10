@@ -26,10 +26,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.*;
@@ -79,7 +81,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private Marker mPlatzhirsch;
     private Marker mHottingen;
     private Marker mHelmhaus;
@@ -155,6 +157,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private int nbrooms;
     private boolean breakfast;
     private boolean wifi;
+
+    private CardView hotel_overview_layout;
+    private TextView ho_hotelname;
 
 
     //GoogleAPI Client related
@@ -290,6 +295,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         textValuePrice = (TextView) findViewById(R.id.textPriceValue);
         // Set Visibility of Filter to invisible
         filterLayout.setVisibility(View.GONE);
+
+        //HotelOverview Items
+        ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
 
         applyFilter.setOnClickListener(new ImageView.OnClickListener() {
             @Override
@@ -534,6 +542,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         // start of network connection check
         netDetector.networkRunnable.run();
 
+        //add overview of clicked hotel
+        hotel_overview_layout = (CardView) findViewById(R.id.hotel_overview);
+
         // call Countdown
         countdownRunnable.run();
 
@@ -601,6 +612,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
+
+        googleMap.setOnMarkerClickListener(this);
+
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -609,6 +623,49 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+
+        hotel_overview_layout.setVisibility(View.VISIBLE);
+        ho_hotelname.setText("WORKS");
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://86.119.40.244:8888/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        /*HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
+
+        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", "HOTELID");
+
+        call.enqueue(new Callback<HotelDescriptiveInfo>() {
+            @Override
+            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+
+                if(!response.isSuccessful()) {
+
+                    ho_hotelname.setText("Code: " + response.code());
+
+                    return;
+                }
+
+                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+
+                //ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+
+
+            }
+
+            @Override
+            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                ho_hotelname.setText(t.getMessage());
+                System.out.println(t.getMessage());
+            }
+        });*/
+
+        return false;
     }
 
     private void showGoogleAPIErrorDialog(int errorCode) {
@@ -799,6 +856,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
+    }
+
+    //make overview disappear when not clicked on marker
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (hotel_overview_layout.getVisibility() == View.VISIBLE){
+            hotel_overview_layout.setVisibility(View.GONE);
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
 
