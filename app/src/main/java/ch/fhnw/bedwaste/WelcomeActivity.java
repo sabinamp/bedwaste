@@ -61,6 +61,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import com.squareup.picasso.Picasso;
 
 import org.threeten.bp.LocalTime;
 
@@ -72,9 +73,12 @@ import java.util.Map;
 import java.util.Set;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
+import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfo;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
+import ch.fhnw.bedwaste.model.MultimediaDescription;
+import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import retrofit2.Call;
@@ -164,6 +168,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private  Retrofit retrofit;
     private HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface;
     private Call<HotelDescriptiveInfo> call;
+    private ImageView ho_image;
+    private TextView ho_star_rating;
+    private TextView ho_price_per_night;
+    private TextView ho_address;
+    private TextView ho_city;
+    private TextView ho_rating;
+    private TextView ho_minutes;
 
 
 
@@ -311,6 +322,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
+        ho_image = (ImageView) findViewById(R.id.wel_icon);
+        //ho_star_rating = (TextView) findViewById(R.id.wel_star);
+        ho_price_per_night =(TextView) findViewById(R.id.wel_hotel_price);
+        ho_address =(TextView) findViewById(R.id.wel_hotel_address_line);
+        ho_city = (TextView) findViewById(R.id.wel_otel_city);
+        ho_rating =(TextView) findViewById(R.id.wel_stars);
+        ho_minutes =(TextView) findViewById(R.id.wel_min_hotel);
+
 
 
         applyFilter.setOnClickListener(new ImageView.OnClickListener() {
@@ -683,6 +702,54 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
                 String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+
+
+                /*
+                //iterate thrpugh amount of stars to create *** String
+
+                java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
+                award_list = hotelDescriptiveInfo.getAffiliationInfo().getAwards();
+                String star_amount_string = "";
+                ch.fhnw.bedwaste.model.Award hotel_association_rating = award_list.get(0);
+
+                String star_amount = hotel_association_rating.getRating();
+                int stars = Integer.parseInt(star_amount);
+
+                String starstring = new String(new char[stars]).replace("", "*");
+
+                //ho_star_rating.setText(starstring);
+
+                */
+
+                //insert_banner?!
+                HotelInfo hotelInfo = hotelDescriptiveInfo.getHotelInfo();
+                java.util.List<MultimediaDescription> multimediaDescriptions = hotelInfo.getDescriptions().getMultimediadescriptions();
+                MultimediaDescription first_mmDescription = multimediaDescriptions.get(0);
+                java.util.List<MultimediaDescriptionImages> hotel_images = first_mmDescription.getImages();
+                MultimediaDescriptionImages banner_picture = hotel_images.get(0);
+                String imageUrl_banner = banner_picture.getImageUrl();
+
+
+                Picasso.get().load(imageUrl_banner).fit().into(ho_image);
+
+                /*
+
+                //insert_minutes_away.setText(hotelDescriptiveInfo.get());
+
+                //Not in Hotel DescriptiveInfo but Availabilies()
+                //insert_price.setText(hotelDescriptiveInfo.get());
+
+                */
+
+                java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
+                //takes first entry as main contact info
+                ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
+                java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
+                ch.fhnw.bedwaste.model.Address address = addresses.get(0);
+                //only nr? Possible Second TextView for Street?
+                ho_address.setText(address.getAddressLine() + " " + address.getStreetNmbr());
+                ho_city.setText(address.getPostalCode() + " " + address.getCityName());
+
 
 
             }
