@@ -751,7 +751,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(mlastLatLng);
-                            markerOptions.icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker));
+                            markerOptions.icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker_mypos));
                             mMap.addMarker(markerOptions);
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
