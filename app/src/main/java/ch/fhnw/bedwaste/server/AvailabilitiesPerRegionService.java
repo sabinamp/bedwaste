@@ -1,5 +1,7 @@
 package ch.fhnw.bedwaste.server;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,42 +22,32 @@ public class AvailabilitiesPerRegionService {
     private AvailabilitiesPerRegionInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
-    private List<AvailabilityResult> availabilitiesPerRegionResponse= null;
+    private AvailabilitiesPerRegionListener listener;
+    public AvailabilitiesPerRegionService(AvailabilitiesPerRegionListener listener){
+        this.listener= listener;
+    }
 
-    public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
-
-        jsonAPI = APIClient.getClient().create(AvailabilitiesPerRegionInterface.class);
+    public void getAvailabilitiesPerRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
 
 
-/*
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd") ;
-        String today = format.format(calendar.getTime());
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        String tomorrow = format.format(calendar.getTime());
         //format the dates in the required format expected by Hotel Spider CRS API*/
-
+        jsonAPI = APIClient.getClient().create(AvailabilitiesPerRegionInterface.class);
         Call<List<AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
                 "2019-05-05", "2019-05-05", nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
-        System.out.println("Before enque");
+        Log.d("TAG", "Before enqueing");
         callApi.enqueue(new Callback<List< AvailabilityResult>>() {
 
             @Override
             public void onResponse(Call<List<AvailabilityResult>> call, Response<List<AvailabilityResult>> response) {
-                System.out.println("inside Enque");
-                if(response.isSuccessful()){
-                    ;
-                    availabilitiesPerRegionResponse = response.body();
-                    System.out.println(response.body().toString());
 
+                if(response.isSuccessful()){
+
+                    Log.d("TAG",response.code()+"");
+                    listener.success(response);
 
                 } else {
-
-                    errorCode ="Code"+ response.code();
-
-                    System.out.println(errorCode);
+                    errorCode =""+ response.code();
+                    Log.d("TAG","Error code: "+errorCode);
                     return;
 
                 }
@@ -63,8 +55,9 @@ public class AvailabilitiesPerRegionService {
 
             @Override
             public void onFailure(Call<List<AvailabilityResult>> call, Throwable t) {
-                t.printStackTrace();
-                System.out.println("Failure");
+                Log.d("TAG", "failed retrieving availability results per region");
+                listener.failed("message error: " +t.getMessage());
+                call.cancel();
             }
         });
 
@@ -72,12 +65,4 @@ public class AvailabilitiesPerRegionService {
     }
 
 
-
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-    public List<AvailabilityResult> getAvailabilitiesResponse() {
-        return availabilitiesPerRegionResponse;
-    }
 }

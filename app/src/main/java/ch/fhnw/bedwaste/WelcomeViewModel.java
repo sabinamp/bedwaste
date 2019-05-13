@@ -49,7 +49,7 @@ public class WelcomeViewModel extends ViewModel {
     private List<AvailabilityDTO> availabilityDTOList=null;
     private AvailabilitiesPerRegionService availabilitiesPerRegionService;
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
-    private HotelDescriptiveInfoService descriptiveInfoService;
+   
     public static Map<LatLng, String > hotelIdBaasedOnPosition= null;
     static  {
         hotelIdBaasedOnPosition = new HashMap<>();
@@ -95,7 +95,7 @@ public class WelcomeViewModel extends ViewModel {
     public WelcomeViewModel(){
         availabilitiesPerRegion = new HashMap<>();
         availabilityDTOList = new ArrayList<>();
-        availabilitiesPerRegionService = new AvailabilitiesPerRegionService();
+
         hotelId_descriptiveInfo = new HashMap<>();
         hotelId_availabilities = new HashMap<>();
         hotelIdsInRegionZH = new HashMap<>();
