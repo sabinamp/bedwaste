@@ -1,5 +1,7 @@
 package ch.fhnw.bedwaste.server;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -15,56 +17,49 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HotelAvailabilityResultsService implements Callback<AvailabilityResults> {
-    static final String BASE_URL = "http://86.119.40.244:8888";
+public class HotelAvailabilityResultsService {
+
     private HotelAvailabilityResultsInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
+    private AvailabilityResultsListener listener;
 
-
-    public AvailabilityResults getAvailabilitiesResponse() {
-        return availabilitiesResponse;
+    public HotelAvailabilityResultsService(AvailabilityResultsListener listener){
+        this.listener= listener;
     }
 
-    private AvailabilityResults availabilitiesResponse= null;
-
-    public void start(String hotelId, int nbAdults, int nbChildren, int nbInfants){
-
+    public void getRoomAvailabilitiesInHotel( String hotelId, int nbAdults, int nbChildren, int nbInfants){
         jsonAPI = APIClient.getClient().create(HotelAvailabilityResultsInterface.class);
-        getAvailabilities(hotelId, nbAdults, nbChildren, nbInfants);
 
-    }
 
-    private void getAvailabilities( String hotelId, int nbAdults, int nbChildren, int nbInfants){
-         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String today = format.format(calendar);
-
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        String tomorrow = format.format(calendar);
-        //format the dates in the required format expected by Hotel Spider CRS API
-
+        /*Call<AvailabilityResults> callApi = jsonAPI.getHotelAvailabilities(hotelId, USER_ID,
+                today, tomorrow , nbAdults, nbChildren, nbInfants);*/
+        //the date doesn't matter at least for now
         Call<AvailabilityResults> callApi = jsonAPI.getHotelAvailabilities(hotelId, USER_ID,
-                today, tomorrow , nbAdults, nbChildren, nbInfants);
-        callApi.enqueue(this);
+                "2019-01-01", "2019-01-01" , nbAdults, nbChildren, nbInfants);
+        callApi.enqueue(new Callback<AvailabilityResults>() {
+            @Override
+            public void onResponse(Call<AvailabilityResults> call, Response<AvailabilityResults> response) {
+                if(response.isSuccessful()) {
+                   Log.d("TAG",response.code()+"");
+                   listener.success(response);
+                } else {
+                    errorCode = response.errorBody().toString();
+                    Log.d("TAG",response.code()+errorCode);
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AvailabilityResults> call, Throwable t) {
+                listener.failed("message error: " +t.getMessage());
+                call.cancel();
+            }
+        });
     }
 
 
-    @Override
-    public void onResponse(Call<AvailabilityResults> call, Response<AvailabilityResults> response) {
-        if(response.isSuccessful()) {
-            availabilitiesResponse = response.body();
-        } else {
-            errorCode = response.errorBody().toString();
-        }
-    }
 
-    @Override
-    public void onFailure(Call<AvailabilityResults> call, Throwable t) {
-        t.printStackTrace();
-    }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
+
 }

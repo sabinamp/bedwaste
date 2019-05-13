@@ -9,16 +9,19 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.CurrencyCode;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfo;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
+import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 import ch.fhnw.bedwaste.server.ErrorsHandler;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
@@ -74,14 +77,30 @@ public class WelcomeViewModel extends ViewModel {
     private Map<String, LatLng> hotelIdsInRegionAargau=null;
     private Map<String, LatLng> hotelIdsInRegionZH=null;
 
+    private Map<String, Integer> currentPrices = null;
+
+    public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
+        return multimediaDescriptions;
+    }
+
+    public void addMultimediaDescriptions(String id, MultimediaDescriptionImages multimediaDescriptions) {
+        this.multimediaDescriptions.put(id, multimediaDescriptions);
+    }
+
+    private Map<String, MultimediaDescriptionImages> multimediaDescriptions = null;
+
+    private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
+    private Map<String, AvailabilityResults> hotelId_availabilities;
 
     public WelcomeViewModel(){
         availabilitiesPerRegion = new HashMap<>();
         availabilityDTOList = new ArrayList<>();
         availabilitiesPerRegionService = new AvailabilitiesPerRegionService();
-        descriptiveInfoService = new HotelDescriptiveInfoService();
+        hotelId_descriptiveInfo = new HashMap<>();
+        hotelId_availabilities = new HashMap<>();
         hotelIdsInRegionZH = new HashMap<>();
         hotelIdsInRegionAargau = new HashMap<>();
+        currentPrices= new HashMap<>();
         hotelIdsInRegionZH.put("00I5846a022h291r",HOTTINGEN);
         hotelIdsInRegionZH.put("00U5846f022c291a", PLATZHIRSCH);
         hotelIdsInRegionZH.put("00U5846j022d292h",HEMLHAUS);
@@ -130,5 +149,25 @@ public class WelcomeViewModel extends ViewModel {
         }
        return null;
     }
+    public Map<String, HotelDescriptiveInfo> getHotelId_descriptiveInfo() {
+        return Collections.unmodifiableMap(hotelId_descriptiveInfo);
+    }
 
+    public void updateHotelId_descriptiveInfo(String id, HotelDescriptiveInfo hotelId_descriptiveInfo) {
+        this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
+    }
+
+    public Map<String, AvailabilityResults> getHotelId_availabilities() {
+        return Collections.unmodifiableMap(hotelId_availabilities);
+    }
+
+    public void updateHotelId_availabilities(String id, AvailabilityResults hotelId_availabilities) {
+        this.hotelId_availabilities.put(id, hotelId_availabilities);
+    }
+    public void updateDisplayedPrices(String id, Integer price) {
+        this.currentPrices.put(id, price);
+    }
+    public Map<String, Integer> getCurrentPrices() {
+        return currentPrices;
+    }
 }

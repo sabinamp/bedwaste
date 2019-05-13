@@ -25,6 +25,8 @@ import ch.fhnw.bedwaste.model.Phone;
 import ch.fhnw.bedwaste.model.Service;
 import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoListener;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +41,7 @@ public class HotelInfoActivity extends AppCompatActivity {
      * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG = "HotelInfoActivity";
+    private WelcomeViewModel model;
     private BottomNavigationView mBottomNavigationView;
     private TextView hotelAddress;
     private TextView infoTextView;
@@ -63,9 +66,10 @@ public class HotelInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_info);
         hotelAddress = findViewById(R.id.text_Address);
+        model= new WelcomeViewModel();
         //receive values that got passed from previous activity
         final Intent intent = getIntent();
-        String hotellist_value = intent.getStringExtra("key");
+        final String hotellist_value = intent.getStringExtra("key");
 
         final TextView insert_hotelname = (TextView) findViewById(R.id.ph_hotelName);
         final TextView insert_starRating = (TextView) findViewById(R.id.ph_starRating);
@@ -84,33 +88,9 @@ public class HotelInfoActivity extends AppCompatActivity {
         final CheckBox checkBox_wlan = (CheckBox) findViewById(R.id.checkBox_Wlan);
 
 
-
-        //TextView hotelPhone = (TextView) findViewById(R.id.ph_phoneNr);
-        /*HotelItem hotelToDisplay= HotelListModel.fetchHotel(getIntent().getStringExtra(EXTRA_HOTEL_ID), HotelInfoActivity.this);
-        if(hotelToDisplay!= null){
-            hotelPhone.setText(hotelToDisplay.getPhone().getPhoneNumber());
-        }*/
-
-/*        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://86.119.40.244:8888/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
-
-        HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = APIClient.getClient().create(HotelDescriptiveInfoInterface.class);
-
-        Call<HotelDescriptiveInfo> call = hotelDescriptiveInfoInterface.getDescriptiveInfo("en", hotellist_value);
-
-        call.enqueue(new Callback<HotelDescriptiveInfo>() {
+      HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
             @Override
-            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
-
-                if(!response.isSuccessful()) {
-
-                    insert_hotelname.setText("Code: " + response.code());
-
-                    return;
-                }
-
+            public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
                 insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
@@ -145,9 +125,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
                 //Not in Hotel DescriptiveInfo but Availabilies()
-                //insert_price.setText(hotelDescriptiveInfo.get());
-
-
+                //insert_price.setText("CHF "+model.getCurrentPrices().get(hotellist_value));
 
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
                 //takes first entry as main contact info
@@ -179,21 +157,21 @@ public class HotelInfoActivity extends AppCompatActivity {
                         checkBox_breakfast.setChecked(true);
                     }
                 }
-            }
+
+           }
 
             @Override
-            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
-                insert_hotelname.setText(t.getMessage());
-                System.out.println(t.getMessage());
-            }
+            public void failed(String message) {
+                insert_hotelname.setText("message" );           }
         });
 
+        service.getHotelDescriptiveInfo("en", hotellist_value);
         String test = Integer.toString(amount_hotel_pictures);
         insert_hotelname.setText(test);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
         for (int i = 1; i < amount_hotel_pictures; i++) {
-            ImageView imageView = new ImageView(this);
+            ImageView imageView = new ImageView(HotelInfoActivity.this);
             imageView.setId(i);
             imageView.setPadding(2, 2, 2, 2);
             //imageView.setImageBitmap(BitmapFactory.decodeResource(

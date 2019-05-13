@@ -15,12 +15,12 @@ import retrofit2.http.Query;
 public interface AvailabilitiesPerRegionInterface {
     @Headers("Accept: application/json")
     @GET("availabilities/")
-    Call<List<AvailabilityResult>> getHotelAvailabilitiesPerRegion(@Field("region") String hotelId, @Field("sessionId") String sessionId,
-                                                                   @Field ("start") String startDate, @Field("end") String endDate,
-                                                                   @Field("nbAdults") int nbAdults, @Field("nbChildren") int nbChildren,
-                                                                   @Field("nbInfants") int nbInfants,
-                                                                   @Field("maxprice") int maxprice,
-                                                                   @Field("nbrooms") int nbrooms,
+    Call<List<AvailabilityResult>> getHotelAvailabilitiesPerRegion(@Query("region") String hotelId, @Query("sessionId") String sessionId,
+                                                                   @Query ("start") String startDate, @Query("end") String endDate,
+                                                                   @Query("nbAdults") int nbAdults, @Query("nbChildren") int nbChildren,
+                                                                   @Query("nbInfants") int nbInfants,
+                                                                   @Query("maxprice") int maxprice,
+                                                                   @Query("nbrooms") int nbrooms,
                                                                    @Query("breakfast") boolean breakfast,
                                                                    @Query("wifi") boolean wifi);
 }

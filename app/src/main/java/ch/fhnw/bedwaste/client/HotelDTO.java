@@ -9,6 +9,7 @@ import java.util.List;
 
 import ch.fhnw.bedwaste.model.Address;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.CurrencyCode;
 import ch.fhnw.bedwaste.model.GuestRoom;
 import ch.fhnw.bedwaste.model.HotelInfoPosition;
@@ -20,13 +21,13 @@ public class HotelDTO {
     private String hotelId;
     private int distanceUnitOfMeasureCode;
     private String currencyCode;
-    private Phone phone;
+    private String phone;
     private String email;
-    private int rating;
+    private double rating;
     private String description;
     private HotelInfoPosition position;
     private List<GuestRoom> rooms;
-    private List<AvailabilityResult> availabilities;
+    private AvailabilityResults availabilities;
     private int nbStars;
 
 
@@ -35,7 +36,7 @@ public class HotelDTO {
         currencyCode = "CHF";
         phone=null;
         rooms= new ArrayList<>();
-        availabilities = new ArrayList<>();
+        availabilities = null;
         name= hotelName;
         nbStars=2;
         rating=2;
@@ -81,7 +82,7 @@ public class HotelDTO {
         this.currencyCode = currencyCode;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -93,11 +94,11 @@ public class HotelDTO {
         this.email = email;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
 
         if(rating <= 10){
             this.rating = rating;
@@ -121,7 +122,7 @@ public class HotelDTO {
     }
 
 
-    public Phone getPhone() {
+    public String getPhone() {
         return phone;
     }
     public List<GuestRoom> getRooms() {
@@ -132,11 +133,11 @@ public class HotelDTO {
         this.rooms = rooms;
     }
 
-    public List<AvailabilityResult> getAvailabilities() {
+    public AvailabilityResults getAvailabilities() {
         return availabilities;
     }
 
-    public void setAvailabilities(List<AvailabilityResult> availabilities) {
+    public void setAvailabilities(AvailabilityResults availabilities) {
         this.availabilities = availabilities;
     }
 

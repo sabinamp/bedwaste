@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Franken" />
+                    android:text="CHF" />
 
                 <TextView
                     android:id="@+id/text_perNight"
@@ -220,13 +220,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:paddingBottom="20dp">
+                    android:paddingBottom="18dp">
 
                     <HorizontalScrollView
                         android:id="@+id/horizontalScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp">
+                        android:layout_marginBottom="18dp">
 
                         <LinearLayout
                             android:id="@+id/image_linear"

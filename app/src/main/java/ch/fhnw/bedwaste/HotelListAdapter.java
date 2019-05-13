@@ -101,13 +101,16 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         private void bind(HotelDTO hotelItem, LatLng userLocation){
             this.hotelItem = hotelItem;
             String name = hotelItem.getName() != null ? hotelItem.getName() : "";
-            String description = hotelItem.getDescription() != null ? hotelItem.getDescription() : "";
-            //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
-            /*String street = hotelItem.getAddress().getAddressLine() != null ? hotelItem.getAddress().getAddressLine() : "";
-            String city_zipcode = hotelItem.getAddress().getCityName() != null ? hotelItem.getAddress().getCityName()+ hotelItem.getAddress().getPostalCode() : "";
-            */
+
+            //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getProducts().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
+            //String street = hotelItem.getAddress().getAddressLine() != null ? hotelItem.getAddress().getAddressLine() : "";
+            //String city_zipcode = hotelItem.getAddress().getCityName() != null ? hotelItem.getAddress().getCityName()+ hotelItem.getAddress().getPostalCode() : "";
+
             String rating =  hotelItem.getRating() +"/10" ;
             String distance = hotelItem.getWalkingDistanceToHotelInMinutes(userLocation)+"Min";
+            hotelNameTextView.setText(name);
+
+            //String distance = hotelItem.getWalkingDistanceToHotelInMinutes(userLocation)+"Min";
             hotelNameTextView.setText(name);
             //hotelThumbnail.setImageURI(hotelInfo.getHotelInfo().getDescriptions().getMultimediadescriptions().get("img/index"));
             /*hotelPrice.setText(price);
@@ -115,8 +118,6 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             hotelCity.setText(city_zipcode );*/
             hotelRating.setText(rating);
             minHotel.setText(distance);
-
-       
 
         }
 

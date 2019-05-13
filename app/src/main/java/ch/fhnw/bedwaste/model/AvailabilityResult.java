@@ -26,7 +26,7 @@ public class AvailabilityResult {
   @SerializedName("discount")
   private Float discount = null;
   @SerializedName("currency")
-  private CurrencyCode currency = null;
+  private String currency = null;
   @SerializedName("isBar")
   private Boolean isBar = null;
   @SerializedName("availability")
@@ -72,10 +72,10 @@ public class AvailabilityResult {
   /**
    **/
   @ApiModelProperty(value = "")
-  public CurrencyCode getCurrency() {
+  public String getCurrency() {
     return currency;
   }
-  public void setCurrency(CurrencyCode currency) {
+  public void setCurrency(String currency) {
     this.currency = currency;
   }
 
