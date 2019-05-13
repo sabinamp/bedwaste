@@ -3,6 +3,7 @@ package ch.fhnw.bedwaste.server;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import ch.fhnw.bedwaste.model.AvailabilityResult;
@@ -15,11 +16,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AvailabilitiesPerRegionService {
-    static final String BASE_URL = "http://86.119.40.244:8888/";
+
     private AvailabilitiesPerRegionInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
-    private Map<String,AvailabilityResult> availabilitiesPerRegionResponse= null;
+    private List<AvailabilityResult> availabilitiesPerRegionResponse= null;
 
     public void start(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
 
@@ -36,13 +37,13 @@ public class AvailabilitiesPerRegionService {
         String tomorrow = format.format(calendar.getTime());
         //format the dates in the required format expected by Hotel Spider CRS API
 
-        Call<Map<String,AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
+        Call<List<AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
                 today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
         System.out.println("Before enque");
-        callApi.enqueue(new Callback<Map<String, AvailabilityResult>>() {
+        callApi.enqueue(new Callback<List< AvailabilityResult>>() {
 
             @Override
-            public void onResponse(Call<Map<String, AvailabilityResult>> call, Response<Map<String, AvailabilityResult>> response) {
+            public void onResponse(Call<List<AvailabilityResult>> call, Response<List<AvailabilityResult>> response) {
                 System.out.println("inside Enque");
                 if(response.isSuccessful()){
                     ;
@@ -61,7 +62,7 @@ public class AvailabilitiesPerRegionService {
             }
 
             @Override
-            public void onFailure(Call<Map<String, AvailabilityResult>> call, Throwable t) {
+            public void onFailure(Call<List<AvailabilityResult>> call, Throwable t) {
                 t.printStackTrace();
                 System.out.println("Failure");
             }
@@ -76,7 +77,7 @@ public class AvailabilitiesPerRegionService {
     public String getErrorCode() {
         return errorCode;
     }
-    public Map<String, AvailabilityResult> getAvailabilitiesResponse() {
+    public List<AvailabilityResult> getAvailabilitiesResponse() {
         return availabilitiesPerRegionResponse;
     }
 }

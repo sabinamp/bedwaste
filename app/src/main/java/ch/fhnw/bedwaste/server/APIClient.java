@@ -6,7 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClient {
     private static Retrofit retrofit = null;
-    static final String BASE_URL = "http://86.119.40.244:8888";
+   static final String BASE_URL = "http://86.119.40.244:8888";
+   
     public static Retrofit getClient() {
 
         OkHttpClient client = new OkHttpClient.Builder().build();

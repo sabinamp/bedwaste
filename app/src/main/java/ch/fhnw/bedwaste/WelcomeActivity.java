@@ -481,7 +481,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         //hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, false, false);
                        hotelsToDisplay= pmodel.getHotelIdsInRegion("Brugg");
 
-                    } else {
+                    }else if(locationSearched.equalsIgnoreCase("Basel")) {
+                        //return availabilities in Basel
+                    }
+                    else {
                         //return availabilities in ZH
                         // hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, false, false);
                         hotelsToDisplay=pmodel.getHotelIdsInRegion("ZH");
@@ -524,18 +527,16 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             }
                         });
 
-
                     }
 
 
                     for (Marker marker: markers) {
                         marker.showInfoWindow();
                     }
-
-
                 }
             }
         });
+
         mFiltersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -573,7 +574,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         });
     }
 
-    private String return_matching_id(final Marker marker, List<String> id_list){
+   /* private String return_matching_id(final Marker marker, List<String> id_list){
         HotelDescriptiveInfoInterface hotelDescriptiveInfoInterface = retrofit.create(HotelDescriptiveInfoInterface.class);
 
         for (String id : id_list){
@@ -610,11 +611,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         }
 
 
-
-
         return "";
     }
-
+*/
     private void addBottomNavigation() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -703,13 +702,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
 
-                /*
-                //iterate thrpugh amount of stars to create *** String
 
-                java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
-                award_list = hotelDescriptiveInfo.getAffiliationInfo().getAwards();
+                //iterate through amount of stars to create *** String
+
                 String star_amount_string = "";
-                ch.fhnw.bedwaste.model.Award hotel_association_rating = award_list.get(0);
+                ch.fhnw.bedwaste.model.Award hotel_association_rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(0);
 
                 String star_amount = hotel_association_rating.getRating();
                 String star_string;
@@ -722,15 +719,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     ho_star_rating.setText(star_string);
 
                 }
-                */
-
-
-
-
-
-
-
-
 
 
                 //insert_banner?!
@@ -748,7 +736,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
-                //Not in Hotel DescriptiveInfo but Availabilies()
+                //Not in Hotel DescriptiveInfo but Availabilities()
                 //insert_price.setText(hotelDescriptiveInfo.get());
 
                 */
@@ -761,9 +749,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 //only nr? Possible Second TextView for Street?
                 ho_address.setText(address.getAddressLine() + " " + address.getStreetNmbr());
                 ho_city.setText(address.getPostalCode() + " " + address.getCityName());
-
-
-
             }
 
             @Override
