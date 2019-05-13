@@ -651,19 +651,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-
-
         hotel_overview_layout.setVisibility(View.VISIBLE);
 
-        //String matching_hotel_id = return_matching_id(marker, all_ids);
         final String matched_hotel_id = WelcomeViewModel.hotelIdBaasedOnPosition.get( marker.getPosition());
 
        HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
             @Override
             public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-       //called when not fetching retrieving data the server
-       //HotelDescriptiveInfo hotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(matched_hotel_id);
+                //the following line for when not fetching retrieving data the server
+                // details can be obtained from the model (except ImageUrls- why are imageURL not displayed? - to do )
+                //HotelDescriptiveInfo hotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(matched_hotel_id);
                 String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
@@ -677,15 +675,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     star_string = "No Rating";
                 }
                 else {
-
- /*                       int stars = Integer.parseInt(star_amount);
+ /*                     int stars = Integer.parseInt(star_amount);
                         star_string = new String(new char[stars]).replace("", "*");
                         ho_star_rating.setText(star_string);*/
                         double stars =Math.floor(Double.parseDouble(star_amount));
                         star_string = new String(new char[(int)stars]).replace("", "*");
                         ho_star_rating.setText(star_string);
-
-
                 }
 
                 //insert_banner?!
@@ -695,7 +690,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 java.util.List<MultimediaDescriptionImages> hotel_images = first_mmDescription.getImages();
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
-
 
                 Picasso.get().load(imageUrl_banner).fit().into(ho_image);
 
@@ -776,8 +770,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
                             MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(mlastLatLng);
-                            //markerOptions.icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker_mypos));
-                            //mMap.addMarker(markerOptions);
+                            //add user location marker if needed
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());

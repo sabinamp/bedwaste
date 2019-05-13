@@ -121,10 +121,8 @@ public class HotelInfoActivity extends AppCompatActivity {
                 Picasso.get().load(imageUrl_banner).fit().into(insert_banner);
 
 
-
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
-                //Not in Hotel DescriptiveInfo but Availabilies()
                 //insert_price.setText("CHF "+model.getCurrentPrices().get(hotellist_value));
 
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
