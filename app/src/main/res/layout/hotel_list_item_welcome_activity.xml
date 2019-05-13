@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_margin="0dp"
     cardview:cardCornerRadius="4dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:src="@drawable/ic_location_city_blue_240dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
@@ -49,9 +49,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
-                    android:paddingLeft="12dp"
+                    android:paddingLeft="6dp"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor= "@android:color/darker_gray"
                     android:textAllCaps="true"
                     android:text="9/10"
@@ -61,12 +61,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
-                    android:paddingLeft="22dp"
+                    android:paddingLeft="16dp"
                     android:paddingBottom="2dp"
                     android:text="3min"
                     android:textAlignment="center"
                     android:textColor="@color/min_color"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 
@@ -127,13 +127,14 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/wel_otel_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:text="Zürich 8001"
-                android:textColor="@android:color/tertiary_text_light"
-                android:textSize="15sp" />
+                    android:id="@+id/wel_otel_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:text="city"
+                    android:textColor="@android:color/tertiary_text_light"
+                    android:textSize="15sp" />
+
 
             <Button
                 android:id="@+id/wel_booking_button"
