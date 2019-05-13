@@ -27,7 +27,7 @@ public class AvailabilitiesPerRegionService {
         jsonAPI = APIClient.getClient().create(AvailabilitiesPerRegionInterface.class);
 
 
-
+/*
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd") ;
@@ -35,10 +35,10 @@ public class AvailabilitiesPerRegionService {
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         String tomorrow = format.format(calendar.getTime());
-        //format the dates in the required format expected by Hotel Spider CRS API
+        //format the dates in the required format expected by Hotel Spider CRS API*/
 
         Call<List<AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
-                today, tomorrow , nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
+                "2019-05-05", "2019-05-05", nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
         System.out.println("Before enque");
         callApi.enqueue(new Callback<List< AvailabilityResult>>() {
 
