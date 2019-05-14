@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
@@ -49,30 +51,30 @@ public class WelcomeViewModel extends ViewModel {
     private List<AvailabilityDTO> availabilityDTOList=null;
     private AvailabilitiesPerRegionService availabilitiesPerRegionService;
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
+    public static Set<String> ALL_IDS= null;
    
-    public static Map<LatLng, String > hotelIdBaasedOnPosition= null;
+    public static Map<LatLng, String > HotelIdBaasedOnPosition= null;
     static  {
-        hotelIdBaasedOnPosition = new HashMap<>();
-        hotelIdBaasedOnPosition.put(HOTTINGEN, "00I5846a022h291r");
-        hotelIdBaasedOnPosition.put( PLATZHIRSCH,"00U5846f022c291a");
-        hotelIdBaasedOnPosition.put(HEMLHAUS,"00U5846j022d292h");
-        hotelIdBaasedOnPosition.put(VILLETTE,"00U5846j022d291s");
-        hotelIdBaasedOnPosition.put(BARAULAC,"00B5846B02barlac" );
-
-        hotelIdBaasedOnPosition.put( GLOCKENHOF,"00U5846j020d210g");
-        hotelIdBaasedOnPosition.put( LEONECK,"00U5845j020s210l");
-        hotelIdBaasedOnPosition.put( MARRIOTT,"00U5847f022marri");
-        hotelIdBaasedOnPosition.put( RIGIBLICK,"00U5844f022rigib");
-        hotelIdBaasedOnPosition.put( TERMINUS,"00B5846t02termin");
-        hotelIdBaasedOnPosition.put( UTOKULM,"00U5846e0f2ukulm");
-
-        hotelIdBaasedOnPosition.put( NOWIFIBRUGG,"00F5846A022nowifi");
-        hotelIdBaasedOnPosition.put( NOWIFIBRUGG2,"00F5846A02nowifi2");
-        hotelIdBaasedOnPosition.put( GOTTHARD, "00G5846t022gotth");
-        hotelIdBaasedOnPosition.put( JUGENDHERBERGE,"00U5845f022gbrugg");
-        hotelIdBaasedOnPosition.put( MARCOPOLO, "00U5846f022marco");
-        hotelIdBaasedOnPosition.put( DESIGNBOUTIQUE, "00U5556f030plb91");
-        hotelIdBaasedOnPosition.put( ROTESHAUS,"00U5845f022rotesh");
+        HotelIdBaasedOnPosition = new HashMap<>();
+        ALL_IDS= new TreeSet<>();
+        ALL_IDS.add("00I5846a022h291r");
+        ALL_IDS.add("00U5846f022c291a");
+        ALL_IDS.add("00U5846j022d292h");
+        ALL_IDS.add("00U5846j022d291s");
+        ALL_IDS.add("00B5846B02barlac");
+        ALL_IDS.add("00U5846j020d210g");
+        ALL_IDS.add("00U5845j020s210l");
+        ALL_IDS.add("00U5847f022marri");
+        ALL_IDS.add("00U5844f022rigib");
+        ALL_IDS.add("00B5846t02termin");
+        ALL_IDS.add("00U5846e0f2ukulm");
+        ALL_IDS.add("00F5846A022nowifi");
+        ALL_IDS.add("00F5846A02nowifi2");
+        ALL_IDS.add("00G5846t022gotth");
+        ALL_IDS.add("00U5845f022gbrugg");
+        ALL_IDS.add("00U5846f022marco");
+        ALL_IDS.add("00U5556f030plb91");
+        ALL_IDS.add("00U5845f022rotesh");
     }
     private Map<String, LatLng> hotelIdsInRegionAargau=null;
     private Map<String, LatLng> hotelIdsInRegionZH=null;
