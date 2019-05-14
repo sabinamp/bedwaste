@@ -74,6 +74,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
+import ch.fhnw.bedwaste.model.AvailabilityResult;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
@@ -82,6 +83,8 @@ import ch.fhnw.bedwaste.model.HotelInfoPosition;
 import ch.fhnw.bedwaste.model.MultimediaDescription;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.server.APIClient;
+import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionListener;
+import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
 import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
@@ -386,16 +389,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
                     LatLng currentHotelPosition= new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue());
                     pmodel.HotelIdBaasedOnPosition.put(currentHotelPosition, eachId);
-
-                    /*//markers and prices
-                    Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(currentHotelPosition)
-                            .title(hotelName)
-                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                            .snippet( " CHF " + pmodel.getCurrentPrices().get(eachId)));
-
-                    markers.add(marker);
-                    marker.showInfoWindow();*/
+                    
                 }
 
                 @Override
@@ -408,7 +402,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         Log.d(TAG, "retrieveHotelData()- fetching data from the server - completed");
     }
     private void displayMarkers(){
-       
+
         for (final String eachId : mHotelsToDisplay) {
             //markers and prices
             HotelDescriptiveInfo currentHotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(eachId);
@@ -624,13 +618,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 mFiltersButton.callOnClick();
-                //return availabilities in Brugg
-/*                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
-                    hotelsearch = pmodel.getAvailableRoomsInRegion("ZH", nbadults,
-                            0,0,400, nbrooms, breakfast, wifi);
-                }else{
+                markers.clear();
+                applyFiltering_RetrieveHotelData();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                }*/
+                        displayMarkers();
+                    }
+                });
             }
         });
 
@@ -934,6 +930,36 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             Log.e("Exception: %s", e.getMessage());
         }
     }
+    private void applyFiltering_RetrieveHotelData(){
+        breakfast= checkBoxBreakfast.isChecked();
+        wifi=checkBoxWLAN.isChecked();
+        filtering =true;
+        AvailabilitiesPerRegionService service3= new AvailabilitiesPerRegionService(new AvailabilitiesPerRegionListener() {
+            @Override
+            public void success(Response<List<AvailabilityResult>> response) {
+
+                List<AvailabilityResult> availabilitiesPerRegion= response.body();
+                Set<String> hotelsToDisplayOnFiltering=new TreeSet<>();
+                for (AvailabilityResult resultAv: availabilitiesPerRegion) {
+                    String[] rateplanIdElem= resultAv.getRateplanId().split("-");
+                    String hotelId= rateplanIdElem[0];
+                    hotelsToDisplayOnFiltering.add(hotelId);
+                    pmodel.updateDisplayedPrices(hotelId, resultAv.getTotalPrice().intValue());
+
+                }
+
+                mHotelsToDisplay.retainAll(hotelsToDisplayOnFiltering);
+
+            }
+
+            @Override
+            public void failed(String message) {
+                Log.d("TAG", "failed receiving filtered availabilities");
+            }
+        });
+        service3.getAvailabilitiesPerRegion(searchRegion, nbadults, 0,0, maxprice, nbrooms, breakfast, wifi);
+    }
+
 
     @Override
     public void onStart() {
