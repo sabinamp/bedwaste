@@ -126,7 +126,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 13;
     private boolean mLocationPermissionGranted;
 
     //Object for network connection check
@@ -389,7 +389,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
                     LatLng currentHotelPosition= new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue());
                     pmodel.HotelIdBaasedOnPosition.put(currentHotelPosition, eachId);
-                    
+
                 }
 
                 @Override
