@@ -75,6 +75,7 @@ public class WelcomeViewModel extends ViewModel {
         ALL_IDS.add("00U5846f022marco");
         ALL_IDS.add("00U5556f030plb91");
         ALL_IDS.add("00U5845f022rotesh");
+        ALL_IDS.add("00G5846t022easyh");
     }
     private Map<String, LatLng> hotelIdsInRegionAargau=null;
     private Map<String, LatLng> hotelIdsInRegionZH=null;
@@ -103,54 +104,12 @@ public class WelcomeViewModel extends ViewModel {
         hotelIdsInRegionZH = new HashMap<>();
         hotelIdsInRegionAargau = new HashMap<>();
         currentPrices= new HashMap<>();
-        hotelIdsInRegionZH.put("00I5846a022h291r",HOTTINGEN);
-        hotelIdsInRegionZH.put("00U5846f022c291a", PLATZHIRSCH);
-        hotelIdsInRegionZH.put("00U5846j022d292h",HEMLHAUS);
-        hotelIdsInRegionZH.put("00U5846j022d291s",VILLETTE);
-        hotelIdsInRegionZH.put("00B5846B02barlac",BARAULAC );
 
-        hotelIdsInRegionZH.put("00U5846j020d210g", GLOCKENHOF);
-        hotelIdsInRegionZH.put("00U5845j020s210l", LEONECK);
-        hotelIdsInRegionZH.put("00U5847f022marri", MARRIOTT);
-        hotelIdsInRegionZH.put("00U5844f022rigib", RIGIBLICK);
-        hotelIdsInRegionZH.put("00B5846t02termin", TERMINUS);
-        hotelIdsInRegionZH.put("00U5846e0f2ukulm", UTOKULM);
 
-        hotelIdsInRegionAargau.put("00F5846A022nowifi", NOWIFIBRUGG);
-        hotelIdsInRegionAargau.put("00F5846A02nowifi2", NOWIFIBRUGG2);
-        hotelIdsInRegionAargau.put("00G5846t022gotth", GOTTHARD);
-        hotelIdsInRegionAargau.put("00U5845f022gbrugg", JUGENDHERBERGE);
-        hotelIdsInRegionAargau.put("00U5846f022marco", MARCOPOLO);
-        hotelIdsInRegionAargau.put("00U5556f030plb91", DESIGNBOUTIQUE);
-        hotelIdsInRegionAargau.put("00U5845f022rotesh", ROTESHAUS);
     }
 
-/*    public List<AvailabilityDTO> getAvailableRoomsInRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
-        availabilitiesPerRegionService.start(region,nbAdults, nbChildren, nbInfants, maxprice, nbrooms, breakfast, wifi);
-        availabilitiesPerRegion = availabilitiesPerRegionService.getAvailabilitiesResponse();
-        System.out.println("WelcomeViewModel");
-        for (Map.Entry<String,AvailabilityResult> each : availabilitiesPerRegion.entrySet() ) {
-            AvailabilityResult resultAv = each.getValue();
-            System.out.println("WelcomeViewModel-inloop");
-            String[] rateplanIdElem= resultAv.getRateplanId().split("-");
-            availabilityDTOList.add(new AvailabilityDTO(each.getKey(), rateplanIdElem[0], resultAv ));
-            hotelIdsInRegion.add(each.getKey());
-        }
-        return availabilityDTOList;
-    }
-
-    */
 
 
-    public Map<String, LatLng> getHotelIdsInRegion(String reg) {
-        if (reg.equals("ZH")) {
-            return hotelIdsInRegionZH;
-        }
-        else if(reg.equals("Brugg")){
-            return hotelIdsInRegionZH;
-        }
-       return null;
-    }
     public Map<String, HotelDescriptiveInfo> getHotelId_descriptiveInfo() {
         return Collections.unmodifiableMap(hotelId_descriptiveInfo);
     }

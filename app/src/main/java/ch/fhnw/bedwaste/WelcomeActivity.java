@@ -71,6 +71,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
@@ -96,9 +97,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private WelcomeViewModel pmodel;
-    //List<AvailabilityDTO> hotelsearch;
-    Set<String> hotelsToDisplay=null;
+    private String searchRegion;
 
+    private Set<String> mHotelsToDisplay=null;
+    private List<Marker> markers;
+    private boolean filtering;
     /**
      * Debugging tag WelcomeActivity used by the Android logger.
      */
@@ -166,8 +169,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private int maxprice;
     private int nbadults;
     private int nbrooms;
-    private boolean breakfast;
-    private boolean wifi;
+    private Boolean breakfast;
+    private Boolean wifi;
 
 
     private CardView hotel_overview_layout;
@@ -233,6 +236,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             };
 
     public WelcomeActivity() throws ParseException {
+        maxprice=400;
+        pmodel= new WelcomeViewModel();
+        breakfast=null;
+        wifi=null;
+        markers = new ArrayList<>();
+        filtering=false;
+        mHotelsToDisplay= new TreeSet<>();
+        mHotelsToDisplay =  WelcomeViewModel.ALL_IDS;
     }
 
 
@@ -266,6 +277,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         boolean Startup = intent.getBooleanExtra("Startup", false);
         if (Startup){
             addIntroAnimation();
+
         }
         else {
             helpText1 = (TextView) findViewById(R.id.firstHelpBox);
@@ -280,7 +292,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         bindFilterData();
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
-
 
 
         //HotelOverview Items
@@ -308,85 +319,29 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 mEditText = findViewById(R.id.input_location);
-                pmodel = new WelcomeViewModel();
+
                 if (!mEditText.getText().toString().equals("")) {
                     String locationSearched = mEditText.getText().toString();
 
-                    //return availabilities in Brugg/Aargau
                     if (locationSearched.equalsIgnoreCase("Brugg")) {
-                        //hotelsearch=pmodel.getAvailableRoomsInRegion("Aargau",1,0,0,400,1, false, false);
-
+                        searchRegion= "Aargau";
 
                     } else if (locationSearched.equalsIgnoreCase("Basel")) {
-                        //return availabilities in Basel
+                        searchRegion="Basel";
                     } else {
-                        //return availabilities in ZH
-                        // hotelsearch=pmodel.getAvailableRoomsInRegion("ZH",1,0,0,400,1, false, false);
-
+                        searchRegion="ZH";
                     }
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
-                    final List<Marker> markers = new ArrayList<Marker>();
-                    Set<String> ids =  WelcomeViewModel.ALL_IDS;
-                    for (final String eachId : ids) {
 
-                         Log.d(TAG, "start fetching data from the server");
-                         HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
+                    displayMarkers();
 
-                              @Override
-                              public void success(Response<AvailabilityResults> response) {
-                                  AvailabilityResults roomAvailabilityResults = response.body();
-                                  float price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
-                                  //updatePrice
-                                  pmodel.updateDisplayedPrices(eachId, (int)price);
-
-                                  //update availabilities
-                                  pmodel.updateHotelId_availabilities(eachId, roomAvailabilityResults);
-                              }
-                              @Override
-                              public void failed(String message) {
-                                  Log.d(TAG, "couldn't fetch availability results" + message);
-                              }
-                         });
-                         service_price.getRoomAvailabilitiesInHotel(eachId, 1, 0, 0);
-
-                         HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
-                                @Override
-                                public void success(Response<HotelDescriptiveInfo> response) {
-                                    HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-                                    pmodel.updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
-
-                                    HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
-                                    LatLng currentHotelPosition= new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue());
-                                    pmodel.HotelIdBaasedOnPosition.put(currentHotelPosition, eachId);
-                                    String hotelName = hotelDescriptiveInfo.getHotelName();
-                                    //markers and prices
-                                    Marker marker = mMap.addMarker(new MarkerOptions()
-                                            .position(currentHotelPosition)
-                                            .title(hotelName)
-                                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
-                                            .snippet( " CHF " + pmodel.getCurrentPrices().get(eachId)));
-
-                                    markers.add(marker);
-                                    marker.showInfoWindow();
-                                }
-
-                                @Override
-                                public void failed(String message) {
-                                    Log.d(TAG, "couldn't fetch hotel descriptive info" + message);
-                                }
-                         });
-                         service_description.getHotelDescriptiveInfo("en", eachId);
-
-                        }
-                        Log.d(TAG, "fetching data from the server - completed");
                     }
 
                 }
 
         });
-
 
 
         // start of network connection check
@@ -399,7 +354,83 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         countdownRunnable.run();
 
     }
+    private void retrieveAllHotelData(){
+        for (final String eachId : WelcomeViewModel.ALL_IDS) {
 
+            Log.d(TAG, "start retrieveHotelData - fetching data from the server");
+            HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
+
+                @Override
+                public void success(Response<AvailabilityResults> response) {
+                    AvailabilityResults roomAvailabilityResults = response.body();
+                    float price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
+                    //updatePrice
+                    pmodel.updateDisplayedPrices(eachId, (int)price);
+
+                    //update availabilities
+                    pmodel.updateHotelId_availabilities(eachId, roomAvailabilityResults);
+                }
+                @Override
+                public void failed(String message) {
+                    Log.d(TAG, "couldn't fetch availability results" + message);
+                }
+            });
+            service_price.getRoomAvailabilitiesInHotel(eachId, 1, 0, 0);
+
+            HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
+                @Override
+                public void success(Response<HotelDescriptiveInfo> response) {
+                    HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+                    pmodel.updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
+
+                    HotelInfoPosition position = hotelDescriptiveInfo.getHotelInfo().getPosition();
+                    LatLng currentHotelPosition= new LatLng(position.getLatitude().doubleValue(),position.getLongitude().doubleValue());
+                    pmodel.HotelIdBaasedOnPosition.put(currentHotelPosition, eachId);
+
+                    /*//markers and prices
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(currentHotelPosition)
+                            .title(hotelName)
+                            .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                            .snippet( " CHF " + pmodel.getCurrentPrices().get(eachId)));
+
+                    markers.add(marker);
+                    marker.showInfoWindow();*/
+                }
+
+                @Override
+                public void failed(String message) {
+                    Log.d(TAG, "couldn't fetch hotel descriptive info" + message);
+                }
+            });
+            service_description.getHotelDescriptiveInfo("en", eachId);
+        }
+        Log.d(TAG, "retrieveHotelData()- fetching data from the server - completed");
+    }
+    private void displayMarkers(){
+       
+        for (final String eachId : mHotelsToDisplay) {
+            //markers and prices
+            HotelDescriptiveInfo currentHotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(eachId);
+            if(currentHotelDescriptiveInfo !=null){
+                HotelInfo info=currentHotelDescriptiveInfo.getHotelInfo();
+                LatLng currentHotelPosition=null;
+                if(info != null){
+                    currentHotelPosition= new LatLng(info.getPosition().getLatitude().doubleValue(),
+                            currentHotelDescriptiveInfo.getHotelInfo().getPosition().getLongitude().doubleValue());
+                }
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(currentHotelPosition)
+                        .title(currentHotelDescriptiveInfo.getHotelName())
+                        .icon(bitmapDescriptorFromVector(WelcomeActivity.this, R.drawable.ic_marker))
+                        .snippet( " CHF " + pmodel.getCurrentPrices().get(eachId)));
+
+                markers.add(marker);
+                marker.showInfoWindow();
+            }
+        }
+        Log.d(TAG, "finished displaying markers");
+    }
     private void bindFilterData (){
 
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
@@ -909,6 +940,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onStart();
         Log.d(TAG, "onStart() called");
         mGoogleApiClient.connect();
+        retrieveAllHotelData();
     }
 
     @Override
