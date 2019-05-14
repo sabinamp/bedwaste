@@ -30,6 +30,7 @@ import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -337,7 +338,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
                     LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
-
                     displayMarkers();
 
                     }
@@ -618,12 +618,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 mFiltersButton.callOnClick();
-                markers.clear();
+
                 applyFiltering_RetrieveHotelData();
+                // refresh the markers on the map
+                markers.clear();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
                         displayMarkers();
                     }
                 });
@@ -833,27 +834,27 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
+                           /* mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            mMap.getUiSettings().setMyLocationButtonEnabled(false);*/
+                            Toast toast=Toast.makeText(WelcomeActivity.this, "You need to grant this app location permission, " +
+                                            "Turn on the location services and restart the app.",
+                                    Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER, 5,5);
+                                    toast.setDuration(6000);
+                            toast.show();
+
                         }
                     }
                 });
             }
+
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
 
-    private void showDefaultLocation() {
-        Toast.makeText(this, "Showing default location",
-                Toast.LENGTH_SHORT).show();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(getDefaultLocation()));
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(getDefaultLocation());
-        markerOptions.icon(bitmapDescriptorFromVector(this, R.drawable.ic_marker));
-        //mMap.addMarker(markerOptions);
-    }
+
 
     /**
      * Prompts the user for permission to use the device location.
