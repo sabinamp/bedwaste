@@ -157,6 +157,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private SeekBar seekBarDistance;
     private TextView textValuePrice;
     private SeekBar seekBarPrice;
+    private TextView textValueRating;
+    private SeekBar seekBarRating;
+
     private BottomNavigationView mBottomNavigationView;
     private FloatingActionButton FABLocation;
     private View BlankAnimationBar;
@@ -280,42 +283,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         }
 
+        //load Filter Code
+        bindFilterData();
 
         mLocationButton = (ImageButton) findViewById(R.id.search);
 
-        mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
-        filterLayout = (LinearLayout) findViewById(R.id.layoutFilters);
-        mFilterExtendedLayout = (LinearLayout) findViewById(R.id.expandedFilter);
-        btnFilterExtend = (ImageView) findViewById(R.id.btnExpandFilter);
-        btnFilterLess = (ImageView) findViewById(R.id.lessfilter);
-        mFilterExtendedLayout.setVisibility(View.GONE);
-        btnFilterLess.setVisibility(View.GONE);
-        btnLessPeople = (ImageView) findViewById(R.id.lessPeople);
-        btnMorePeople = (ImageView) findViewById(R.id.morepeople);
-        /*btnLessNights = (ImageView) findViewById(R.id.lessNights);
-        btnMoreNights = (ImageView) findViewById(R.id.moreNights);*/
-        btnLessRooms = (ImageView) findViewById(R.id.lessRooms);
-        btnMoreRooms = (ImageView) findViewById(R.id.moreRooms);
-       // textValueNights = (TextView) findViewById(R.id.textNightValue);
-        textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
-        textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
-        applyFilter = (ImageButton) findViewById(R.id.imageApply);
-        declineFilter = (ImageButton) findViewById(R.id.imageDecline);
-        checkBoxBreakfast = findViewById(R.id.checkBoxBreakfast);
-        checkBoxWLAN = findViewById(R.id.checkBoxWlan);
-        searchBar = findViewById(R.id.search_bar);
-        FABLocation = findViewById(R.id.floatingActionButtonLocation);
-        //Set Progress Bar to Default Distance of 10 km
-        seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
-        seekBarDistance.setProgress(10);
-        textValueDistance = (TextView) findViewById(R.id.textValueDistance);
-        //Set Progress Bar of Price to Default 100 CHF and the max to 1000 CHF
-        seekBarPrice = (SeekBar) findViewById(R.id.seekBarPrice);
-        seekBarPrice.setMax(1000);
-        seekBarPrice.setProgress(100);
-        textValuePrice = (TextView) findViewById(R.id.textPriceValue);
-        // Set Visibility of Filter to invisible
-        filterLayout.setVisibility(View.GONE);
+
 
         //HotelOverview Items
         all_ids = Arrays.asList("00B5846B02barlac", "00U5846j020d210g", "00G5846t022gotth", "00U5846j022d292h", "00I5846a022h291r", "00U5845j020s210l", "00U5847f022marri", "00F5846A022nowifi", "00F5846A02nowifi2", "00U5846f022c291a", "00U5844f022rigib", "00B5846t02termin", "00U5846e0f2ukulm", "00U5846j022d291s", "00U5845f022gbrugg", "00U5846f022marco", "00U5556f030plb91", "00U5845f022rotesh");
@@ -331,138 +304,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
 
 
-        applyFilter.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mFiltersButton.callOnClick();
-                //return availabilities in Brugg
-/*                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
-                    hotelsearch = pmodel.getAvailableRoomsInRegion("ZH", nbadults,
-                            0,0,400, nbrooms, breakfast, wifi);
-                }else{
-
-                }*/
-            }
-        });
-        declineFilter.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                seekBarPrice.setMax(1000);
-                seekBarPrice.setProgress(100);
-                textValueDistance.setText("100 CHF");
-                textValueDistance.setText("10 km");
-                textValuePeople.setText("1");
-                //textValueNights.setText("1");
-                textValueRooms.setText("1");
-                checkBoxBreakfast.setChecked(false);
-                checkBoxWLAN.setChecked(false);
-
-            }
-        });
-        btnLessPeople.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String PeopleValue = textValuePeople.getText().toString();
-
-                if (Integer.parseInt(PeopleValue) != 1) {
-                    PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) - 1);
-                    textValuePeople.setText(PeopleValue);
-                    nbadults= Integer.parseInt(PeopleValue);
-                }
 
 
-            }
-        });
-        btnMorePeople.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String PeopleValue = textValuePeople.getText().toString();
-                PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) + 1);
-                textValuePeople.setText(PeopleValue);
-                nbadults= Integer.parseInt(PeopleValue);
-
-            }
-        });
-        btnLessRooms.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String RoomsValue = textValueRooms.getText().toString();
-                if (Integer.parseInt(RoomsValue) != 1) {
-                    RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) - 1);
-                    textValueRooms.setText(RoomsValue);
-                    nbrooms= Integer.parseInt(RoomsValue);
-                }
-
-
-            }
-        });
-        btnMoreRooms.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String RoomsValue = textValueRooms.getText().toString();
-                RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) + 1);
-                textValueRooms.setText(RoomsValue);
-                nbrooms= Integer.parseInt(RoomsValue);
-            }
-        });
-
-        btnFilterExtend.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnFilterLess.setVisibility(View.VISIBLE);
-                mFilterExtendedLayout.setVisibility(View.VISIBLE);
-                btnFilterExtend.setVisibility(View.GONE);
-
-            }
-        });
-
-        btnFilterLess.setOnClickListener(new ImageView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnFilterExtend.setVisibility(View.VISIBLE);
-                mFilterExtendedLayout.setVisibility(View.GONE);
-                btnFilterLess.setVisibility(View.GONE);
-            }
-
-        });
-
-        //Listener vor Seek Bar of Distance Changes
-        seekBarDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textValueDistance.setText(seekBarDistance.getProgress() + " km");
-                distanceToHotel = seekBarDistance.getProgress();
-            }
-        });
-
-        //Listener for Seek Bar for Price Changes
-        seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textValuePrice.setText(seekBarPrice.getProgress() + " CHF");
-                maxprice= seekBarPrice.getProgress();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -551,6 +394,62 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         });
 
+
+
+        // start of network connection check
+        netDetector.networkRunnable.run();
+
+        //add overview of clicked hotel
+        hotel_overview_layout = (CardView) findViewById(R.id.hotel_overview);
+
+        // call Countdown
+        countdownRunnable.run();
+
+    }
+
+    private void bindFilterData (){
+
+
+        mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
+        filterLayout = (LinearLayout) findViewById(R.id.filter);
+        mFilterExtendedLayout = (LinearLayout) findViewById(R.id.expandedFilter);
+        btnFilterExtend = (ImageView) findViewById(R.id.btnExpandFilter);
+        btnFilterLess = (ImageView) findViewById(R.id.lessfilter);
+        mFilterExtendedLayout.setVisibility(View.GONE);
+        btnFilterLess.setVisibility(View.GONE);
+        btnLessPeople = (ImageView) findViewById(R.id.lessPeople);
+        btnMorePeople = (ImageView) findViewById(R.id.morepeople);
+        /*btnLessNights = (ImageView) findViewById(R.id.lessNights);
+        btnMoreNights = (ImageView) findViewById(R.id.moreNights);*/
+        btnLessRooms = (ImageView) findViewById(R.id.lessRooms);
+        btnMoreRooms = (ImageView) findViewById(R.id.moreRooms);
+        // textValueNights = (TextView) findViewById(R.id.textNightValue);
+        textValuePeople = (TextView) findViewById(R.id.textPeopleValue);
+        textValueRooms = (TextView) findViewById(R.id.textRoomsValue);
+        applyFilter = (ImageButton) findViewById(R.id.imageApply);
+        declineFilter = (ImageButton) findViewById(R.id.imageDecline);
+        checkBoxBreakfast = findViewById(R.id.checkBoxBreakfast);
+        checkBoxWLAN = findViewById(R.id.checkBoxWlan);
+        searchBar = findViewById(R.id.search_bar);
+        FABLocation = findViewById(R.id.floatingActionButtonLocation);
+        seekBarRating = (SeekBar) findViewById(R.id.seekBarRating);
+        textValueRating = (TextView) findViewById(R.id.textValueRating);
+        seekBarRating.setMax(10);
+        seekBarRating.setProgress(1);
+
+        //Set Progress Bar to Default Distance of 10 km
+        seekBarDistance = (SeekBar) findViewById(R.id.seekBarDistance);
+        seekBarDistance.setProgress(10);
+        textValueDistance = (TextView) findViewById(R.id.textValueDistance);
+        //Set Progress Bar of Price to Default 100 CHF and the max to 1000 CHF
+        seekBarPrice = (SeekBar) findViewById(R.id.seekBarPrice);
+        seekBarPrice.setMax(1000);
+        seekBarPrice.setProgress(100);
+        textValuePrice = (TextView) findViewById(R.id.textPriceValue);
+        // Set Visibility of Filter to invisible
+        filterLayout.setVisibility(View.GONE);
+
+
         mFiltersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -562,14 +461,156 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        // start of network connection check
-        netDetector.networkRunnable.run();
+        btnFilterExtend.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnFilterLess.setVisibility(View.VISIBLE);
+                mFilterExtendedLayout.setVisibility(View.VISIBLE);
+                btnFilterExtend.setVisibility(View.GONE);
 
-        //add overview of clicked hotel
-        hotel_overview_layout = (CardView) findViewById(R.id.hotel_overview);
+            }
+        });
 
-        // call Countdown
-        countdownRunnable.run();
+        btnFilterLess.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnFilterExtend.setVisibility(View.VISIBLE);
+                mFilterExtendedLayout.setVisibility(View.GONE);
+                btnFilterLess.setVisibility(View.GONE);
+            }
+
+        });
+
+        declineFilter.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekBarPrice.setMax(1000);
+                seekBarPrice.setProgress(100);
+                textValueDistance.setText("100 CHF");
+                textValueDistance.setText("10 km");
+                textValuePeople.setText("1");
+                //textValueNights.setText("1");
+                textValueRooms.setText("1");
+                checkBoxBreakfast.setChecked(false);
+                checkBoxWLAN.setChecked(false);
+
+            }
+        });
+        btnLessPeople.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String PeopleValue = textValuePeople.getText().toString();
+
+                if (Integer.parseInt(PeopleValue) != 1) {
+                    PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) - 1);
+                    textValuePeople.setText(PeopleValue);
+                    nbadults= Integer.parseInt(PeopleValue);
+                }
+
+
+            }
+        });
+        btnMorePeople.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String PeopleValue = textValuePeople.getText().toString();
+                PeopleValue = String.valueOf(Integer.parseInt(PeopleValue) + 1);
+                textValuePeople.setText(PeopleValue);
+                nbadults= Integer.parseInt(PeopleValue);
+
+            }
+        });
+        btnLessRooms.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String RoomsValue = textValueRooms.getText().toString();
+                if (Integer.parseInt(RoomsValue) != 1) {
+                    RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) - 1);
+                    textValueRooms.setText(RoomsValue);
+                    nbrooms= Integer.parseInt(RoomsValue);
+                }
+
+
+            }
+        });
+        btnMoreRooms.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String RoomsValue = textValueRooms.getText().toString();
+                RoomsValue = String.valueOf(Integer.parseInt(RoomsValue) + 1);
+                textValueRooms.setText(RoomsValue);
+                nbrooms= Integer.parseInt(RoomsValue);
+            }
+        });
+
+        seekBarRating.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textValueRating.setText(String.valueOf(seekBarRating.getProgress()) );
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        //Listener vor Seek Bar of Distance Changes
+        seekBarDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textValueDistance.setText(seekBarDistance.getProgress() + " km");
+                distanceToHotel = seekBarDistance.getProgress();
+            }
+        });
+
+        //Listener for Seek Bar for Price Changes
+        seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textValuePrice.setText(seekBarPrice.getProgress() + " CHF");
+                maxprice= seekBarPrice.getProgress();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        applyFilter.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFiltersButton.callOnClick();
+                //return availabilities in Brugg
+/*                if(mEditText.getText().toString().equalsIgnoreCase("Aargau")){
+                    hotelsearch = pmodel.getAvailableRoomsInRegion("ZH", nbadults,
+                            0,0,400, nbrooms, breakfast, wifi);
+                }else{
+
+                }*/
+            }
+        });
 
     }
 
