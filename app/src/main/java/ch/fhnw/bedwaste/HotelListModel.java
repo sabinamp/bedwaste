@@ -40,7 +40,11 @@ public class HotelListModel {
 
     public List<HotelDescriptiveInfo> getItems() {
         if(!(HOTEL_IDS.isEmpty())){
-            retrieveAllHotelDescriptiveData();
+            retrieveAllHotelDescriptiveData(HOTEL_IDS);
+        }else{
+            ArrayList<String> allhotels=new ArrayList<>();
+            allhotels.addAll(WelcomeViewModel.ALL_IDS);
+            retrieveAllHotelDescriptiveData(allhotels);
         }
         return items;
     }
@@ -52,8 +56,8 @@ public class HotelListModel {
     private void updateHotelId_descriptiveInfo(String id, HotelDescriptiveInfo hotelId_descriptiveInfo) {
         this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
     }
-    private void retrieveAllHotelDescriptiveData(){
-        for (final String eachId : HOTEL_IDS) {
+    private void retrieveAllHotelDescriptiveData(List<String> ids){
+        for (final String eachId : ids) {
             Log.d("TAG", "hotel ids: "+ HOTEL_IDS);
             Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
             HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {

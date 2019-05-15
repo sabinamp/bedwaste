@@ -99,8 +99,6 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -111,14 +109,11 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onResume() {
         Log.d(TAG, "onResume() called");
         super.onResume();
-        listmodel.updateHotel_IDS( getIntent().getStringArrayListExtra("bedwaste_hotel_list"));
-        myAdapter.refreshHotelList(listmodel.getItems());
     }
 
     @Override
     public void onPause() {
         Log.d(TAG, "onPause() called");
-
         super.onPause();
     }
     @Override

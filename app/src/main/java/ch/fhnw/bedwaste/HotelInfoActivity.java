@@ -102,11 +102,12 @@ public class HotelInfoActivity extends AppCompatActivity {
                 ch.fhnw.bedwaste.model.Award hotel_association_rating = award_list.get(0);
 
                 String star_amount = hotel_association_rating.getRating();
-                int stars = Integer.parseInt(star_amount);
+                /*int stars = Integer.parseInt(star_amount);
+                String starstring = new String(new char[stars]).replace("", "*");*/
+                double stars =Math.floor(Double.parseDouble(star_amount));
+                star_amount_string = new String(new char[(int)stars]).replace("", "*");
 
-                String starstring = new String(new char[stars]).replace("", "*");
-
-                insert_starRating.setText(starstring);
+                insert_starRating.setText(star_amount_string);
 
 
                 //insert_banner?!
