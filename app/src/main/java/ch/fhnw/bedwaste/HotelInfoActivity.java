@@ -2,6 +2,7 @@ package ch.fhnw.bedwaste;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import ch.fhnw.bedwaste.model.Address;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.ContactInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfo;
@@ -24,6 +26,8 @@ import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.model.Phone;
 import ch.fhnw.bedwaste.model.Service;
 import ch.fhnw.bedwaste.server.APIClient;
+import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
+import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoListener;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
@@ -93,7 +97,7 @@ public class HotelInfoActivity extends AppCompatActivity {
             public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
-                insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+                //insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
                 //iterate thrpugh amount of stars to create *** String
                 java.util.List<ch.fhnw.bedwaste.model.Award> award_list;
@@ -124,7 +128,20 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
-                //insert_price.setText("CHF "+model.getDisplayedPrices().get(hotellist_value));
+                HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
+
+                    @Override
+                    public void success(Response<AvailabilityResults> response) {
+                        AvailabilityResults roomAvailabilityResults = response.body();
+                        double price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
+                        insert_price.setText(String.valueOf((int)price));
+                    }
+                    @Override
+                    public void failed(String message) {
+                        Log.d(TAG, "couldn't fetch availability results" + message);
+                    }
+                });
+                service_price.getRoomAvailabilitiesInHotel(hotelDescriptiveInfo.getHotelId(), 1, 0, 0);
 
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
                 //takes first entry as main contact info
@@ -139,9 +156,6 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 insert_telnr.setText("(+" + phone.getCountryAccessCode() + ")" + phone.getPhoneNumber());
 
-                //return amount of pictures from previously instantiated multimediadescription and use it for gallery code later.
-
-                amount_hotel_pictures = hotel_images.size();
 
                 //WLAN + Breakfast
 
@@ -157,6 +171,39 @@ public class HotelInfoActivity extends AppCompatActivity {
                     }
                 }
 
+
+                //return amount of pictures from previously instantiated multimediadescription and use it for gallery code later.
+
+                amount_hotel_pictures = hotel_images.size();
+                String test = Integer.toString(amount_hotel_pictures);
+                insert_hotelname.setText(test);
+
+                LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
+                for (int i = 1; i < amount_hotel_pictures; i++) {
+/*                    ImageView imageView = new ImageView(HotelInfoActivity.this);
+                    imageView.setId(i);
+                    imageView.setPadding(2, 2, 2, 2);
+                    //imageView.setImageBitmap(BitmapFactory.decodeResource(
+                            //getResources(), R.drawable.ic_launcher_foreground));
+                    //String ImageURL = hotel_images.get(i).getImageUrl();
+                    //System.out.print(ImageURL);
+
+                    imageView.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
+
+                    //Picasso.get().load(ImageURL).fit().into(imageView);*/
+
+                    ImageView imageView = new ImageView(HotelInfoActivity.this);
+                    imageView.setId(i);
+                    imageView.setPadding(2, 2, 2, 2);
+                    //imageView.setImageBitmap(BitmapFactory.decodeResource(
+                    //        getResources(), R.drawable.ic_launcher_foreground));
+                    imageView.setImageResource(R.drawable.ic_launcher_background);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    layout.addView(imageView);
+
+
+                }
+
            }
 
             @Override
@@ -164,23 +211,10 @@ public class HotelInfoActivity extends AppCompatActivity {
                 insert_hotelname.setText("message" );           }
         });
 
+
         service.getHotelDescriptiveInfo("en", hotellist_value);
-        String test = Integer.toString(amount_hotel_pictures);
-        insert_hotelname.setText(test);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
-        for (int i = 1; i < amount_hotel_pictures; i++) {
-            ImageView imageView = new ImageView(HotelInfoActivity.this);
-            imageView.setId(i);
-            imageView.setPadding(2, 2, 2, 2);
-            //imageView.setImageBitmap(BitmapFactory.decodeResource(
-            //        getResources(), R.drawable.ic_launcher_foreground));
-            String ImageURL = hotel_images.get(i).getImageUrl();
-            System.out.print(ImageURL);
 
-            insert_hotelname.setText(ImageURL);
-            Picasso.get().load(ImageURL).fit().into(imageView);
-        }
         addBottomNavigation();
 
         // start of network connection check
