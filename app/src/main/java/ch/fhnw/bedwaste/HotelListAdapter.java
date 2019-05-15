@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
+import ch.fhnw.bedwaste.model.Address;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
@@ -80,6 +81,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         TextView hotelCity;
         TextView hotelPrice;
         TextView hotelRating;
+        TextView hotelStars;
         ImageView hotelThumbnail;
         private TextView minHotel;
         public MyViewHolder(View itemView) {
@@ -92,6 +94,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             hotelAddressLine = (TextView)itemView.findViewById(R.id.hotel_address_line);
             hotelCity = (TextView)itemView.findViewById(R.id.hotel_city);
             minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
+            hotelStars= (TextView) itemView.findViewById(R.id.nb_stars) ;
 
             itemView.setClickable(true);
         }
@@ -102,17 +105,25 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             String name = hotelItem.getHotelName() != null ? hotelItem.getHotelName() : "";
 
             //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getProducts().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
-            //String street = hotelItem.getAddress().getAddressLine() != null ? hotelItem.getAddress().getAddressLine() : "";
-            //String city_zipcode = hotelItem.getAddress().getCityName() != null ? hotelItem.getAddress().getCityName()+ hotelItem.getAddress().getPostalCode() : "";
+            String addressLine1= hotelItem.getContactInfos().get(0).getAddresses().get(0).getAddressLine();
+            Address address=hotelItem.getContactInfos().get(0).getAddresses().get(0);
+            String street = addressLine1!= null ? addressLine1 : "";
+            String city=address.getCityName();
+            String city_zipcode = city != null ? city + " "+ address.getPostalCode(): "";
 
             String rating =  hotelItem.getAffiliationInfo().getAwards().get(1).getRating() +"/10" ;
             String distance = 3+"Min";
             hotelNameTextView.setText(name);
+            String star_amount = hotelItem.getAffiliationInfo().getAwards().get(0).getRating();
 
+            double stars =Math.floor(Double.parseDouble(star_amount));
+            String star_amount_string = new String(new char[(int)stars]).replace("", "*");
             //hotelThumbnail.setImageURI(hotelInfo.getHotelInfo().getDescriptions().getMultimediadescriptions().get("img/index"));
             /*hotelPrice.setText(price);
+            */
+            hotelStars.setText(star_amount_string);
             hotelAddressLine.setText(street);
-            hotelCity.setText(city_zipcode );*/
+            hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
             minHotel.setText(distance);
 

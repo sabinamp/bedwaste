@@ -95,20 +95,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="4dp">
-                <ImageView
+<!--                <ImageView
                     android:id="@+id/star_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
                     android:src="@drawable/star"
-                    />
-                <ImageView
-                    android:id="@+id/star_2"
+                    />-->
+                <TextView
+                    android:id="@+id/nb_stars"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="2dp"
-                    android:src="@drawable/star"
-                    />
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    tools:text="*" />
+
             </LinearLayout>
             <TextView
                 android:id="@+id/hotel_price"
