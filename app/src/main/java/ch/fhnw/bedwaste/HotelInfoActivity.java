@@ -123,7 +123,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
-                //insert_price.setText("CHF "+model.getCurrentPrices().get(hotellist_value));
+                //insert_price.setText("CHF "+model.getDisplayedPrices().get(hotellist_value));
 
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
                 //takes first entry as main contact info

@@ -21,6 +21,6 @@ public interface AvailabilitiesPerRegionInterface {
                                                                    @Query("nbInfants") int nbInfants,
                                                                    @Query("maxprice") int maxprice,
                                                                    @Query("nbrooms") int nbrooms,
-                                                                   @Query("breakfast") boolean breakfast,
-                                                                   @Query("wifi") boolean wifi);
+                                                                   @Query("breakfast") Boolean breakfast,
+                                                                   @Query("wifi") Boolean wifi);
 }

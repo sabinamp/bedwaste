@@ -27,14 +27,13 @@ public class AvailabilitiesPerRegionService {
         this.listener= listener;
     }
 
-    public void getAvailabilitiesPerRegion(String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms,boolean breakfast,boolean wifi){
-
+    public void getAvailabilitiesPerRegion(final String region, int nbAdults, int nbChildren, int nbInfants, int maxprice, int nbrooms, Boolean breakfast, Boolean wifi){
 
         //format the dates in the required format expected by Hotel Spider CRS API*/
         jsonAPI = APIClient.getClient().create(AvailabilitiesPerRegionInterface.class);
         Call<List<AvailabilityResult>> callApi = jsonAPI.getHotelAvailabilitiesPerRegion(region, USER_ID,
                 "2019-05-05", "2019-05-05", nbAdults, nbChildren, nbInfants, maxprice,nbrooms, breakfast, wifi);
-        Log.d("TAG", "Before enqueing");
+        Log.d("TAG", "Before enqueing"+"getAvailabilittiesInRegion "+region+" nbAdults = "+nbAdults);
         callApi.enqueue(new Callback<List< AvailabilityResult>>() {
 
             @Override
@@ -55,7 +54,7 @@ public class AvailabilitiesPerRegionService {
 
             @Override
             public void onFailure(Call<List<AvailabilityResult>> call, Throwable t) {
-                Log.d("TAG", "failed retrieving availability results per region");
+                Log.d("TAG", "failed retrieving availability results per region "+region);
                 listener.failed("message error: " +t.getMessage());
                 call.cancel();
             }

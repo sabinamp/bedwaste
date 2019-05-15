@@ -1,11 +1,6 @@
 package ch.fhnw.bedwaste;
 import android.arch.lifecycle.ViewModel;
 
-import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.graphics.Movie;
-import android.support.v7.app.AppCompatActivity;
-
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
@@ -19,14 +14,9 @@ import java.util.TreeSet;
 import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
-import ch.fhnw.bedwaste.model.CurrencyCode;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
-import ch.fhnw.bedwaste.model.HotelInfo;
-import ch.fhnw.bedwaste.model.HotelInfoPosition;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
-import ch.fhnw.bedwaste.server.ErrorsHandler;
-import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 
 public class WelcomeViewModel extends ViewModel {
     static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
@@ -80,7 +70,7 @@ public class WelcomeViewModel extends ViewModel {
     private Map<String, LatLng> hotelIdsInRegionAargau=null;
     private Map<String, LatLng> hotelIdsInRegionZH=null;
 
-    private Map<String, Integer> currentPrices = null;
+    private Map<String, Integer> displayedPrices = null;
 
     public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
         return multimediaDescriptions;
@@ -103,7 +93,7 @@ public class WelcomeViewModel extends ViewModel {
         hotelId_availabilities = new HashMap<>();
         hotelIdsInRegionZH = new HashMap<>();
         hotelIdsInRegionAargau = new HashMap<>();
-        currentPrices= new HashMap<>();
+        displayedPrices = new HashMap<>();
 
 
     }
@@ -126,9 +116,9 @@ public class WelcomeViewModel extends ViewModel {
         this.hotelId_availabilities.put(id, hotelId_availabilities);
     }
     public void updateDisplayedPrices(String id, Integer price) {
-        this.currentPrices.put(id, price);
+        this.displayedPrices.put(id, price);
     }
-    public Map<String, Integer> getCurrentPrices() {
-        return currentPrices;
+    public Map<String, Integer> getDisplayedPrices() {
+        return displayedPrices;
     }
 }

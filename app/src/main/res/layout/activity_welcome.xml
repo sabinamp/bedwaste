@@ -28,7 +28,7 @@
             android:layout_weight="1.01"
             android:ems="10"
             android:hint="Your preferred location"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"/>
 
