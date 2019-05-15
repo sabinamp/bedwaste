@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,14 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ch.fhnw.bedwaste.model.Address;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelInfo;
 import ch.fhnw.bedwaste.model.MultimediaDescription;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
+import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
+import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
+import retrofit2.Response;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
@@ -125,8 +130,6 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             String star_amount_string = new String(new char[(int)stars]).replace("", "*");
 
 
-            /*hotelPrice.setText(price);
-            */
             //hotel image
             /*HotelInfo hotelInfo = hotelItem.getHotelInfo();
             java.util.List<MultimediaDescription> multimediaDescriptions = hotelInfo.getDescriptions().getMultimediadescriptions();
@@ -141,13 +144,27 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
             minHotel.setText(distance);
+            HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
+
+                @Override
+                public void success(Response<AvailabilityResults> response) {
+                    AvailabilityResults roomAvailabilityResults = response.body();
+                    double price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
+                    hotelPrice.setText("CHF "+ String.valueOf((int)price));
+                }
+                @Override
+                public void failed(String message) {
+                    Log.d(TAG, "couldn't fetch availability results" + message);
+                }
+            });
+            service_price.getRoomAvailabilitiesInHotel(hotelItem.getHotelId(), 1, 0, 0);
 
         }
     }
 
-    public void refreshHotelList(List<HotelDescriptiveInfo> list) {
+/*    public void refreshHotelList(List<HotelDescriptiveInfo> list) {
         this.hotelList.clear();
         this.hotelList.addAll(list);
         notifyDataSetChanged();
-    }
+    }*/
 }

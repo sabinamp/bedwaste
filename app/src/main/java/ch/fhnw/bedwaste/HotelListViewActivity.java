@@ -135,7 +135,6 @@ public class HotelListViewActivity extends AppCompatActivity {
             itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
 
             myAdapter.notifyDataSetChanged();
-            //myAdapter.setNotifyOnChange(true);
         }
     }
 
