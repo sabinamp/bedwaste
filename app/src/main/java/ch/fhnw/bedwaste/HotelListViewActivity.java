@@ -17,15 +17,18 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.fhnw.bedwaste.client.HotelDTO;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
     private RecyclerView recyclerView;
-    private final static List<HotelDTO> items= new ArrayList<>();
+    private final static List<HotelDescriptiveInfo> items= new ArrayList<>();
     private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
+    private HotelListModel listmodel=null;
+    private HotelListAdapter myAdapter;
+
 
     /**
      * Debugging tag LoginActivity used by the Android logger.
@@ -37,11 +40,18 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+
         setLayoutManager();
-        setViewAdapter(new HotelListModel().getItems());
+        listmodel= new HotelListModel();
+
+        listmodel.updateHotel_IDS( getIntent().getStringArrayListExtra("bedwaste_hotel_list"));
+
+        //list adapter
+        myAdapter = new HotelListAdapter(listmodel.getItems(), HotelListViewActivity.this);
+        recyclerView.setAdapter(myAdapter);
+
 
         addBottomNavigation();
 
@@ -89,20 +99,20 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
-    private void setViewAdapter(List<HotelDTO> hotels){
-        HotelListAdapter myAdapter = new HotelListAdapter(hotels, HotelListViewActivity.this);
-        recyclerView.setAdapter(myAdapter);
-    }
+
 
     @Override
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
+
     }
     @Override
     public void onResume() {
         Log.d(TAG, "onResume() called");
         super.onResume();
+        listmodel.updateHotel_IDS( getIntent().getStringArrayListExtra("bedwaste_hotel_list"));
+        myAdapter.refreshHotelList(listmodel.getItems());
     }
 
     @Override

@@ -13,18 +13,17 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
-import ch.fhnw.bedwaste.client.HotelDTO;
-import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 public class HotelListAdapter extends RecyclerView.Adapter {
     private static final String TAG = "HotelListAdapter";
-    private List<HotelDTO> hotelList;
-    private HotelDescriptiveInfoService controller;
+
+    private List<HotelDescriptiveInfo> hotelList;
     private Context context;
 
     private LatLng userLocation;
 
-    public HotelListAdapter(List<HotelDTO> list, Context context) {
+    public HotelListAdapter(List<HotelDescriptiveInfo> list, Context context) {
         this.context = context;
         hotelList = list;
     }
@@ -40,8 +39,8 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-        final HotelDTO hotel = hotelList.get(position);
-        final String hotelName = hotelList.get(position).getName();
+        final HotelDescriptiveInfo hotel = hotelList.get(position);
+        final String hotelName = hotel.getHotelName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
         final String hotelId = hotelList.get(position).getHotelId();
        // holder.hotelNameTextView.setText(hotelName);
@@ -75,7 +74,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private HotelDTO hotelItem;
+        private HotelDescriptiveInfo hotelItem;
         TextView hotelNameTextView;
         TextView hotelAddressLine;
         TextView hotelCity;
@@ -98,20 +97,18 @@ public class HotelListAdapter extends RecyclerView.Adapter {
         }
 
         //method to call within the adapter's onBindViewHolder() after fetching data from the server
-        private void bind(HotelDTO hotelItem, LatLng userLocation){
+        private void bind(HotelDescriptiveInfo hotelItem, LatLng userLocation){
             this.hotelItem = hotelItem;
-            String name = hotelItem.getName() != null ? hotelItem.getName() : "";
+            String name = hotelItem.getHotelName() != null ? hotelItem.getHotelName() : "";
 
             //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getProducts().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
             //String street = hotelItem.getAddress().getAddressLine() != null ? hotelItem.getAddress().getAddressLine() : "";
             //String city_zipcode = hotelItem.getAddress().getCityName() != null ? hotelItem.getAddress().getCityName()+ hotelItem.getAddress().getPostalCode() : "";
 
-            String rating =  hotelItem.getRating() +"/10" ;
-            String distance = hotelItem.getWalkingDistanceToHotelInMinutes(userLocation)+"Min";
+            String rating =  hotelItem.getAffiliationInfo().getAwards().get(1).getRating() +"/10" ;
+            String distance = 3+"Min";
             hotelNameTextView.setText(name);
 
-            //String distance = hotelItem.getWalkingDistanceToHotelInMinutes(userLocation)+"Min";
-            hotelNameTextView.setText(name);
             //hotelThumbnail.setImageURI(hotelInfo.getHotelInfo().getDescriptions().getMultimediadescriptions().get("img/index"));
             /*hotelPrice.setText(price);
             hotelAddressLine.setText(street);
@@ -120,8 +117,11 @@ public class HotelListAdapter extends RecyclerView.Adapter {
             minHotel.setText(distance);
 
         }
+    }
 
-
-
+    public void refreshHotelList(List<HotelDescriptiveInfo> list) {
+        this.hotelList.clear();
+        this.hotelList.addAll(list);
+        notifyDataSetChanged();
     }
 }
