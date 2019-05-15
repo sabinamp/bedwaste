@@ -325,7 +325,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 mEditText = findViewById(R.id.input_location);
 
                 if (!mEditText.getText().toString().trim().equals("")) {
-                    String locationSearched = mEditText.getText().toString();
+                    String locationSearched = mEditText.getText().toString().trim();
 
                     if (locationSearched.equalsIgnoreCase("Brugg")) {
                         setSearchRegion("Aargau");
