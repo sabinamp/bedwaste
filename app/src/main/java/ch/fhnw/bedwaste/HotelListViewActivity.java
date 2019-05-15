@@ -21,19 +21,30 @@ import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 
 public class HotelListViewActivity extends AppCompatActivity {
+    // Keys for storing activity state.
+    private static final String KEY_LIST_HOTEL = "hotel_list";
+
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
     private RecyclerView recyclerView;
-    private final static List<HotelDescriptiveInfo> items= new ArrayList<>();
+    private List<HotelDescriptiveInfo> itemList= null;
     private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
     private HotelListModel listmodel=null;
     private HotelListAdapter myAdapter;
 
-
+    //This flag is required to avoid first time onResume refreshing
+    static boolean loaded = false;
     /**
      * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG = "HotelListViewActivity";
+    ArrayList<String> passedIds=null;
+
+    public HotelListViewActivity() {
+        listmodel = new HotelListModel();
+        itemList= new ArrayList<>();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +53,19 @@ public class HotelListViewActivity extends AppCompatActivity {
         Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-
         setLayoutManager();
-        listmodel= new HotelListModel();
+        //passed from WelcomeActivity
+        passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
+        if(passedIds.isEmpty()){
+            ArrayList<String> allhotels=new ArrayList<>();
+            allhotels.addAll(WelcomeViewModel.ALL_IDS);
+            listmodel.retrieveAllHotelDescriptiveData(allhotels);
+        }
 
-        listmodel.updateHotel_IDS( getIntent().getStringArrayListExtra("bedwaste_hotel_list"));
 
+        itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
         //list adapter
-        myAdapter = new HotelListAdapter(listmodel.getItems(), HotelListViewActivity.this);
+        myAdapter = new HotelListAdapter(itemList, HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
 
 
@@ -109,12 +125,25 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onResume() {
         Log.d(TAG, "onResume() called");
         super.onResume();
+        if (!loaded) {
+            //First time just set the loaded flag true
+            loaded = true;
+        } else {
+            Log.i("Resuming", "back to my first activity");
+            //Reload data
+            itemList.clear();
+            itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
+
+            myAdapter.notifyDataSetChanged();
+            //myAdapter.setNotifyOnChange(true);
+        }
     }
 
     @Override
     public void onPause() {
         Log.d(TAG, "onPause() called");
         super.onPause();
+
     }
     @Override
     public void onStop() {
@@ -126,4 +155,25 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
+   /* *//**
+     * Saves the last location on configuration change
+     *//*
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        Log.v(TAG, "Inside of onSaveInstanceState");
+        if (passedIds != null) {
+            state.putStringArrayList(KEY_LIST_HOTEL, passedIds);
+
+
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.v(TAG, "Inside of onRestoreInstanceState");
+        passedIds= savedInstanceState.getStringArrayList(KEY_LIST_HOTEL);
+
+    }*/
 }

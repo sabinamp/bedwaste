@@ -21,7 +21,7 @@ public class HotelListModel {
     /**
      * List of hotel ids passed from WelcomeActivity
      */
-    private ArrayList<String> HOTEL_IDS=null;
+    //private ArrayList<String> HOTEL_IDS=null;
     private List<HotelDescriptiveInfo> items= null;
 
     private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo=null;
@@ -29,25 +29,8 @@ public class HotelListModel {
     public HotelListModel() {
         items = new ArrayList<>();
         hotelId_descriptiveInfo = new HashMap<>();
-        HOTEL_IDS= new ArrayList<>();
     }
 
-    void updateHotel_IDS(List<String> newList){
-        HOTEL_IDS.clear();
-        HOTEL_IDS.addAll(newList);
-
-    }
-
-    public List<HotelDescriptiveInfo> getItems() {
-        if(!(HOTEL_IDS.isEmpty())){
-            retrieveAllHotelDescriptiveData(HOTEL_IDS);
-        }else{
-            ArrayList<String> allhotels=new ArrayList<>();
-            allhotels.addAll(WelcomeViewModel.ALL_IDS);
-            retrieveAllHotelDescriptiveData(allhotels);
-        }
-        return items;
-    }
 
     private Map<String, HotelDescriptiveInfo> getHotelId_descriptiveInfo() {
         return Collections.unmodifiableMap(hotelId_descriptiveInfo);
@@ -56,9 +39,9 @@ public class HotelListModel {
     private void updateHotelId_descriptiveInfo(String id, HotelDescriptiveInfo hotelId_descriptiveInfo) {
         this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
     }
-    private void retrieveAllHotelDescriptiveData(List<String> ids){
+    List<HotelDescriptiveInfo> retrieveAllHotelDescriptiveData(List<String> ids){
         for (final String eachId : ids) {
-            Log.d("TAG", "hotel ids: "+ HOTEL_IDS);
+            Log.d("TAG", "hotel ids' number: "+ ids.size());
             Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
             HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
                 @Override
@@ -77,6 +60,7 @@ public class HotelListModel {
             service_description.getHotelDescriptiveInfo("en", eachId);
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
+        return  items;
     }
 
 
