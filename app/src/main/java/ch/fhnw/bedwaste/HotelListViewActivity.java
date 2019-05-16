@@ -119,6 +119,13 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
+        passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
+        if(passedIds.isEmpty()){
+            ArrayList<String> allhotels=new ArrayList<>();
+            allhotels.addAll(WelcomeViewModel.ALL_IDS);
+            listmodel.retrieveAllHotelDescriptiveData(allhotels);
+        }
+        itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
 
     }
     @Override
@@ -129,9 +136,14 @@ public class HotelListViewActivity extends AppCompatActivity {
             //First time just set the loaded flag true
             loaded = true;
         } else {
-            Log.i("Resuming", "back to my first activity");
+            Log.i("Resuming", "back to the list view activity");
             //Reload data
             itemList.clear();
+            if(passedIds.isEmpty()){
+                ArrayList<String> allhotels=new ArrayList<>();
+                allhotels.addAll(WelcomeViewModel.ALL_IDS);
+                listmodel.retrieveAllHotelDescriptiveData(allhotels);
+            }
             itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
 
             myAdapter.notifyDataSetChanged();

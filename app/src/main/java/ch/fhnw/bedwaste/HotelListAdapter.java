@@ -26,7 +26,7 @@ import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
 import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
 import retrofit2.Response;
 
-public class HotelListAdapter extends RecyclerView.Adapter {
+public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyViewHolder> {
     private static final String TAG = "HotelListAdapter";
 
     private List<HotelDescriptiveInfo> hotelList;
@@ -40,7 +40,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     }
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.hotel_list_item, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
@@ -49,7 +49,7 @@ public class HotelListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
         final String hotelName = hotel.getHotelName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
@@ -131,13 +131,15 @@ public class HotelListAdapter extends RecyclerView.Adapter {
 
 
             //hotel image
-            /*HotelInfo hotelInfo = hotelItem.getHotelInfo();
+            HotelInfo hotelInfo = hotelItem.getHotelInfo();
             java.util.List<MultimediaDescription> multimediaDescriptions = hotelInfo.getDescriptions().getMultimediadescriptions();
             MultimediaDescription first_mmDescription = multimediaDescriptions.get(0);
             java.util.List<MultimediaDescriptionImages> hotel_images = first_mmDescription.getImages();
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
-            Picasso.get().load(imageUrl_banner).fit().into(hotelThumbnail);*/
+            Picasso.get().load(imageUrl_banner)
+            .resize(480, 350).centerCrop()
+                    .placeholder(R.drawable.ic_location_city_blue_240dp).into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
             hotelAddressLine.setText(street);

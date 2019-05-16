@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
-                android:background="@color/colorPrimaryDark"
-                android:cropToPadding="true"
+
+
                 android:paddingLeft="0dp"
                 android:src="@drawable/ic_location_city_blue_240dp" />
 
@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
-                    android:paddingLeft="12dp"
+                    android:paddingLeft="8dp"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor= "@android:color/darker_gray"
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
-                    android:paddingLeft="22dp"
+                    android:paddingLeft="12dp"
                     android:paddingBottom="2dp"
                     android:text="3min"
                     android:textAlignment="center"
@@ -108,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    tools:text="*" />
+                    tools:text="*"
+                    android:textFontWeight="300"/>
 
             </LinearLayout>
             <TextView
