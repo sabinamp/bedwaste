@@ -132,6 +132,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     //Object for network connection check
     private NetworkDetector netDetector = new NetworkDetector(WelcomeActivity.this);
 
+    //Object Countdownlabel
+    private CountdownLabel countdownLabel = new CountdownLabel(WelcomeActivity.this);
+
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
@@ -352,8 +355,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         //add overview of clicked hotel
         hotel_overview_layout = (CardView) findViewById(R.id.hotel_overview);
 
-        // call Countdown
-        countdownRunnable.run();
+        // call Countdownlabel
+        countdownLabel.countdownRunnable.run();
 
     }
 
@@ -1086,99 +1089,12 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
 
-    // COUNTDOWN LOGIC
-
-    private final static int HOUR_TO_ACTIVATE_COUNTDOWNLABEL = 12;
-    private final static String ENDTIME_TO_DEACTIVATE_COUNTDOWNLABEL = "24:00:00";
-
-    Handler countdownHandler = new Handler();
-
-    private TextView countdownTextSeconds;
-    private TextView countdownTextMinutes;
-    private TextView countdownTextHours;
-    private TableLayout countdownBox;
-
-    private CountDownTimer countDownTimer;
-
-    // This Runnable Object is used to trigger the countdown method & the handlermethod calls this runnable each 5sec after APP has started.
-
-    private Runnable countdownRunnable = new Runnable() {
-        @Override
-        public void run() {
-            countdownHandler.postDelayed(this, 10000);
-
-            try {
-
-                LocalTime localTime = LocalTime.now();
-                if (localTime.getHour() >= HOUR_TO_ACTIVATE_COUNTDOWNLABEL) {
-                    startCountdown();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-        }
-    };
-
-    public void startCountdown() throws ParseException {
-
-        LocalTime localTime = LocalTime.now();
-
-        // Format time and calcualtion of elapsed time..
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-        Date endTime = format.parse(ENDTIME_TO_DEACTIVATE_COUNTDOWNLABEL);
-        Date deviceLocaltime = format.parse(localTime.toString());
-
-        long timeElapsed = endTime.getTime() - deviceLocaltime.getTime();
-
-        countdownTextSeconds = (TextView) findViewById(R.id.countdownTextSeconds);
-        countdownTextMinutes = (TextView) findViewById(R.id.countdownTextMinutes);
-        countdownTextHours = (TextView) findViewById(R.id.countdownTextHours);
-        countdownBox = (TableLayout) findViewById(R.id.countdownBox);
-
-        countdownBox.setAlpha(1);
-
-        countDownTimer = new CountDownTimer(timeElapsed, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-                // in Seconds
-                if ((millisUntilFinished / 1000 % 60) >= 10) {
-                    countdownTextSeconds.setText("" + millisUntilFinished / 1000 % 60);
-                } else {
-                    countdownTextSeconds.setText("0" + millisUntilFinished / 1000 % 60);
-                }
-
-                // in Minutes
-                if ((millisUntilFinished / (60 * 1000) % 60) >= 10) {
-                    countdownTextMinutes.setText("" + millisUntilFinished / (60 * 1000) % 60);
-                } else {
-                    countdownTextMinutes.setText("0" + millisUntilFinished / (60 * 1000) % 60);
-                }
-
-                // in Hours
-                if ((millisUntilFinished / (60 * 60 * 1000) % 24) >= 10) {
-                    countdownTextHours.setText("" + millisUntilFinished / (60 * 60 * 1000) % 24);
-                } else {
-                    countdownTextHours.setText("0" + millisUntilFinished / (60 * 60 * 1000) % 24);
-                }
-                countdownHandler.removeCallbacks(countdownRunnable);
-            }
-
-            public void onFinish() {
-                countdownBox.setAlpha(0);
-                countdownHandler.postDelayed(countdownRunnable, 10000);
-
-            }
-        }.start();
-    }
-
 
     public void startAnimation() {
         mBottomNavigationView.setVisibility(View.INVISIBLE);
         searchBar.setVisibility(View.INVISIBLE);
-        if (countdownBox != null) {
-            countdownBox.setVisibility(View.INVISIBLE);
+        if (countdownLabel.getCountdownBox() != null) {
+            countdownLabel.getCountdownBox().setVisibility(View.INVISIBLE);
         }
 
         FABLocation.hide();
@@ -1283,8 +1199,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     public void run() {
                         mBottomNavigationView.setVisibility(View.VISIBLE);
                         searchBar.setVisibility(View.VISIBLE);
-                        if (countdownBox != null) {
-                            countdownBox.setVisibility(View.VISIBLE);
+                        if (countdownLabel.getCountdownBox() != null) {
+                            countdownLabel.getCountdownBox().setVisibility(View.VISIBLE);
                         }
 
                         FABLocation.show();
@@ -1313,8 +1229,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     public void run() {
                         mBottomNavigationView.setVisibility(View.VISIBLE);
                         searchBar.setVisibility(View.VISIBLE);
-                        if (countdownBox != null) {
-                            countdownBox.setVisibility(View.VISIBLE);
+                        if (countdownLabel.getCountdownBox() != null) {
+                            countdownLabel.getCountdownBox().setVisibility(View.VISIBLE);
                         }
                         FABLocation.show();
                         BlankAnimationBar.setVisibility(View.INVISIBLE);
