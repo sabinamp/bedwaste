@@ -403,8 +403,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             public void onClick(View v) {
                 if (filterLayout.getVisibility() == View.VISIBLE) {
                     filterLayout.setVisibility(View.GONE);
+                    mEditText.setEnabled(true);
                 } else {
                     filterLayout.setVisibility(View.VISIBLE);
+                    mEditText.setEnabled(false);
                 }
             }
         });
