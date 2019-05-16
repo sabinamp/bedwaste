@@ -175,17 +175,19 @@ public class HotelInfoActivity extends AppCompatActivity {
                 //return amount of pictures from previously instantiated multimediadescription and use it for gallery code later.
 
                 amount_hotel_pictures = hotel_images.size();
-                String test = Integer.toString(amount_hotel_pictures);
-                insert_hotelname.setText(test);
+/*                String test = Integer.toString(amount_hotel_pictures);
+                insert_hotelname.setText(test);*/
 
-/*
-                for (int i = 1; i < amount_hotel_pictures; i++){
+
+                for (int i = 0; i < amount_hotel_pictures; i++){
                     ImageView imageView = new ImageView(HotelInfoActivity.this);
+                    imageView.setPadding(10,1,10,1);
                     String imageURLs = hotel_images.get(i).getImageUrl();
+                    Picasso.get().load(imageURLs).resize(300, 300).into(imageView);
                     ((LinearLayout) findViewById(R.id.image_linear)).addView(
                             imageView, i);
                 }
-*/
+
 
 
 
