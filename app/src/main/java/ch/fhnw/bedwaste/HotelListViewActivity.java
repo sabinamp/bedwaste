@@ -119,13 +119,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
-        passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
-        if(passedIds.isEmpty()){
-            ArrayList<String> allhotels=new ArrayList<>();
-            allhotels.addAll(WelcomeViewModel.ALL_IDS);
-            listmodel.retrieveAllHotelDescriptiveData(allhotels);
-        }
-        itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
+       
 
     }
     @Override
@@ -138,15 +132,14 @@ public class HotelListViewActivity extends AppCompatActivity {
         } else {
             Log.i("Resuming", "back to the list view activity");
             //Reload data
-            itemList.clear();
+            /*itemList.clear();
             if(passedIds.isEmpty()){
                 ArrayList<String> allhotels=new ArrayList<>();
                 allhotels.addAll(WelcomeViewModel.ALL_IDS);
                 listmodel.retrieveAllHotelDescriptiveData(allhotels);
             }
             itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
-
-            myAdapter.notifyDataSetChanged();
+            myAdapter.notifyDataSetChanged();*/
         }
     }
 
@@ -166,25 +159,5 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
-   /* *//**
-     * Saves the last location on configuration change
-     *//*
-    @Override
-    protected void onSaveInstanceState(Bundle state) {
-        super.onSaveInstanceState(state);
-        Log.v(TAG, "Inside of onSaveInstanceState");
-        if (passedIds != null) {
-            state.putStringArrayList(KEY_LIST_HOTEL, passedIds);
 
-
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.v(TAG, "Inside of onRestoreInstanceState");
-        passedIds= savedInstanceState.getStringArrayList(KEY_LIST_HOTEL);
-
-    }*/
 }
