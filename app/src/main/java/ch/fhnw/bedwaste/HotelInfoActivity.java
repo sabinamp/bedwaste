@@ -97,7 +97,7 @@ public class HotelInfoActivity extends AppCompatActivity {
             public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
-                //insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
+                insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
                 //iterate thrpugh amount of stars to create *** String
                 java.util.List<ch.fhnw.bedwaste.model.Award> award_list;

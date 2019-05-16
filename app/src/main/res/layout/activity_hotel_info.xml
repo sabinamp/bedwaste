@@ -123,13 +123,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_general_info"
+
         android:background="@color/white"
         android:orientation="vertical">
 
         <ScrollView
             android:id="@+id/scrollview_bottomOverview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/layout_bottomHalfContent"
@@ -151,17 +152,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Addresse"
-                        android:textStyle="bold"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/text_StreetPhoneNr"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="Tel"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -265,6 +266,13 @@
                         android:text="WLAN"
                         android:textAlignment="center" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="55dp"
+                    android:text="TextView" />
 
 
             </LinearLayout>
