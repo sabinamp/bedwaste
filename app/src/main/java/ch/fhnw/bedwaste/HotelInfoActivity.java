@@ -178,31 +178,17 @@ public class HotelInfoActivity extends AppCompatActivity {
                 String test = Integer.toString(amount_hotel_pictures);
                 insert_hotelname.setText(test);
 
-                LinearLayout layout = (LinearLayout) findViewById(R.id.image_linear);
-                for (int i = 1; i < amount_hotel_pictures; i++) {
-/*                    ImageView imageView = new ImageView(HotelInfoActivity.this);
-                    imageView.setId(i);
-                    imageView.setPadding(2, 2, 2, 2);
-                    //imageView.setImageBitmap(BitmapFactory.decodeResource(
-                            //getResources(), R.drawable.ic_launcher_foreground));
-                    //String ImageURL = hotel_images.get(i).getImageUrl();
-                    //System.out.print(ImageURL);
-
-                    imageView.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
-
-                    //Picasso.get().load(ImageURL).fit().into(imageView);*/
-
+/*
+                for (int i = 1; i < amount_hotel_pictures; i++){
                     ImageView imageView = new ImageView(HotelInfoActivity.this);
-                    imageView.setId(i);
-                    imageView.setPadding(2, 2, 2, 2);
-                    //imageView.setImageBitmap(BitmapFactory.decodeResource(
-                    //        getResources(), R.drawable.ic_launcher_foreground));
-                    imageView.setImageResource(R.drawable.ic_launcher_background);
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    layout.addView(imageView);
-
-
+                    String imageURLs = hotel_images.get(i).getImageUrl();
+                    ((LinearLayout) findViewById(R.id.image_linear)).addView(
+                            imageView, i);
                 }
+*/
+
+
+
 
            }
 
