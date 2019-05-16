@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -182,8 +183,16 @@ public class HotelInfoActivity extends AppCompatActivity {
                 for (int i = 0; i < amount_hotel_pictures; i++){
                     ImageView imageView = new ImageView(HotelInfoActivity.this);
                     imageView.setPadding(10,1,10,1);
-                    String imageURLs = hotel_images.get(i).getImageUrl();
+                    final String imageURLs = hotel_images.get(i).getImageUrl();
                     Picasso.get().load(imageURLs).resize(300, 300).into(imageView);
+                    imageView.setClickable(true);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Picasso.get().load(imageURLs).fit().into(insert_banner);
+                        }
+                    });
+
                     ((LinearLayout) findViewById(R.id.image_linear)).addView(
                             imageView, i);
                 }
