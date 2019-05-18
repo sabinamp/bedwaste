@@ -138,7 +138,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
-            .resize(480, 350).centerCrop()
+            .resize(540, 350).centerCrop()
                     .placeholder(R.drawable.ic_location_city_blue_240dp).into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
@@ -152,7 +152,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
                 public void success(Response<AvailabilityResults> response) {
                     AvailabilityResults roomAvailabilityResults = response.body();
                     double price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
-                    hotelPrice.setText("CHF "+ String.valueOf((int)price));
+                    hotelPrice.setText(String.valueOf((int)price)+" CHF/Nacht ");
                 }
                 @Override
                 public void failed(String message) {

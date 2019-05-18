@@ -145,7 +145,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         Log.d(TAG, "onRestart() called");
-        
+
     }
 
     @Override

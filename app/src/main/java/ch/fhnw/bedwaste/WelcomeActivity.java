@@ -179,7 +179,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private Boolean wifi;
 
 
-    private CardView hotel_overview_layout;
+    private View hotel_overview_layout;
     private TextView ho_hotelname;
     private ImageView ho_image;
     private TextView ho_star_rating;
@@ -352,7 +352,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         netDetector.networkRunnable.run();
 
         //add overview of clicked hotel
-        hotel_overview_layout = (CardView) findViewById(R.id.hotel_overview);
+        hotel_overview_layout = (View) findViewById(R.id.hotel_overview);
 
         // call Countdownlabel
         countdownLabel.countdownRunnable.run();
