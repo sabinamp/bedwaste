@@ -133,7 +133,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private NetworkDetector netDetector = new NetworkDetector(WelcomeActivity.this);
 
     //Object Countdownlabel
-    private CountdownLabel countdownLabel = new CountdownLabel(WelcomeActivity.this);
+    private CountdownLabel countdownLabel;
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -189,6 +189,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView ho_rating;
     private TextView ho_minutes;
 
+    private LatLng mSearchLocation;
 
     //GoogleAPI Client related
     private final int REQUEST_RESOLVE_GOOGLE_CLIENT_ERROR = 1;
@@ -241,7 +242,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             };
 
-    public WelcomeActivity() throws ParseException {
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AndroidThreeTen.init(this);
+        try {
+            countdownLabel= new CountdownLabel(WelcomeActivity.this);
+        } catch (ParseException e) {
+            Log.d(TAG, "ParseException thrown: "+e.getMessage());
+        }
         maxprice=500;
         nbadults=1;
         nbrooms=1;
@@ -251,16 +263,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         markers = new ArrayList<>();
         mHotelsToDisplay= new TreeSet<>();
         searchRegion=null;
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AndroidThreeTen.init(this);
-
-
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -301,9 +303,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         mLocationButton = (ImageButton) findViewById(R.id.search);
 
 
-        //HotelOverview Items
-       //List<String> all_ids = Arrays.asList("00B5846B02barlac", "00U5846j020d210g", "00G5846t022gotth", "00U5846j022d292h", "00I5846a022h291r", "00U5845j020s210l", "00U5847f022marri", "00F5846A022nowifi", "00F5846A02nowifi2", "00U5846f022c291a", "00U5844f022rigib", "00B5846t02termin", "00U5846e0f2ukulm", "00U5846j022d291s", "00U5845f022gbrugg", "00U5846f022marco", "00U5556f030plb91", "00U5845f022rotesh");
-
 
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
         ho_image = (ImageView) findViewById(R.id.wel_icon);
@@ -339,10 +338,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         setSearchRegion("ZH");
                     }
 
-                    LatLng newLocation = getLocationFromAddress(mEditText.getText().toString());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+                    mSearchLocation = getLocationFromAddress(locationSearched);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(mSearchLocation));
                     applyFiltering_RetrieveHotelAvailabilities();
-                    }
+                }
 
                 }
 
@@ -555,6 +554,23 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 mFiltersButton.callOnClick();
+
+                if (!mEditText.getText().toString().trim().equals("")) {
+                    String locationSearched = mEditText.getText().toString().trim();
+
+                    if (locationSearched.equalsIgnoreCase("Brugg")) {
+                        setSearchRegion("Aargau");
+
+                    } else if (locationSearched.equalsIgnoreCase("Basel")) {
+                        setSearchRegion("Basel");
+                    } else {
+                        setSearchRegion("ZH");
+                    }
+
+                    mSearchLocation = getLocationFromAddress(locationSearched);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(mSearchLocation));
+                    applyFiltering_RetrieveHotelAvailabilities();
+                }
 
             }
         });
@@ -949,7 +965,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     String[] rateplanIdElem= resultAv.getRateplanId().split("-");
                     String hotelId= rateplanIdElem[0];
                     Log.d("TAG", "retrieving price for- "+hotelId);
-                    //hotelsToDisplayOnFiltering.add(hotelId);
+
                     addmHotelsToDisplay(hotelId);
                     Log.d("TAG", "filtering/retrieving availabilities hotelsToDisplay size is "+getmHotelsToDisplay().size());
                     int avPrice= resultAv.getTotalPrice().intValue();
@@ -958,7 +974,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
                 }
                 displayMarkers();
-               // updatemHotelsToDisplay(hotelsToDisplayOnFiltering);
 
             }
 

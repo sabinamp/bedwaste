@@ -70,10 +70,10 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        if (hotelList ==null) {
-            return 0;
-        } else {
+        if (hotelList !=null) {
             return hotelList.size();
+        }else{
+            return 0;
         }
     }
     public LatLng getUserLocation() {
@@ -84,7 +84,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         this.userLocation = userLocation;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private HotelDescriptiveInfo hotelItem;
         TextView hotelNameTextView;
         TextView hotelAddressLine;
@@ -114,7 +114,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             this.hotelItem = hotelItem;
             String name = hotelItem.getHotelName() != null ? hotelItem.getHotelName() : "";
 
-            //String price = hotelItem.getAvailabilities() != null? hotelItem.getAvailabilities().get(0).getProducts().get(0).getTotalPrice().intValue() + "CHF" : "200 CHF";
+
             String addressLine1= hotelItem.getContactInfos().get(0).getAddresses().get(0).getAddressLine();
             Address address=hotelItem.getContactInfos().get(0).getAddresses().get(0);
             String street = addressLine1!= null ? addressLine1 : "";
@@ -164,9 +164,5 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         }
     }
 
-/*    public void refreshHotelList(List<HotelDescriptiveInfo> list) {
-        this.hotelList.clear();
-        this.hotelList.addAll(list);
-        notifyDataSetChanged();
-    }*/
+
 }

@@ -115,6 +115,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -130,7 +131,7 @@ public class HotelListViewActivity extends AppCompatActivity {
             loaded = true;
         } else {
             Log.i("Resuming", "back to the recycle view activity");
-
+            myAdapter.notifyDataSetChanged();
         }
     }
 
@@ -144,6 +145,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         Log.d(TAG, "onRestart() called");
+        
     }
 
     @Override
