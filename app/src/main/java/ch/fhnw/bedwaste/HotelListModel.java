@@ -41,7 +41,7 @@ public class HotelListModel {
     }
     List<HotelDescriptiveInfo> retrieveAllHotelDescriptiveData(List<String> ids){
         for (final String eachId : ids) {
-            Log.d("TAG", "hotel ids' number: "+ ids.size());
+            Log.d("TAG", "hotel ids' number: "+ eachId);
             Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
             HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
                 @Override
@@ -59,7 +59,7 @@ public class HotelListModel {
             });
             service_description.getHotelDescriptiveInfo("en", eachId);
         }
-        Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
+        Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed. Number of hotels : "+ids.size());
         return  items;
     }
 

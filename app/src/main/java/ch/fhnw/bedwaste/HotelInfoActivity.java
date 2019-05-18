@@ -264,7 +264,11 @@ public class HotelInfoActivity extends AppCompatActivity {
         Log.d(TAG, "onResume() called");
         super.onResume();
     }
-
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart() called");
+    }
     @Override
     public void onPause() {
         Log.d(TAG, "onPause() called");

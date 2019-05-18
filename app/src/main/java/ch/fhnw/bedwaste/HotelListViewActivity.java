@@ -119,7 +119,6 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
-       
 
     }
     @Override
@@ -130,16 +129,8 @@ public class HotelListViewActivity extends AppCompatActivity {
             //First time just set the loaded flag true
             loaded = true;
         } else {
-            Log.i("Resuming", "back to the list view activity");
-            //Reload data
-            /*itemList.clear();
-            if(passedIds.isEmpty()){
-                ArrayList<String> allhotels=new ArrayList<>();
-                allhotels.addAll(WelcomeViewModel.ALL_IDS);
-                listmodel.retrieveAllHotelDescriptiveData(allhotels);
-            }
-            itemList = listmodel.retrieveAllHotelDescriptiveData(passedIds);
-            myAdapter.notifyDataSetChanged();*/
+            Log.i("Resuming", "back to the recycle view activity");
+
         }
     }
 
@@ -149,6 +140,12 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onPause();
 
     }
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart() called");
+    }
+
     @Override
     public void onStop() {
         super.onStop();

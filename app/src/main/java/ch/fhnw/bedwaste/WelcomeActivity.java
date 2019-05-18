@@ -581,25 +581,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         for (final String eachId : WelcomeViewModel.ALL_IDS) {
 
             Log.d(TAG, "start retrieveHotelData - fetching data from the server");
-    /*        HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
 
-                @Override
-                public void success(Response<AvailabilityResults> response) {
-                    AvailabilityResults roomAvailabilityResults = response.body();
-                    float price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
-                    //updatePrice
-                    pmodel.updateDisplayedPrices(eachId, (int)price);
-
-                    //update availabilities
-                    pmodel.updateHotelId_availabilities(eachId, roomAvailabilityResults);
-                }
-                @Override
-                public void failed(String message) {
-                    Log.d(TAG, "couldn't fetch availability results" + message);
-                }
-            });
-            service_price.getRoomAvailabilitiesInHotel(eachId, 1, 0, 0);
-*/
             HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
                 @Override
                 public void success(Response<HotelDescriptiveInfo> response) {
@@ -1029,7 +1011,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
-
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart() called");
+    }
     //make overview disappear when not clicked on marker
 
     @Override
