@@ -7,6 +7,8 @@
     <color name="grey">#5C5C5C</color>
     <color name="light_purple">#E0E6F8</color>
     <color name="bookbtn_color">#ff8a65 </color>
+    <color name="bookbtn_pressed_color">#5d5d5d</color>
+    <color name="bookbtn_focused_color">#ff6e57</color>
     <color name="min_color">#ff6e40</color>
     <color name="triangle_red_light">#ffccbc </color>
     <color name="white">#ffffff</color>
