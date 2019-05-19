@@ -122,7 +122,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             String city_zipcode = city != null ? city + " "+ address.getPostalCode(): "";
 
             String rating =  hotelItem.getAffiliationInfo().getAwards().get(1).getRating() +"/10" ;
-            String distance = 3+"Min";
+            String distance = 10 +" Min";
             hotelNameTextView.setText(name);
             String star_amount = hotelItem.getAffiliationInfo().getAwards().get(0).getRating();
 
@@ -138,7 +138,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
-            .resize(540, 350).centerCrop()
+            .resize(550, 350).centerCrop()
                     .placeholder(R.drawable.ic_location_city_blue_240dp).into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
