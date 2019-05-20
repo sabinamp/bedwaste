@@ -14,6 +14,8 @@ import android.view.MenuItem;
 
 import android.widget.Button;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
     private HotelListModel listmodel;
     private HotelListAdapter myAdapter;
-
+    private LatLng userLocation;
     //This flag is required to avoid first time onResume refreshing
     static boolean loaded = false;
     /**
@@ -51,26 +53,28 @@ public class HotelListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
         loaded=false;
-        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called. First time loading is "+loaded);
+        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
         //passed from WelcomeActivity
         passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
+        userLocation= new LatLng(getIntent().getDoubleExtra("USER_LOC_LATITUDE", WelcomeViewModel.mDefaultLocation.latitude),
+                getIntent().getDoubleExtra("USER_LOC_LONGITUDE", WelcomeViewModel.mDefaultLocation.longitude));
         if(passedIds.isEmpty()){
             ArrayList<String> allhotels=new ArrayList<>();
             allhotels.addAll(WelcomeViewModel.ALL_IDS);
             itemList=listmodel.retrieveAllHotelDescriptiveData(allhotels);
             //list adapter
-            myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
+            myAdapter = new HotelListAdapter(itemList,userLocation, HotelListViewActivity.this);
             loaded=true;
-            Log.d(TAG, "First time loading " + loaded +"completed - retrieved all hotels.");
+            Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
         }else{
             itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
             //list adapter
-            myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
+            myAdapter = new HotelListAdapter(itemList, userLocation,HotelListViewActivity.this);
             loaded=true;
-            Log.d(TAG, "First time loading " + loaded +"completed - retrieved the hotels based on the passed ids.");
+            Log.d(TAG, "onCreate() oading " + loaded +"completed - retrieved the hotels based on the passed ids.");
         }
 
         recyclerView.setAdapter(myAdapter);
@@ -127,8 +131,8 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
-
     }
+
     @Override
     public void onResume() {
         Log.d(TAG, "onResume() called");
@@ -136,7 +140,8 @@ public class HotelListViewActivity extends AppCompatActivity {
 
         if(loaded) {
             Log.d(TAG, "resuming back to the recycle view activity");
-            myAdapter.notifyDataSetChanged();
+           myAdapter.notifyDataSetChanged();
+
         }
     }
 

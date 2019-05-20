@@ -60,6 +60,8 @@ import com.google.android.gms.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import com.google.maps.android.SphericalUtil;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.picasso.Picasso;
 
@@ -125,7 +127,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap mMap;
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
+
     private static final int DEFAULT_ZOOM = 12;
     private boolean mLocationPermissionGranted;
 
@@ -676,7 +678,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         listToPass.addAll(getmHotelsToDisplay());
 
                         listIntent.putStringArrayListExtra("bedwaste_hotel_list", listToPass);
-
+                        listIntent.putExtra("USER_LOC_LATITUDE", mLastKnownLocation.getLatitude());
+                        listIntent.putExtra("USER_LOC_LONGITUDE", mLastKnownLocation.getLongitude());
                         startActivity(listIntent);
                         return true;
                     }
@@ -766,10 +769,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
 
-                Picasso.get().load(imageUrl_banner).resize(240, 160).centerCrop().into(ho_image);
+                Picasso.get().load(imageUrl_banner).resize(580, 380).centerCrop().into(ho_image);
 
-                //insert_minutes_away.setText(hotelDescriptiveInfo.get());
+                //insert distance in km
+                LatLng hotelLoc= new LatLng(hotelInfo.getPosition().getLatitude().doubleValue(),
+                        hotelInfo.getPosition().getLongitude().doubleValue());
+               /* double distanceKm= WelcomeViewModel.getDistanceBetween(new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), hotelLoc);*/
+                String distanceKmString = WelcomeViewModel.getDistanceAsStringBetween(new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), hotelLoc);
 
+
+                ho_minutes.setText(distanceKmString);
                 ho_price_per_night.setText("CHF "+ pmodel.getDisplayedPrices().get(matched_hotel_id));
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
                 //takes first entry as main contact info
@@ -1075,9 +1086,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return mLastKnownLocation;
     }
 
-    public LatLng getDefaultLocation() {
-        return mDefaultLocation;
-    }
+
 
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {

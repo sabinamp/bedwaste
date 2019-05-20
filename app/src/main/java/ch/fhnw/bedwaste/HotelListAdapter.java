@@ -2,6 +2,7 @@ package ch.fhnw.bedwaste;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,9 +37,10 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
 
     private LatLng userLocation;
 
-    public HotelListAdapter( List<HotelDescriptiveInfo> list, Context context) {
+    public HotelListAdapter( List<HotelDescriptiveInfo> list, LatLng userLoc, Context context) {
         this.context = context;
         hotelList = list;
+        userLocation= userLoc;
     }
 
     @NonNull
@@ -53,8 +56,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
-        //final String hotelName = hotel.getHotelName();
-        final MyViewHolder holder = (MyViewHolder) viewHolder;
+
+        final MyViewHolder holder = viewHolder;
         final String hotelId = hotelList.get(position).getHotelId();
 
         holder.bind(hotel, userLocation);
@@ -101,7 +104,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         TextView hotelRating;
         TextView hotelStars;
         ImageView hotelThumbnail;
-        private TextView minHotel;
+        TextView minHotel;
+        //TextView distanceKmTextview;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -113,6 +117,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             hotelAddressLine = (TextView)itemView.findViewById(R.id.hotel_address_line);
             hotelCity = (TextView)itemView.findViewById(R.id.hotel_city);
             minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
+            //distanceKmTextview= (TextView)itemView.findViewById(R.id.distance_km);
             hotelStars= (TextView) itemView.findViewById(R.id.nb_stars) ;
 
             itemView.setClickable(true);
@@ -135,7 +140,15 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             String city_zipcode = city != null ? city + " "+ address.getPostalCode(): "";
 
             String rating =  hotelItem.getAffiliationInfo().getAwards().get(1).getRating() +"/10" ;
-            String distance = 10 +" Min";
+            LatLng hotelLoc= new LatLng(hotelItem.getHotelInfo().getPosition().getLatitude().doubleValue(),
+                                 hotelItem.getHotelInfo().getPosition().getLongitude().doubleValue());
+            String distanceKmString= WelcomeViewModel.getDistanceAsStringBetween(new LatLng(userLocation.latitude,
+                    userLocation.longitude), hotelLoc);
+           /* double distanceKm = WelcomeViewModel.getDistanceBetween(new LatLng(userLocation.latitude,
+                    userLocation.longitude), hotelLoc);
+
+            String distanceInHoursString= WelcomeViewModel.getDistanceInHoursasString(distanceKm);*/
+
             hotelNameTextView.setText(name);
             String star_amount = hotelItem.getAffiliationInfo().getAwards().get(0).getRating();
 
@@ -151,7 +164,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
-            .resize(550, 350).centerCrop()
+            .resize(580, 350).centerCrop()
                     .placeholder(R.drawable.ic_location_city_blue_240dp)
                     .into(hotelThumbnail);
 
@@ -159,7 +172,9 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             hotelAddressLine.setText(streetName+" "+displayedNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
-            minHotel.setText(distance);
+            minHotel.setCompoundDrawablePadding(-6);
+            minHotel.setText(distanceKmString);
+            //distanceKmTextview.setText(distanceKmString);
             HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
 
                 @Override

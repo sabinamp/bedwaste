@@ -1,7 +1,12 @@
 package ch.fhnw.bedwaste;
 import android.arch.lifecycle.ViewModel;
+import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import java.util.Collections;
@@ -19,6 +24,7 @@ import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 
 public class WelcomeViewModel extends ViewModel {
+    static final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
     static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
     static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
@@ -120,5 +126,37 @@ public class WelcomeViewModel extends ViewModel {
     }
     public Map<String, Integer> getDisplayedPrices() {
         return displayedPrices;
+    }
+
+    //return the distance in Km
+   public static Double getDistanceBetween(LatLng hotelLoc, LatLng userLoc) {
+        if (hotelLoc == null || userLoc == null){
+            return null;
+        }
+        return (double)(SphericalUtil.computeDistanceBetween(hotelLoc,userLoc)/1000) ;
+    }
+
+    public static String getDistanceAsStringBetween(LatLng hotelLoc, LatLng userLoc) {
+        if (hotelLoc == null || userLoc == null){
+            return null;
+        }
+
+        double input=(double)(SphericalUtil.computeDistanceBetween(hotelLoc,userLoc)/1000) ;
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        df2.setRoundingMode(RoundingMode.DOWN);
+        String distKmAsString= df2.format(input) +" Km";
+        return distKmAsString;
+    }
+
+    public static double getDistanceInHours(double distanceKm){
+        double distanceInHours= (distanceKm*13)/60;
+        return distanceInHours;
+    }
+    public static String getDistanceInHoursasString(double distanceKm){
+        double distanceInHours= (distanceKm*13)/60;
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        df2.setRoundingMode(RoundingMode.DOWN);
+        String distMinAsString= df2.format(distanceInHours);
+        return distMinAsString+ " Hours";
     }
 }
