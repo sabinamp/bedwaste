@@ -122,14 +122,9 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             String addressLine1= hotelItem.getContactInfos().get(0).getAddresses().get(0).getAddressLine();
             Address address=hotelItem.getContactInfos().get(0).getAddresses().get(0);
 
-            String displayedNb=null;
-            int streetNb= address.getStreetNmbr();
-            if(streetNb==0){
-                displayedNb="";
-            }else{
-                displayedNb= address.getStreetNmbr().toString();
-            }
             String streetName = addressLine1!= null ? addressLine1 : "";
+            Integer streetNb= address.getStreetNmbr();
+            String displayedNb = streetNb!= null ? streetNb.toString() : "";
 
             String city=address.getCityName();
             String city_zipcode = city != null ? city + " "+ address.getPostalCode(): "";
@@ -155,7 +150,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
                     .placeholder(R.drawable.ic_location_city_blue_240dp).into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
-            hotelAddressLine.setText(streetName+" "+streetNb);
+            hotelAddressLine.setText(streetName+" "+displayedNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
             minHotel.setText(distance);

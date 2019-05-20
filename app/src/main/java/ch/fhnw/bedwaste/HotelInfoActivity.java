@@ -149,13 +149,8 @@ public class HotelInfoActivity extends AppCompatActivity {
                 ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
                 java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
                 Address address = addresses.get(0);
-                String displayedNb;
-                int streetNb= address.getStreetNmbr();
-                if(streetNb==0){
-                    displayedNb="";
-                }else{
-                    displayedNb= address.getStreetNmbr().toString();
-                }
+                Integer streetNb= address.getStreetNmbr();
+                String displayedNb = streetNb!= null ? streetNb.toString() : "";
                 insert_address.setText(address.getAddressLine() + " " + displayedNb);
                 insert_village.setText(address.getCityName());
                 java.util.List<ch.fhnw.bedwaste.model.Phone>  phones = contactInfo.getPhones();

@@ -622,6 +622,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void displayMarkers(){
         markers.clear();
+
         Log.d("TAG", "start displaying markers. Now the markers should be 0. Actual nb of markers is "+markers.size());
         for (final String eachId : getmHotelsToDisplay()) {
             //markers and prices
@@ -773,13 +774,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
                 java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
                 ch.fhnw.bedwaste.model.Address address = addresses.get(0);
-                String displayedNb;
-                int streetNb= address.getStreetNmbr();
-                if(streetNb==0){
-                    displayedNb="";
-                }else{
-                    displayedNb= address.getStreetNmbr().toString();
-                }
+
+                Integer streetNb= address.getStreetNmbr();
+                String displayedNb = streetNb!= null ? streetNb.toString() : "";
                 ho_address.setText(address.getAddressLine() + " " + displayedNb);
                 ho_city.setText(address.getPostalCode() + " " + address.getCityName());
            }
