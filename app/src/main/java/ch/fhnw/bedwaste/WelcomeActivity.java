@@ -126,7 +126,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    private static final int DEFAULT_ZOOM = 13;
+    private static final int DEFAULT_ZOOM = 12;
     private boolean mLocationPermissionGranted;
 
     //Object for network connection check
@@ -621,7 +621,10 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void displayMarkers(){
-        markers.clear();
+       for(Marker each :markers){
+           each.remove();
+       }
+       markers.clear();
 
         Log.d("TAG", "start displaying markers. Now the markers should be 0. Actual nb of markers is "+markers.size());
         for (final String eachId : getmHotelsToDisplay()) {
@@ -644,6 +647,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 //.snippet( " CHF " + pmodel.getDisplayedPrices().get(eachId)));
                 if(price instanceof Integer){
                     marker.setSnippet( " CHF " + price.intValue());
+
                 }
                 else{
                     marker.setSnippet(" CHF " + 0);
