@@ -65,7 +65,7 @@ public class HotelListViewActivity extends AppCompatActivity {
 
         itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
         //list adapter
-        myAdapter = new HotelListAdapter(itemList, HotelListViewActivity.this);
+        myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
 
 

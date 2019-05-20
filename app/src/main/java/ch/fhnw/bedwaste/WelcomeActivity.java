@@ -736,9 +736,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-                //the following line for when not fetching retrieving data the server
-                // details can be obtained from the model (except ImageUrls- why are imageURL not displayed? - to do )
-                //HotelDescriptiveInfo hotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(matched_hotel_id);
+
                 String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
@@ -752,11 +750,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     star_string = "No Rating";
                 }
                 else {
-                     /* int stars = Integer.parseInt(star_amount);
-                      star_string = new String(new char[stars]).replace("", "*");
-                      ho_star_rating.setText(star_string);*/
                      double stars =Math.floor(Double.parseDouble(star_amount));
-                        star_string = new String(new char[(int)stars]).replace("", "*");
+                        star_string = new String(new char[(int)stars]).replace("", "★");
                         ho_star_rating.setText(star_string);
                 }
 
@@ -778,8 +773,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
                 java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
                 ch.fhnw.bedwaste.model.Address address = addresses.get(0);
-
-                ho_address.setText(address.getAddressLine() + " " + address.getStreetNmbr());
+                String displayedNb;
+                int streetNb= address.getStreetNmbr();
+                if(streetNb==0){
+                    displayedNb="";
+                }else{
+                    displayedNb= address.getStreetNmbr().toString();
+                }
+                ho_address.setText(address.getAddressLine() + " " + displayedNb);
                 ho_city.setText(address.getPostalCode() + " " + address.getCityName());
            }
 

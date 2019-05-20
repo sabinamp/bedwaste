@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     tools:text="*"
-                    android:textSize="22sp"
+                    android:textSize="19sp"
                     android:gravity="right"
                     android:textColor="@android:color/black"/>
             </LinearLayout>

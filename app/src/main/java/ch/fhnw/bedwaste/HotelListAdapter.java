@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.bedwaste.model.Address;
@@ -34,9 +35,10 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
 
     private LatLng userLocation;
 
-    public HotelListAdapter(List<HotelDescriptiveInfo> list, Context context) {
+    public HotelListAdapter( List<HotelDescriptiveInfo> list, Context context) {
         this.context = context;
         hotelList = list;
+
     }
     @NonNull
     @Override
@@ -51,10 +53,10 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
-        final String hotelName = hotel.getHotelName();
+        //final String hotelName = hotel.getHotelName();
         final MyViewHolder holder = (MyViewHolder) viewHolder;
         final String hotelId = hotelList.get(position).getHotelId();
-       // holder.hotelNameTextView.setText(hotelName);
+
         holder.bind(hotel, userLocation);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +78,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             return 0;
         }
     }
+
+
     public LatLng getUserLocation() {
         return userLocation;
     }
@@ -117,7 +121,16 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
 
             String addressLine1= hotelItem.getContactInfos().get(0).getAddresses().get(0).getAddressLine();
             Address address=hotelItem.getContactInfos().get(0).getAddresses().get(0);
-            String street = addressLine1!= null ? addressLine1 : "";
+
+            String displayedNb=null;
+            int streetNb= address.getStreetNmbr();
+            if(streetNb==0){
+                displayedNb="";
+            }else{
+                displayedNb= address.getStreetNmbr().toString();
+            }
+            String streetName = addressLine1!= null ? addressLine1 : "";
+
             String city=address.getCityName();
             String city_zipcode = city != null ? city + " "+ address.getPostalCode(): "";
 
@@ -127,7 +140,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             String star_amount = hotelItem.getAffiliationInfo().getAwards().get(0).getRating();
 
             double stars =Math.floor(Double.parseDouble(star_amount));
-            String star_amount_string = new String(new char[(int)stars]).replace("", "*");
+            String star_amount_string = new String(new char[(int)stars]).replace("", "★");
 
 
             //hotel image
@@ -142,7 +155,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
                     .placeholder(R.drawable.ic_location_city_blue_240dp).into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
-            hotelAddressLine.setText(street);
+            hotelAddressLine.setText(streetName+" "+streetNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
             minHotel.setText(distance);
