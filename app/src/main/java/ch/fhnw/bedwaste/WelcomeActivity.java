@@ -764,7 +764,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
 
-                Picasso.get().load(imageUrl_banner).fit().into(ho_image);
+                Picasso.get().load(imageUrl_banner).resize(240, 160).centerCrop().into(ho_image);
 
                 //insert_minutes_away.setText(hotelDescriptiveInfo.get());
 
