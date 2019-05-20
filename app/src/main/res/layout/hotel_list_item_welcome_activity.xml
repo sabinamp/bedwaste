@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
     cardview:cardCornerRadius="2dp"
-    android:minWidth="300dp"
+   
     >
     <LinearLayout
         android:layout_width="fill_parent"
