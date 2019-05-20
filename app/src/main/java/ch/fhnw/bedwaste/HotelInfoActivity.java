@@ -110,7 +110,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 /*int stars = Integer.parseInt(star_amount);
                 String starstring = new String(new char[stars]).replace("", "*");*/
                 double stars =Math.floor(Double.parseDouble(star_amount));
-                star_amount_string = new String(new char[(int)stars]).replace("", "*");
+                star_amount_string = new String(new char[(int)stars]).replace("", "★");
 
                 insert_starRating.setText(star_amount_string);
 
@@ -149,8 +149,9 @@ public class HotelInfoActivity extends AppCompatActivity {
                 ContactInfo contactInfo = hotelDescriptiveInfoContactInfos.get(0);
                 java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
                 Address address = addresses.get(0);
-                //only nr? Possible Second TextView for Street?
-                insert_address.setText(address.getAddressLine() + " " + address.getStreetNmbr());
+                Integer streetNb= address.getStreetNmbr();
+                String displayedNb = streetNb!= null ? streetNb.toString() : "";
+                insert_address.setText(address.getAddressLine() + " " + displayedNb);
                 insert_village.setText(address.getCityName());
                 java.util.List<ch.fhnw.bedwaste.model.Phone>  phones = contactInfo.getPhones();
                 Phone phone = phones.get(0);

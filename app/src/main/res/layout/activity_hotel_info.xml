@@ -22,23 +22,25 @@
             android:text="HotelName"
             android:textAlignment="center"
             android:textColor="@color/dark_gray"
-            android:textSize="40sp" />
+            android:textSize="34sp" />
 
         <TextView
             android:id="@+id/ph_starRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="***"
+            android:text="**"
             android:textAlignment="center"
+            android:layout_marginTop="2dp"
             android:textColor="@color/dark_gray"
-            android:textSize="40sp" />
+            android:textSize="19sp"
+            android:paddingBottom="4dp"/>
 
 
         <ImageView
             android:id="@+id/ph_hotelGeneralImage"
             android:layout_width="match_parent"
-            android:layout_height="221dp"
+            android:layout_height="216dp"
             android:layout_weight="1"
             android:minHeight="100dp"
             android:visibility="visible"

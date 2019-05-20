@@ -60,6 +60,8 @@ import com.google.android.gms.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import com.google.maps.android.SphericalUtil;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.picasso.Picasso;
 
@@ -125,8 +127,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap mMap;
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    private static final int DEFAULT_ZOOM = 13;
+
+    private static final int DEFAULT_ZOOM = 12;
     private boolean mLocationPermissionGranted;
 
     //Object for network connection check
@@ -300,8 +302,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         //load Filter Code
         bindFilterData();
 
-        mLocationButton = (ImageButton) findViewById(R.id.search);
-
 
 
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
@@ -315,7 +315,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
 
 
-
+        mLocationButton = (ImageButton) findViewById(R.id.search);
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**
@@ -621,7 +621,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void displayMarkers(){
-        markers.clear();
+       for(Marker each :markers){
+           each.remove();
+       }
+       markers.clear();
+
         Log.d("TAG", "start displaying markers. Now the markers should be 0. Actual nb of markers is "+markers.size());
         for (final String eachId : getmHotelsToDisplay()) {
             //markers and prices
@@ -643,6 +647,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 //.snippet( " CHF " + pmodel.getDisplayedPrices().get(eachId)));
                 if(price instanceof Integer){
                     marker.setSnippet( " CHF " + price.intValue());
+
                 }
                 else{
                     marker.setSnippet(" CHF " + 0);
@@ -673,7 +678,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         listToPass.addAll(getmHotelsToDisplay());
 
                         listIntent.putStringArrayListExtra("bedwaste_hotel_list", listToPass);
-
+                        listIntent.putExtra("USER_LOC_LATITUDE", mLastKnownLocation.getLatitude());
+                        listIntent.putExtra("USER_LOC_LONGITUDE", mLastKnownLocation.getLongitude());
                         startActivity(listIntent);
                         return true;
                     }
@@ -736,9 +742,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void success(Response<HotelDescriptiveInfo> response) {
                 HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-                //the following line for when not fetching retrieving data the server
-                // details can be obtained from the model (except ImageUrls- why are imageURL not displayed? - to do )
-                //HotelDescriptiveInfo hotelDescriptiveInfo= pmodel.getHotelId_descriptiveInfo().get(matched_hotel_id);
+
                 String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
@@ -752,11 +756,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                     star_string = "No Rating";
                 }
                 else {
-                     /* int stars = Integer.parseInt(star_amount);
-                      star_string = new String(new char[stars]).replace("", "*");
-                      ho_star_rating.setText(star_string);*/
                      double stars =Math.floor(Double.parseDouble(star_amount));
-                        star_string = new String(new char[(int)stars]).replace("", "*");
+                        star_string = new String(new char[(int)stars]).replace("", "★");
                         ho_star_rating.setText(star_string);
                 }
 
@@ -768,10 +769,18 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
 
-                Picasso.get().load(imageUrl_banner).fit().into(ho_image);
+                Picasso.get().load(imageUrl_banner).resize(580, 380).centerCrop().into(ho_image);
 
-                //insert_minutes_away.setText(hotelDescriptiveInfo.get());
+                //insert distance in km
+                LatLng hotelLoc= new LatLng(hotelInfo.getPosition().getLatitude().doubleValue(),
+                        hotelInfo.getPosition().getLongitude().doubleValue());
+               /* double distanceKm= WelcomeViewModel.getDistanceBetween(new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), hotelLoc);*/
+                String distanceKmString = WelcomeViewModel.getDistanceAsStringBetween(new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), hotelLoc);
 
+
+                ho_minutes.setText(distanceKmString);
                 ho_price_per_night.setText("CHF "+ pmodel.getDisplayedPrices().get(matched_hotel_id));
                 java.util.List<ch.fhnw.bedwaste.model.ContactInfo>  hotelDescriptiveInfoContactInfos= hotelDescriptiveInfo.getContactInfos();
                 //takes first entry as main contact info
@@ -779,7 +788,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 java.util.List<ch.fhnw.bedwaste.model.Address> addresses  = contactInfo.getAddresses();
                 ch.fhnw.bedwaste.model.Address address = addresses.get(0);
 
-                ho_address.setText(address.getAddressLine() + " " + address.getStreetNmbr());
+                Integer streetNb= address.getStreetNmbr();
+                String displayedNb = streetNb!= null ? streetNb.toString() : "";
+                ho_address.setText(address.getAddressLine() + " " + displayedNb);
                 ho_city.setText(address.getPostalCode() + " " + address.getCityName());
            }
 
@@ -1075,9 +1086,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return mLastKnownLocation;
     }
 
-    public LatLng getDefaultLocation() {
-        return mDefaultLocation;
-    }
+
 
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
