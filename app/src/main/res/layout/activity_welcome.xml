@@ -27,7 +27,7 @@
             android:background="@android:color/transparent"
             android:layout_weight="1.01"
             android:ems="10"
-            android:hint="Ihr Wunschstandort"
+            android:hint="@string/preferred_loc"
             android:inputType="textNoSuggestions"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"/>

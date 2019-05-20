@@ -300,8 +300,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         //load Filter Code
         bindFilterData();
 
-        mLocationButton = (ImageButton) findViewById(R.id.search);
-
 
 
         ho_hotelname = (TextView) findViewById(R.id.wel_hotel_name);
@@ -315,7 +313,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
 
 
-
+        mLocationButton = (ImageButton) findViewById(R.id.search);
         // Set the listener for the location button.
         mLocationButton.setOnClickListener(new View.OnClickListener() {
             /**

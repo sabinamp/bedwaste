@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run(){
                     Intent homeIntent = new Intent(SplashActivity.this, WelcomeActivity.class);
-                    homeIntent.putExtra("Startup", false);
+                    homeIntent.putExtra("Startup", true);
                     startActivity(homeIntent);
                     finish();
                 }
