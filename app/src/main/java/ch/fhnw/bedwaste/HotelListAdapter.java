@@ -38,8 +38,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     public HotelListAdapter( List<HotelDescriptiveInfo> list, Context context) {
         this.context = context;
         hotelList = list;
-
     }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -79,7 +79,11 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         }
     }
 
-
+    public void update(List<HotelDescriptiveInfo> data) {
+        hotelList.clear();
+        hotelList=data;
+        notifyDataSetChanged();
+    }
     public LatLng getUserLocation() {
         return userLocation;
     }
@@ -98,6 +102,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         TextView hotelStars;
         ImageView hotelThumbnail;
         private TextView minHotel;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             hotelNameTextView = (TextView)itemView.findViewById(R.id.hotel_name);

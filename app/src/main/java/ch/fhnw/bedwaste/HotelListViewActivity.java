@@ -27,9 +27,9 @@ public class HotelListViewActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNavigationView;
     private Button btn;
     private RecyclerView recyclerView;
-    private List<HotelDescriptiveInfo> itemList= null;
+    private List<HotelDescriptiveInfo> itemList;
     private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
-    private HotelListModel listmodel=null;
+    private HotelListModel listmodel;
     private HotelListAdapter myAdapter;
 
     //This flag is required to avoid first time onResume refreshing
@@ -50,7 +50,8 @@ public class HotelListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_list_view);
-        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called");
+        loaded=false;
+        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) called. First time loading is "+loaded);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
@@ -59,19 +60,25 @@ public class HotelListViewActivity extends AppCompatActivity {
         if(passedIds.isEmpty()){
             ArrayList<String> allhotels=new ArrayList<>();
             allhotels.addAll(WelcomeViewModel.ALL_IDS);
-            listmodel.retrieveAllHotelDescriptiveData(allhotels);
+            itemList=listmodel.retrieveAllHotelDescriptiveData(allhotels);
+            //list adapter
+            myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
+            loaded=true;
+            Log.d(TAG, "First time loading " + loaded +"completed - retrieved all hotels.");
+        }else{
+            itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
+            //list adapter
+            myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
+            loaded=true;
+            Log.d(TAG, "First time loading " + loaded +"completed - retrieved the hotels based on the passed ids.");
         }
 
-
-        itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
-        //list adapter
-        myAdapter = new HotelListAdapter(itemList,HotelListViewActivity.this);
         recyclerView.setAdapter(myAdapter);
-
 
         addBottomNavigation();
 
         netDetector.networkRunnable.run();
+        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) completed. First time loading completed "+loaded);
 
     }
 
@@ -126,11 +133,9 @@ public class HotelListViewActivity extends AppCompatActivity {
     public void onResume() {
         Log.d(TAG, "onResume() called");
         super.onResume();
-        if (!loaded) {
-            //First time just set the loaded flag true
-            loaded = true;
-        } else {
-            Log.i("Resuming", "back to the recycle view activity");
+
+        if(loaded) {
+            Log.d(TAG, "resuming back to the recycle view activity");
             myAdapter.notifyDataSetChanged();
         }
     }
