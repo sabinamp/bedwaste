@@ -140,7 +140,6 @@ public class WelcomeViewModel extends ViewModel {
         if (hotelLoc == null || userLoc == null){
             return null;
         }
-
         double input=(double)(SphericalUtil.computeDistanceBetween(hotelLoc,userLoc)/1000) ;
         DecimalFormat df2 = new DecimalFormat("#.##");
         df2.setRoundingMode(RoundingMode.DOWN);
@@ -152,6 +151,7 @@ public class WelcomeViewModel extends ViewModel {
         double distanceInHours= (distanceKm*13)/60;
         return distanceInHours;
     }
+
     public static String getDistanceInHoursasString(double distanceKm){
         double distanceInHours= (distanceKm*13)/60;
         DecimalFormat df2 = new DecimalFormat("#.##");

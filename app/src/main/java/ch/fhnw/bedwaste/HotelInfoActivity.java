@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
 import ch.fhnw.bedwaste.model.Address;
@@ -53,7 +54,7 @@ public class HotelInfoActivity extends AppCompatActivity {
     private TextView insert_hotelname;
     private TextView insert_starRating;
     private ImageView insert_banner;
-    private TextView insert_minutes_away;
+    private TextView insert_km_away;
     private TextView insert_price;
     private TextView insert_street;
     private TextView insert_village;
@@ -61,7 +62,8 @@ public class HotelInfoActivity extends AppCompatActivity {
     private int amount_hotel_pictures;
     private CheckBox checkBox_breakfast;
     private CheckBox checkBox_wlan;
-
+    private double userLocationLat;
+    private double userLocationLng;
     private NetworkDetector netDetector = new NetworkDetector(HotelInfoActivity.this);
 
     java.util.List<MultimediaDescriptionImages> hotel_images;
@@ -81,7 +83,7 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         final ImageView insert_banner = (ImageView) findViewById(R.id.ph_hotelGeneralImage);
 
-        final TextView insert_minutes_away = (TextView) findViewById(R.id.ph_amountMinutes);
+        final TextView insert_km_away = (TextView) findViewById(R.id.ph_amountMinutes);
         final TextView insert_price = (TextView) findViewById(R.id.ph_price);
         final TextView insert_address = (TextView) findViewById(R.id.ph_address);
 
@@ -91,7 +93,8 @@ public class HotelInfoActivity extends AppCompatActivity {
 
         final CheckBox checkBox_breakfast = (CheckBox) findViewById(R.id.checkBox_Breakfast);
         final CheckBox checkBox_wlan = (CheckBox) findViewById(R.id.checkBox_Wlan);
-
+        userLocationLat= getIntent().getDoubleExtra("user_loc_lat", WelcomeViewModel.mDefaultLocation.latitude);
+        userLocationLng = getIntent().getDoubleExtra("user_loc_lng", WelcomeViewModel.mDefaultLocation.longitude);
 
       HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
             @Override
@@ -107,8 +110,7 @@ public class HotelInfoActivity extends AppCompatActivity {
                 ch.fhnw.bedwaste.model.Award hotel_association_rating = award_list.get(0);
 
                 String star_amount = hotel_association_rating.getRating();
-                /*int stars = Integer.parseInt(star_amount);
-                String starstring = new String(new char[stars]).replace("", "*");*/
+
                 double stars =Math.floor(Double.parseDouble(star_amount));
                 star_amount_string = new String(new char[(int)stars]).replace("", "★");
 
@@ -127,8 +129,11 @@ public class HotelInfoActivity extends AppCompatActivity {
                 Picasso.get().load(imageUrl_banner).fit().into(insert_banner);
 
 
-                //insert_minutes_away.setText(hotelDescriptiveInfo.get());
-
+                //distance in km from the device location to the hotel location
+                String distKm= WelcomeViewModel.getDistanceAsStringBetween(new LatLng(hotelInfo.getPosition().getLatitude().doubleValue(),
+                        hotelInfo.getPosition().getLongitude().doubleValue()),
+                        new LatLng(userLocationLat, userLocationLng));
+                insert_km_away.setText(distKm);
                 HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
 
                     @Override

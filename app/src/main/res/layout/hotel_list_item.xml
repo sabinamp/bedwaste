@@ -56,16 +56,21 @@
                     android:textAllCaps="true"
                     android:text="9/10"
                     />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingLeft="14dp"
+                    android:src="@drawable/ic_directions_walk_red_24dp"/>
 
                 <TextView
                     android:id="@+id/min_hotel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
                     android:paddingBottom="2dp"
                     android:text="10 min"
                     android:textAlignment="center"
-                    android:paddingLeft="14dp"
+                    android:paddingLeft="2dp"
                     android:textColor="@color/min_color"
                     android:textSize="17sp"
                     android:textStyle="bold" />

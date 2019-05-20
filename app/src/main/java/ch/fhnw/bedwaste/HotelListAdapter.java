@@ -68,6 +68,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
                 Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
 
                 hotelDescriptionIntent.putExtra("key", hotelId);
+                hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);
+                hotelDescriptionIntent.putExtra("user_loc_lng", getUserLocation().longitude);
                 context.startActivity(hotelDescriptionIntent);
             }
         });
