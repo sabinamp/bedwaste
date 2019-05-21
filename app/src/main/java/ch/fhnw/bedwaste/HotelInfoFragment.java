@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,6 +55,7 @@ public class HotelInfoFragment extends Fragment {
     private CheckBox checkBox_wlan;
     private double userLocationLat;
     private double userLocationLng;
+    private Button bookRoomsBtn;
     List<MultimediaDescriptionImages> hotel_images;
 
     @Override
@@ -81,6 +83,16 @@ public class HotelInfoFragment extends Fragment {
 
         final CheckBox checkBox_breakfast = (CheckBox) view.findViewById(R.id.checkBox_Breakfast);
         final CheckBox checkBox_wlan = (CheckBox) view.findViewById(R.id.checkBox_Wlan);
+        bookRoomsBtn = view.findViewById(R.id.button_booking);
+        bookRoomsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open new activity RoomTypes
+                Intent intent = new Intent(getActivity(), RoomTypesActivity.class);
+                intent.putExtra("hotel_key", hotellist_value);
+                startActivity(intent);
+            }
+        });
         userLocationLat= getActivity().getIntent().getDoubleExtra("user_loc_lat", WelcomeViewModel.mDefaultLocation.latitude);
         userLocationLng = getActivity().getIntent().getDoubleExtra("user_loc_lng", WelcomeViewModel.mDefaultLocation.longitude);
 

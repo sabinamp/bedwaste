@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,11 +85,11 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         }
     }
 
-    public void update(List<HotelDescriptiveInfo> data) {
+  /*  public void update(List<HotelDescriptiveInfo> data) {
         hotelList.clear();
         hotelList=data;
         notifyDataSetChanged();
-    }
+    }*/
     public LatLng getUserLocation() {
         return userLocation;
     }
@@ -107,6 +108,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         TextView hotelStars;
         ImageView hotelThumbnail;
         TextView minHotel;
+        Button bookBtn;
         //TextView distanceKmTextview;
 
         public MyViewHolder(View itemView) {
@@ -121,6 +123,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
             //distanceKmTextview= (TextView)itemView.findViewById(R.id.distance_km);
             hotelStars= (TextView) itemView.findViewById(R.id.nb_stars) ;
+            bookBtn= (Button)itemView.findViewById(R.id.book_rooms);
 
             itemView.setClickable(true);
         }

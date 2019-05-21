@@ -64,7 +64,7 @@ public class HotelListFragment extends Fragment {
         }
         loaded=false;
         Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
         //passed from WelcomeActivity
@@ -84,6 +84,19 @@ public class HotelListFragment extends Fragment {
         outState.putStringArrayList(HOTEL_IDS_KEY, item_ids);
         super.onSaveInstanceState(outState);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause() called");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -103,6 +116,12 @@ public class HotelListFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         Log.d(TAG, "onLowMemory() called.");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
     }
 
     private void updateUI(){
@@ -136,9 +155,6 @@ public class HotelListFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
-
-
-
 
 
 }

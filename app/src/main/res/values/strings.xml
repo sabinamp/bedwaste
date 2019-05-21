@@ -19,5 +19,5 @@
     <string name="countdown">COUNTDOWN</string>
     <string name="alsGastFortfahren">Als Gast fortfahren</string>
     <string name="button_book">Buchen</string>
-    <string name="button_choose_room">W</string>
+    <string name="button_choose_room">Wählen</string>
 </resources>
