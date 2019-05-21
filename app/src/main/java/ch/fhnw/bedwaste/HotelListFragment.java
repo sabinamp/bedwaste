@@ -30,7 +30,7 @@ import android.app.Fragment;
 public class HotelListFragment extends Fragment {
     // Keys for storing activity state.
     private static final String KEY_LIST_HOTEL = "hotel_list";
-
+    private static final String HOTEL_IDS_KEY = "tracking_ids";
 
     private Button btn;
     private RecyclerView recyclerView;
@@ -48,14 +48,17 @@ public class HotelListFragment extends Fragment {
 
     public HotelListFragment() {
         itemList= new ArrayList<>();
-
+        passedIds = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.hotel_list_view_fragment, container, false);
-
+        if(savedInstanceState != null){
+            //get saved passedIds
+            savedInstanceState.getStringArrayList(HOTEL_IDS_KEY);
+        }
         loaded=false;
         Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -70,7 +73,21 @@ public class HotelListFragment extends Fragment {
         Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) completed. First time loading completed "+loaded);
         return view;
     }
-
+    /**
+     * Saves the last passed ids on configuration change
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(passedIds == null || passedIds.isEmpty()){
+            ArrayList<String> allHIds= new ArrayList<>();
+            allHIds.addAll(WelcomeViewModel.ALL_IDS);
+            outState.putStringArrayList(HOTEL_IDS_KEY, allHIds);
+            super.onSaveInstanceState(outState);
+        }
+        outState.putStringArrayList(HOTEL_IDS_KEY, passedIds);
+        super.onSaveInstanceState(outState);
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -94,9 +111,10 @@ public class HotelListFragment extends Fragment {
 
     private void updateUI(){
         HotelListModel listmodel=null;
-        //passed from WelcomeActivity
         passedIds= getActivity().getIntent().getStringArrayListExtra("bedwaste_hotel_list");
-        if(passedIds.isEmpty()){
+
+        //passed from WelcomeActivity
+        if(passedIds== null ||passedIds.isEmpty()){
             ArrayList<String> allhotels=new ArrayList<>();
             allhotels.addAll(WelcomeViewModel.ALL_IDS);
             listmodel = new HotelListModel(getActivity(),allhotels);

@@ -116,7 +116,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     //private LocationCallback mLocationCallback;
     private CameraPosition mCameraPosition;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    //private static final String TRACKING_LOCATION_KEY = "tracking_location";
+
     private GoogleMap mMap;
     // A default location (ZH, CH) and default zoom to use when location permission is
     // not granted.
