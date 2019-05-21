@@ -68,23 +68,25 @@ public class HotelListViewActivity extends AppCompatActivity {
 
     }
     private void updateUI(){
-        HotelListModel listmodel = new HotelListModel();
+        HotelListModel listmodel=null;
         //passed from WelcomeActivity
         passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
         if(passedIds.isEmpty()){
             ArrayList<String> allhotels=new ArrayList<>();
             allhotels.addAll(WelcomeViewModel.ALL_IDS);
-            itemList=listmodel.retrieveAllHotelDescriptiveData(allhotels);
+            listmodel = new HotelListModel(this,allhotels);
+            itemList=listmodel.getItems();
             //list adapter
             myAdapter = new HotelListAdapter(itemList,userLocation, HotelListViewActivity.this);
             loaded=true;
             Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
         }else{
-            itemList=  listmodel.retrieveAllHotelDescriptiveData(passedIds);
+            listmodel = new HotelListModel(this, passedIds);
+            itemList=  listmodel.getItems();
             //list adapter
             myAdapter = new HotelListAdapter(itemList, userLocation,HotelListViewActivity.this);
             loaded=true;
-            Log.d(TAG, "onCreate() oading " + loaded +"completed - retrieved the hotels based on the passed ids.");
+            Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved the hotels based on the passed ids.");
         }
 
         recyclerView.setAdapter(myAdapter);
