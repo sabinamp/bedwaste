@@ -166,7 +166,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
-            .resize(580, 350).centerCrop()
+            .resize(584, 350).centerCrop()
                     .placeholder(R.drawable.ic_location_city_blue_240dp)
                     .into(hotelThumbnail);
 
@@ -174,7 +174,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             hotelAddressLine.setText(streetName+" "+displayedNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
-            minHotel.setCompoundDrawablePadding(-6);
+            minHotel.setCompoundDrawablePadding(0);
             minHotel.setText(distanceKmString);
             //distanceKmTextview.setText(distanceKmString);
             HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {

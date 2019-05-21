@@ -856,8 +856,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                             LatLng mlastLatLng = new LatLng(mLastKnownLocation.getLatitude(),
                                     mLastKnownLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mlastLatLng, DEFAULT_ZOOM));
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position(mlastLatLng);
+                            double difference= WelcomeViewModel.getDistanceBetween(mlastLatLng, getLocationFromAddress("Brugg"));
+                            double maxDiff=2.0;
+                            if(Double.compare(difference, maxDiff) < 0){
+                                //set searchLocation=Brugg and add the markers with info about hotels in Brugg
+                                mEditText.setText("Brugg");
+                                setSearchRegion("Brugg");
+                                applyFiltering_RetrieveHotelAvailabilities();
+
+                            }
                             //add user location marker if needed
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -971,14 +978,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 List<AvailabilityResult> availabilitiesPerRegion= response.body();
                 Set<String> hotelsToDisplayOnFiltering=new TreeSet<>();
                 updatemHotelsToDisplay(hotelsToDisplayOnFiltering);
-                Log.d("TAG", "filtering/retrieving availabilities per region, hotelsToDisplay size is "+getmHotelsToDisplay().size());
+                Log.d("TAG", "filtering/retrieving hotel availabilities per region, hotelsToDisplay size is "+getmHotelsToDisplay().size());
                 for (AvailabilityResult resultAv: availabilitiesPerRegion) {
                     String[] rateplanIdElem= resultAv.getRateplanId().split("-");
                     String hotelId= rateplanIdElem[0];
                     Log.d("TAG", "retrieving price for- "+hotelId);
 
                     addmHotelsToDisplay(hotelId);
-                    Log.d("TAG", "filtering/retrieving availabilities hotelsToDisplay size is "+getmHotelsToDisplay().size());
+                    Log.d("TAG", "filtering/retrieving hotel availabilities hotelsToDisplay size is "+getmHotelsToDisplay().size());
                     int avPrice= resultAv.getTotalPrice().intValue();
                     Log.d("TAG", "retrieving price "+avPrice+" for "+hotelId);
                     pmodel.updateDisplayedPrices(hotelId, avPrice);
