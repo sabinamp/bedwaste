@@ -25,7 +25,7 @@ import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 
 public class WelcomeViewModel extends ViewModel {
     static final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
+   /* static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
     static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
     static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
@@ -42,10 +42,10 @@ public class WelcomeViewModel extends ViewModel {
     static final LatLng JUGENDHERBERGE= new LatLng(47.481790, 8.194111);
     static final LatLng MARCOPOLO= new LatLng(47.485581, 8.208088);
     static final LatLng DESIGNBOUTIQUE= new LatLng(47.480177, 8.247090);
-    static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);
+    static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);*/
 
     private List<AvailabilityDTO> availabilityDTOList=null;
-    private AvailabilitiesPerRegionService availabilitiesPerRegionService;
+
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
     public static Set<String> ALL_IDS= null;
    
@@ -78,7 +78,7 @@ public class WelcomeViewModel extends ViewModel {
 
     private Map<String, Integer> displayedPrices = null;
 
-    public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
+/*    public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
         return multimediaDescriptions;
     }
 
@@ -86,7 +86,7 @@ public class WelcomeViewModel extends ViewModel {
         this.multimediaDescriptions.put(id, multimediaDescriptions);
     }
 
-    private Map<String, MultimediaDescriptionImages> multimediaDescriptions = null;
+    private Map<String, MultimediaDescriptionImages> multimediaDescriptions = null;*/
 
     private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
     private Map<String, AvailabilityResults> hotelId_availabilities;
