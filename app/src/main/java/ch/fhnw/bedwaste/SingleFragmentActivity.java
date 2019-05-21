@@ -7,7 +7,7 @@ import android.app.FragmentManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 
-
+//you can use it as the parent class for any activity hosting a single fragment.
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
