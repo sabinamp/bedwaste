@@ -38,6 +38,7 @@ public class HotelListFragment extends Fragment {
     private HotelListAdapter myAdapter;
     private LatLng userLocation;
     private View view;
+    private ArrayList<String> item_ids;
     //This flag is required to avoid first time onResume refreshing
     static boolean loaded = false;
     /**
@@ -49,15 +50,17 @@ public class HotelListFragment extends Fragment {
     public HotelListFragment() {
         itemList= new ArrayList<>();
         passedIds = new ArrayList<>();
+        item_ids = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.hotel_list_view_fragment, container, false);
+
         if(savedInstanceState != null){
             //get saved passedIds
-            savedInstanceState.getStringArrayList(HOTEL_IDS_KEY);
+            item_ids= savedInstanceState.getStringArrayList(HOTEL_IDS_KEY);
         }
         loaded=false;
         Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
@@ -78,14 +81,7 @@ public class HotelListFragment extends Fragment {
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if(passedIds == null || passedIds.isEmpty()){
-            ArrayList<String> allHIds= new ArrayList<>();
-            allHIds.addAll(WelcomeViewModel.ALL_IDS);
-            outState.putStringArrayList(HOTEL_IDS_KEY, allHIds);
-            super.onSaveInstanceState(outState);
-        }
-        outState.putStringArrayList(HOTEL_IDS_KEY, passedIds);
+        outState.putStringArrayList(HOTEL_IDS_KEY, item_ids);
         super.onSaveInstanceState(outState);
     }
     @Override
@@ -112,26 +108,21 @@ public class HotelListFragment extends Fragment {
     private void updateUI(){
         HotelListModel listmodel=null;
         passedIds= getActivity().getIntent().getStringArrayListExtra("bedwaste_hotel_list");
-
         //passed from WelcomeActivity
         if(passedIds== null ||passedIds.isEmpty()){
-            ArrayList<String> allhotels=new ArrayList<>();
-            allhotels.addAll(WelcomeViewModel.ALL_IDS);
-            listmodel = new HotelListModel(getActivity(),allhotels);
-            itemList=listmodel.getItems();
-            //list adapter
-            myAdapter = new HotelListAdapter(itemList,userLocation, getActivity());
-            loaded=true;
-            Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
-        }else{
-            listmodel = new HotelListModel(getActivity(), passedIds);
-            itemList=  listmodel.getItems();
-            //list adapter
-            myAdapter = new HotelListAdapter(itemList, userLocation,getActivity());
-            loaded=true;
-            Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved the hotels based on the passed ids.");
-        }
+            item_ids=new ArrayList<>();
+            item_ids.addAll(WelcomeViewModel.ALL_IDS);
 
+        }else{
+            item_ids= passedIds;
+            Log.d(TAG, "onCreate() - the passed ids from the previous activity have size : "+passedIds.size());
+        }
+        listmodel = new HotelListModel(getActivity(),item_ids);
+        itemList=listmodel.getItems();
+        //list adapter
+        myAdapter = new HotelListAdapter(itemList,userLocation, getActivity());
+        loaded=true;
+        Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
 
