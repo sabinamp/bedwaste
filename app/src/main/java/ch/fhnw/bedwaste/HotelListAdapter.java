@@ -174,7 +174,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             hotelAddressLine.setText(streetName+" "+displayedNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
-            minHotel.setCompoundDrawablePadding(0);
+
             minHotel.setText(distanceKmString);
             //distanceKmTextview.setText(distanceKmString);
             HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {
