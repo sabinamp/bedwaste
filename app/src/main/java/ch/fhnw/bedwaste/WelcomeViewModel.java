@@ -148,7 +148,7 @@ public class WelcomeViewModel extends ViewModel {
     }
 
     public static double getDistanceInHours(double distanceKm){
-        double distanceInHours= (distanceKm*13)/60;
+        double distanceInHours= (distanceKm*12.6)/60;
         return distanceInHours;
     }
 
