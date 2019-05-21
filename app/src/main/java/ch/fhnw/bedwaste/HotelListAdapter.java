@@ -167,7 +167,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
             .resize(584, 350).centerCrop()
-                    .placeholder(R.drawable.ic_location_city_blue_240dp)
+                    //.placeholder(R.drawable.ic_location_city_blue_240dp)
                     .into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);

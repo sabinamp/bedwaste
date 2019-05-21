@@ -2,7 +2,6 @@ package ch.fhnw.bedwaste;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -27,17 +26,11 @@ import ch.fhnw.bedwaste.model.MultimediaDescription;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.model.Phone;
 import ch.fhnw.bedwaste.model.Service;
-import ch.fhnw.bedwaste.server.APIClient;
 import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
 import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
-import ch.fhnw.bedwaste.server.HotelDescriptiveInfoInterface;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoListener;
 import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class HotelInfoActivity extends AppCompatActivity {

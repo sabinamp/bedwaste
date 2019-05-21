@@ -15,7 +15,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -26,7 +25,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -59,16 +57,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import com.google.maps.android.SphericalUtil;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.picasso.Picasso;
 
-import org.threeten.bp.LocalTime;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -673,7 +666,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent = new Intent(WelcomeActivity.this, HotelListViewActivity.class);
+                        Intent listIntent = HotelListViewActivity.makeHotelListIntent(WelcomeActivity.this);
                         ArrayList<String> listToPass= new ArrayList<String>();
                         listToPass.addAll(getmHotelsToDisplay());
 
