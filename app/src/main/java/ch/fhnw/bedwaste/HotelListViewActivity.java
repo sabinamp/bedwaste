@@ -31,7 +31,6 @@ public class HotelListViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<HotelDescriptiveInfo> itemList;
     private NetworkDetector netDetector = new NetworkDetector(HotelListViewActivity.this);
-    private HotelListModel listmodel;
     private HotelListAdapter myAdapter;
     private LatLng userLocation;
     //This flag is required to avoid first time onResume refreshing
@@ -43,7 +42,7 @@ public class HotelListViewActivity extends AppCompatActivity {
     ArrayList<String> passedIds=null;
 
     public HotelListViewActivity() {
-        listmodel = new HotelListModel();
+
         itemList= new ArrayList<>();
 
     }
@@ -58,9 +57,20 @@ public class HotelListViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
         //passed from WelcomeActivity
-        passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
         userLocation= new LatLng(getIntent().getDoubleExtra("USER_LOC_LATITUDE", WelcomeViewModel.mDefaultLocation.latitude),
                 getIntent().getDoubleExtra("USER_LOC_LONGITUDE", WelcomeViewModel.mDefaultLocation.longitude));
+        updateUI();
+
+        addBottomNavigation();
+
+        netDetector.networkRunnable.run();
+        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) completed. First time loading completed "+loaded);
+
+    }
+    private void updateUI(){
+        HotelListModel listmodel = new HotelListModel();
+        //passed from WelcomeActivity
+        passedIds= getIntent().getStringArrayListExtra("bedwaste_hotel_list");
         if(passedIds.isEmpty()){
             ArrayList<String> allhotels=new ArrayList<>();
             allhotels.addAll(WelcomeViewModel.ALL_IDS);
@@ -79,13 +89,7 @@ public class HotelListViewActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(myAdapter);
 
-        addBottomNavigation();
-
-        netDetector.networkRunnable.run();
-        Log.d(TAG, "HotelListViewActivity Activity - onCreate(Bundle) completed. First time loading completed "+loaded);
-
     }
-
     private void addBottomNavigation() {
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

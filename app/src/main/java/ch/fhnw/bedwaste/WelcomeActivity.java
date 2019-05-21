@@ -288,7 +288,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         boolean Startup = intent.getBooleanExtra("Startup", false);
         if (Startup){
             addIntroAnimation();
-
+            Startup=false;
         }
         else {
             helpText1 = (TextView) findViewById(R.id.firstHelpBox);
@@ -1021,8 +1021,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onResume() {
-        Log.d(TAG, "onResume() called");
         super.onResume();
+        Log.d(TAG, "onResume() called");
+
     }
 
     @Override
