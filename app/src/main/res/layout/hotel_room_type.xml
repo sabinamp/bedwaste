@@ -18,7 +18,7 @@
         android:layout_weight=".6"
         android:layout_margin="6dp">
             <TextView
-                android:id="@+id/hotel_name"
+                android:id="@+id/room_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
@@ -31,7 +31,7 @@
                 />
 
             <ImageView
-                android:id="@+id/icon"
+                android:id="@+id/room_thumbnail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -40,48 +40,20 @@
                 android:paddingLeft="4dp"
                 android:src="@drawable/ic_location_city_blue_240dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/hotel_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="2dp"
-                    android:paddingLeft="6dp"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:textColor= "@android:color/secondary_text_dark"
-                    android:textAllCaps="true"
-                    android:text="9/10"
-                    />
-
 
                 <TextView
-                    android:id="@+id/min_hotel"
+                    android:id="@+id/room_inclusive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="2dp"
-                    android:text="10 km"
+                    android:text="einschliesslich Steuern und Gebühren"
                     android:gravity="right"
-                    android:drawableLeft="@drawable/ic_directions_walk_red_24dp"
-                    android:paddingLeft="44dp"
-                    android:textColor="@color/min_color"
-                    android:textSize="17sp"
+                    android:drawableLeft="@drawable/ic_apply"
+                    android:drawableTint="@android:color/holo_green_dark"
+                    android:paddingLeft="6dp"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
-                <!--    <TextView
-                        android:id="@+id/distance_km"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="10 km"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />-->
-
-
-            </LinearLayout>
 
         </LinearLayout>
         <LinearLayout
@@ -94,64 +66,60 @@
             android:layout_marginBottom="0dp">
 
             <LinearLayout
-                android:id="@+id/hotel_stars"
+                android:id="@+id/roomtype_icons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingRight="6dp"
-                android:paddingTop="2dp">
+                android:paddingRight="4dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="8dp">
 
-                <TextView
-                    android:id="@+id/nb_stars"
+                <ImageView
+                    android:id="@+id/roomtype_icon1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    tools:text="*"
-                    android:textSize="19sp"
-                    android:gravity="right"
-                    android:textColor="@android:color/black"
-                    android:paddingBottom="4dp"/>
+                    android:src="@drawable/ic_account_box_36dp"/>
+                <ImageView
+                    android:id="@+id/roomtype_icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:src="@drawable/ic_account_box_36dp"/>
 
             </LinearLayout>
             <TextView
-                android:id="@+id/hotel_price"
+                android:id="@+id/room_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="2dp"
-                android:paddingLeft="0dp"
+                android:paddingLeft="6dp"
                 android:clipToPadding="false"
                 android:textStyle="bold"
                 android:textColor= "@android:color/black"
-                android:textSize="19sp"
-                android:text="44 FR/Nacht"
+                android:textSize="20sp"
+                android:text="52 FR/Nacht"
                 />
 
             <TextView
-                android:id="@+id/hotel_address_line"
+                android:id="@+id/regular_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/tertiary_text_light"
-                android:text="Bahnhofstrasse 10"
-                android:paddingLeft="0dp"
+                android:textColor="@color/bookbtn_focused_color"
+                android:text="Regulär: 208Fr"
+                android:paddingRight="4dp"
                 android:textSize="16sp"
                 />
-            <TextView
-                android:id="@+id/hotel_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/tertiary_text_light"
-                android:text="Zürich 8001"
-                android:paddingLeft="0dp"
-                android:textSize="16sp"
-                />
+
                <Button
-                   android:id="@+id/book_rooms"
+                   android:id="@+id/choose_btn"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="@string/button_book"
+                   android:text="@string/button_choose_room"
                    android:background="@color/bookbtn_focused_color"
-                   android:layout_marginTop="6dp"
+                   android:layout_marginTop="10dp"
                    android:layout_marginBottom="2dp"
                    android:layout_marginRight="2dp"
                    android:layout_marginLeft="2dp"

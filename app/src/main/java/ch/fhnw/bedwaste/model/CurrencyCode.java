@@ -15,13 +15,14 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * An ISO 4217 (3) alpha character code that specifies a monetary unit.
  **/
 @ApiModel(description = "An ISO 4217 (3) alpha character code that specifies a monetary unit.")
-public class CurrencyCode {
-  
-
+public class CurrencyCode implements Serializable {
+  private static final long serialVersionUID = 112549L;
 
   @Override
   public boolean equals(Object o) {

@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class HotelConfig {
-  
+public class HotelConfig implements Serializable {
+  private static final long serialVersionUID = 112556L;
+
   @SerializedName("logoUrl")
   private String logoUrl = null;
   @SerializedName("primaryColor")

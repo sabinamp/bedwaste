@@ -15,9 +15,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class HotelProductRoomTypes {
-  
+public class HotelProductRoomTypes implements Serializable {
+  private static final long serialVersionUID = 112570L;
   @SerializedName("roomTypeCode")
   private String roomTypeCode = null;
 

@@ -16,9 +16,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class ServiceResultItem extends BasicService {
-  
+public class ServiceResultItem extends BasicService implements Serializable {
+  private static final long serialVersionUID = 112590L;
   @SerializedName("serviceId")
   private String serviceId = null;
   @SerializedName("price")

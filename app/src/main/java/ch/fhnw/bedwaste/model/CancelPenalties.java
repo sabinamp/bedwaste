@@ -15,10 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
-@ApiModel(description = "")
-public class CancelPenalties {
-  
+import java.io.Serializable;
 
+@ApiModel(description = "")
+public class CancelPenalties implements Serializable {
+
+  private static final long serialVersionUID = 11248L;
 
   @Override
   public boolean equals(Object o) {

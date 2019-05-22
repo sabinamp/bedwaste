@@ -16,12 +16,15 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Provides information about the hotel policies (payment, guarantees, etc.)
  **/
 @ApiModel(description = "Provides information about the hotel policies (payment, guarantees, etc.)")
-public class HotelDescriptiveInfoPolicies {
-  
+public class HotelDescriptiveInfoPolicies implements Serializable {
+  private static final long serialVersionUID = 112561L;
+
   @SerializedName("policyInfo")
   private HotelDescriptiveInfoPoliciesPolicyInfo policyInfo = null;
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,21 +57,27 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
+        boolean notNullHotel=  hotel != null;
 
         final MyViewHolder holder = viewHolder;
-        final String hotelId = hotelList.get(position).getHotelId();
+        if(notNullHotel){
+            final String hotelId = hotel.getHotelId();
 
-        holder.bind(hotel, userLocation);
+            holder.bind(hotel, userLocation);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
 
-                hotelDescriptionIntent.putExtra("key", hotelId);
-                context.startActivity(hotelDescriptionIntent);
-            }
-        });
+                    hotelDescriptionIntent.putExtra("key", hotelId);
+                    hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);
+                    hotelDescriptionIntent.putExtra("user_loc_lng", getUserLocation().longitude);
+                    context.startActivity(hotelDescriptionIntent);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -82,11 +89,11 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         }
     }
 
-    public void update(List<HotelDescriptiveInfo> data) {
+  /*  public void update(List<HotelDescriptiveInfo> data) {
         hotelList.clear();
         hotelList=data;
         notifyDataSetChanged();
-    }
+    }*/
     public LatLng getUserLocation() {
         return userLocation;
     }
@@ -105,6 +112,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         TextView hotelStars;
         ImageView hotelThumbnail;
         TextView minHotel;
+        Button bookBtn;
         //TextView distanceKmTextview;
 
         public MyViewHolder(View itemView) {
@@ -119,6 +127,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             minHotel = (TextView) itemView.findViewById(R.id.min_hotel);
             //distanceKmTextview= (TextView)itemView.findViewById(R.id.distance_km);
             hotelStars= (TextView) itemView.findViewById(R.id.nb_stars) ;
+            bookBtn= (Button)itemView.findViewById(R.id.book_rooms);
 
             itemView.setClickable(true);
         }
@@ -164,15 +173,15 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             MultimediaDescriptionImages banner_picture = hotel_images.get(0);
             String imageUrl_banner = banner_picture.getImageUrl();
             Picasso.get().load(imageUrl_banner)
-            .resize(580, 350).centerCrop()
-                    .placeholder(R.drawable.ic_location_city_blue_240dp)
+            .resize(584, 350).centerCrop()
+                    //.placeholder(R.drawable.ic_location_city_blue_240dp)
                     .into(hotelThumbnail);
 
             hotelStars.setText(star_amount_string);
             hotelAddressLine.setText(streetName+" "+displayedNb);
             hotelCity.setText(city_zipcode );
             hotelRating.setText(rating);
-            minHotel.setCompoundDrawablePadding(-6);
+
             minHotel.setText(distanceKmString);
             //distanceKmTextview.setText(distanceKmString);
             HotelAvailabilityResultsService service_price = new HotelAvailabilityResultsService(new AvailabilityResultsListener() {

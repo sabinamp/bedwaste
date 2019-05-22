@@ -16,9 +16,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class InlineResponse200 {
-  
+public class InlineResponse200 implements Serializable {
+  private static final long serialVersionUID = 112572L;
   @SerializedName("status")
   private ReservationStatus status = null;
   @SerializedName("reservationId")

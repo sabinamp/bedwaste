@@ -12,15 +12,16 @@
 
 package ch.fhnw.bedwaste.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class CalendarResults extends HashMap<String, Object> {
-  
+public class CalendarResults extends HashMap<String, Object> implements Serializable {
 
+  private static final long serialVersionUID = 11248L;
 
   @Override
   public boolean equals(Object o) {

@@ -13,6 +13,7 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
@@ -21,8 +22,9 @@ import com.google.gson.annotations.SerializedName;
  * Provides information regarding affiliations, loyalty programs and award ratings.The AffiliationInfo object is used to identify the brand or franchise affiliations of the hotel.
  **/
 @ApiModel(description = "Provides information regarding affiliations, loyalty programs and award ratings.The AffiliationInfo object is used to identify the brand or franchise affiliations of the hotel.")
-public class HotelDescriptiveInfoAffiliationInfo {
-  
+public class HotelDescriptiveInfoAffiliationInfo implements Serializable {
+  private static final long serialVersionUID = 112559L;
+
   @SerializedName("awards")
   private List<Award> awards = null;
 

@@ -13,13 +13,15 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class ContactInfo {
-  
+public class ContactInfo implements Serializable {
+  private static final long serialVersionUID = 112449L;
+
   @SerializedName("companyName")
   private String companyName = null;
   @SerializedName("addresses")

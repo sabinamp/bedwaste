@@ -1,7 +1,9 @@
 package ch.fhnw.bedwaste;
 
+import android.content.Context;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,25 +23,33 @@ public class HotelListModel {
     /**
      * List of hotel ids passed from WelcomeActivity
      */
-    //private ArrayList<String> HOTEL_IDS=null;
-    private List<HotelDescriptiveInfo> items= null;
+    private List<HotelDescriptiveInfo> mItems= null;
 
-    private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo=null;
+    private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
+    Context context;
 
-    public HotelListModel() {
-        items = new ArrayList<>();
+    HotelListModel(Context context, List<String> ids) {
+        this.context=context;
+        mItems = new ArrayList<>();
         hotelId_descriptiveInfo = new HashMap<>();
+        retrieveHotelDescriptiveData(ids);
+
     }
 
 
-    private Map<String, HotelDescriptiveInfo> getHotelId_descriptiveInfo() {
-        return Collections.unmodifiableMap(hotelId_descriptiveInfo);
+    public List<HotelDescriptiveInfo> getItems(){
+        return mItems;
+    }
+
+    public HotelDescriptiveInfo getHotelDescriptiveInfoH(String hotelId){
+        return hotelId_descriptiveInfo.get(hotelId);
     }
 
     private void updateHotelId_descriptiveInfo(String id, HotelDescriptiveInfo hotelId_descriptiveInfo) {
         this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
     }
-    List<HotelDescriptiveInfo> retrieveAllHotelDescriptiveData(List<String> ids){
+
+   private List<HotelDescriptiveInfo> retrieveHotelDescriptiveData(List<String> ids){
         for (final String eachId : ids) {
             Log.d("TAG", "hotel ids' number: "+ eachId);
             Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
@@ -48,7 +58,7 @@ public class HotelListModel {
                 public void success(Response<HotelDescriptiveInfo> response) {
                     HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
                     updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
-                    items.add(hotelDescriptiveInfo);
+                    mItems.add(hotelDescriptiveInfo);
 
                 }
 
@@ -60,9 +70,30 @@ public class HotelListModel {
             service_description.getHotelDescriptiveInfo("en", eachId);
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed. Number of hotels : "+ids.size());
-        return  items;
+        return  mItems;
     }
 
+    List<HotelDescriptiveInfo>  retrieveAllHotelDescriptiveDataFromInternalStorage(List<String> ids){
+        for (final String eachId : ids) {
+            Log.d("TAG", "hotel ids' number: "+ eachId);
+            try{
+                Log.d(TAG, "start retrieveHotelDescriptiveData - reading data from internal storage");
+                Map<String, HotelDescriptiveInfo> alldescriptiveInfo= (Map<String, HotelDescriptiveInfo>)InternalStorage.readObject(context, "descriptive_info_all_hotels" );
+                HotelDescriptiveInfo hotelDescriptiveInfo = alldescriptiveInfo.get(eachId);
+                updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
+                mItems.add(hotelDescriptiveInfo);
+            }catch(IOException ex){
+                Log.e(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+ex.getMessage());
+                Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+ex.getMessage());
+            }catch (ClassNotFoundException e){
+                Log.e(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
+                Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
+            }
+
+        }
+        Log.d(TAG, "retrieveHotelDescriptiveData()- reading data from local storage - completed. Number of hotels : "+ids.size());
+    return mItems;
+    }
 
 
 

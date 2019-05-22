@@ -25,7 +25,7 @@ import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 
 public class WelcomeViewModel extends ViewModel {
     static final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);
-    static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
+   /* static final LatLng HOTTINGEN= new LatLng(47.3697905658882, 8.55352004819906);
     static final LatLng PLATZHIRSCH = new LatLng(47.3735057616661, 8.5440319776535);
     static final LatLng HEMLHAUS= new LatLng(47.369158397978, 8.54404538869858);
     static final LatLng VILLETTE= new LatLng(47.3682, 8.5453);
@@ -42,10 +42,10 @@ public class WelcomeViewModel extends ViewModel {
     static final LatLng JUGENDHERBERGE= new LatLng(47.481790, 8.194111);
     static final LatLng MARCOPOLO= new LatLng(47.485581, 8.208088);
     static final LatLng DESIGNBOUTIQUE= new LatLng(47.480177, 8.247090);
-    static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);
+    static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);*/
 
-    private List<AvailabilityDTO> availabilityDTOList=null;
-    private AvailabilitiesPerRegionService availabilitiesPerRegionService;
+
+
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
     public static Set<String> ALL_IDS= null;
    
@@ -78,30 +78,19 @@ public class WelcomeViewModel extends ViewModel {
 
     private Map<String, Integer> displayedPrices = null;
 
-    public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
-        return multimediaDescriptions;
-    }
 
-    public void addMultimediaDescriptions(String id, MultimediaDescriptionImages multimediaDescriptions) {
-        this.multimediaDescriptions.put(id, multimediaDescriptions);
-    }
-
-    private Map<String, MultimediaDescriptionImages> multimediaDescriptions = null;
 
     private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
     private Map<String, AvailabilityResults> hotelId_availabilities;
 
     public WelcomeViewModel(){
         availabilitiesPerRegion = new HashMap<>();
-        availabilityDTOList = new ArrayList<>();
 
         hotelId_descriptiveInfo = new HashMap<>();
         hotelId_availabilities = new HashMap<>();
         hotelIdsInRegionZH = new HashMap<>();
         hotelIdsInRegionAargau = new HashMap<>();
         displayedPrices = new HashMap<>();
-
-
     }
 
 
@@ -140,7 +129,6 @@ public class WelcomeViewModel extends ViewModel {
         if (hotelLoc == null || userLoc == null){
             return null;
         }
-
         double input=(double)(SphericalUtil.computeDistanceBetween(hotelLoc,userLoc)/1000) ;
         DecimalFormat df2 = new DecimalFormat("#.##");
         df2.setRoundingMode(RoundingMode.DOWN);
@@ -149,9 +137,10 @@ public class WelcomeViewModel extends ViewModel {
     }
 
     public static double getDistanceInHours(double distanceKm){
-        double distanceInHours= (distanceKm*13)/60;
+        double distanceInHours= (distanceKm*12.6)/60;
         return distanceInHours;
     }
+
     public static String getDistanceInHoursasString(double distanceKm){
         double distanceInHours= (distanceKm*13)/60;
         DecimalFormat df2 = new DecimalFormat("#.##");

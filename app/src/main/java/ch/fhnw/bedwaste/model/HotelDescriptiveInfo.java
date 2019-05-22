@@ -19,8 +19,9 @@ import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class HotelDescriptiveInfo{
-  
+public class HotelDescriptiveInfo implements Serializable{
+  private static final long serialVersionUID = 112557L;
+
   @SerializedName("hotelId")
   private String hotelId = null;
   @SerializedName("hotelName")
