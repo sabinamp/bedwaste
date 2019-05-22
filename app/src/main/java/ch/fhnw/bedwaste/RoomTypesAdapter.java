@@ -81,7 +81,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
             roomInclusiveTextView = itemView.findViewById(R.id.room_inclusive);
             roomPrice = itemView.findViewById(R.id.room_price);
             regularPrice = itemView.findViewById(R.id.regular_price);
-            roomThumbnail = itemView.findViewById(R.id.room_thumbnail);
+            roomThumbnail = (ImageView)itemView.findViewById(R.id.room_thumbnail);
             roomTypeIcon1 = itemView.findViewById(R.id.roomtype_icon1);
             chooseBtn = itemView.findViewById(R.id.choose_btn);
         }
@@ -98,11 +98,11 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
             roomPrice.setText(price);
             double regPrice= rPrice*1.15;
             int regular_Price=(int) Math.round(regPrice);
-            regularPrice.setText("Regulär: "+String.valueOf(regular_Price) + "CHF");
+            regularPrice.setText("Regulär: "+String.valueOf(regular_Price) + " CHF");
             if(hotelDescriptiveInfo != null){
                 HotelDescriptiveInfoFacilityInfo facilityInfo= hotelDescriptiveInfo.getFacilityInfo();
                 if(facilityInfo != null){
-                    int totalNbOfRooms= facilityInfo.getGuestRooms().size();
+                    //int totalNbOfRooms= facilityInfo.getGuestRooms().size();
 
                     //room
                     GuestRoom room= hotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
@@ -113,8 +113,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
                     MultimediaDescriptionImages room_picture = room_images.get(0);
                     String imageUrl_room = room_picture.getImageUrl();
                     Picasso.get().load(imageUrl_room)
-                            .resize(524, 350).centerCrop()
-                            //.placeholder(R.drawable.ic_location_city_blue_240dp)
+                            .resize(500, 350).centerCrop()
                             .into(roomThumbnail);
                 }
             }

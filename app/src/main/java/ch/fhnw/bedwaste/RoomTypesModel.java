@@ -129,14 +129,14 @@ public class RoomTypesModel {
             service.getRoomAvailabilitiesInHotel(eachId, 1, 0, 0);
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
-        //writing to internal storage
+        /*//writing to internal storage
         try{
             InternalStorage.writeObject(context, ALL_AVAILABILITIES_MAP, room_availabilities);
             Log.d(TAG, "writing all hotels' availabilities  to internal storage completed");
         }catch (IOException ex){
             Log.d(TAG, ex.getMessage());
             Log.e(TAG, ex.getMessage());
-        }
+        }*/
     }
 
     private void retrieveAvailabilities(final String id){
@@ -159,12 +159,12 @@ public class RoomTypesModel {
 
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server for hotel \"+id+\" - completed");
         //writing to internal storage
-        try{
+        /*try{
             InternalStorage.writeObject(context, ALL_AVAILABILITIES_MAP, room_availabilities);
             Log.d(TAG, "writing all hotels' availabilities  to internal storage completed");
         }catch (IOException ex){
             Log.d(TAG, ex.getMessage());
             Log.e(TAG, ex.getMessage());
-        }
+        }*/
     }
 }

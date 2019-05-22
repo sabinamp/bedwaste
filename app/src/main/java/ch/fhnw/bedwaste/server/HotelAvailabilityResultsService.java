@@ -21,16 +21,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HotelAvailabilityResultsService extends Service {
+public class HotelAvailabilityResultsService {
 
     private HotelAvailabilityResultsInterface jsonAPI;
     private static final String USER_ID = "test";
     private String errorCode = null;
     private AvailabilityResultsListener listener;
     private static final String TAG="AvailabilityResultsServ";
-    public HotelAvailabilityResultsService(){
-
-    }
+    
 
     public HotelAvailabilityResultsService(AvailabilityResultsListener listener){
         this.listener= listener;
@@ -67,15 +65,5 @@ public class HotelAvailabilityResultsService extends Service {
     }
 
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        Log.d(TAG, "onBind() called");
-        return null;
-    }
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "service started");
-        return START_STICKY;
-    }
+
 }
