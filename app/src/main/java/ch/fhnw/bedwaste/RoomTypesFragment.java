@@ -109,7 +109,6 @@ public class RoomTypesFragment extends Fragment {
         super.onResume();
 
         updateUI(hotelId_value);
-
         Log.d(TAG, "resuming back to the RoomTypesFragment");
     }
 
