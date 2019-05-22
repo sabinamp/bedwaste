@@ -105,7 +105,7 @@ public class RoomTypesModel {
                 Log.d(TAG, "failed retrieving HotelDescriptiveData)");
             }
         });
-
+        serviceInfo.getHotelDescriptiveInfo("en", currentHotelId);
     }
 
     private void retrieveAllHotelsAvailabilities(){
