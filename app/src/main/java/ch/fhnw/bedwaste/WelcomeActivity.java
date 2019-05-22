@@ -1009,13 +1009,13 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
         //writing to internal storage
-        try{
+       /* try{
             InternalStorage.writeObject(WelcomeActivity.this, DESCRIPTIVEINFO_ALL_HOTELS_MAP, pmodel.getHotelId_descriptiveInfo());
             Log.d(TAG, "writing to internal storage");
         }catch (IOException ex){
             Log.d(TAG, ex.getMessage());
             Log.e(TAG, ex.getMessage());
-        }
+        }*/
     }
 
     @Override

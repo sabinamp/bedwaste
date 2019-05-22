@@ -1,27 +1,21 @@
 package ch.fhnw.bedwaste;
 import android.arch.lifecycle.ViewModel;
-import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import ch.fhnw.bedwaste.client.AvailabilityDTO;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
-import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
-import ch.fhnw.bedwaste.server.AvailabilitiesPerRegionService;
 
 public class WelcomeViewModel extends ViewModel {
     static final LatLng mDefaultLocation = new LatLng(47.3769, 8.5417);

@@ -15,6 +15,8 @@ import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
 import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoListener;
+import ch.fhnw.bedwaste.server.HotelDescriptiveInfoService;
 import retrofit2.Response;
 
 
@@ -23,6 +25,15 @@ public class RoomTypesModel {
      * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG="HotelListModel";
+
+    public HotelDescriptiveInfo getmItem() {
+        return mItem;
+    }
+
+    public void setmItem(HotelDescriptiveInfo mItem) {
+        this.mItem = mItem;
+    }
+
     /**
      * List of hotel ids passed from WelcomeActivity
      */
@@ -39,12 +50,12 @@ public class RoomTypesModel {
         room_availabilities= new ArrayList<>();
         currentHotelId= id;
 
-        mItem = getHotelDescriptiveData(id);
+        getHotelDescriptiveData(id);
         retrieveAvailabilities(id);
 
     }
 
-    private void retrieveAvailabilityResults() {
+   /* private void retrieveAvailabilityResults() {
         //read from internal storage
         Map<String, AvailabilityResults> results;
         try{
@@ -62,7 +73,7 @@ public class RoomTypesModel {
         }
 
 
-    }
+    }*/
 
     private void updateRoomAvailabilititesBasedOnResults(AvailabilityResults availabilities) {
 
@@ -79,18 +90,22 @@ public class RoomTypesModel {
         return Collections.unmodifiableList(room_availabilities);
     }
 
-    private HotelDescriptiveInfo getHotelDescriptiveData(String id) {
-        HotelDescriptiveInfo hotelItem=null;
-        //read from Internal storage
-        try{
-            Map<String, HotelDescriptiveInfo> data= (Map<String, HotelDescriptiveInfo>)InternalStorage.readObject(context, DESCRIPTIVEINFO_ALL_HOTELS_MAP);
-            hotelItem= data.get(currentHotelId);
-        } catch (IOException e) {
-            Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
-        }
-        return hotelItem;
+    void getHotelDescriptiveData(String id) {
+
+        HotelDescriptiveInfoService serviceInfo= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
+            @Override
+            public void success(Response<HotelDescriptiveInfo> response) {
+                 HotelDescriptiveInfo hotelItem = response.body();
+                 setmItem(hotelItem);
+                 Log.d(TAG, "retrieved successfully hotel descriptive info ");
+            }
+
+            @Override
+            public void failed(String message) {
+                Log.d(TAG, "failed retrieving HotelDescriptiveData)");
+            }
+        });
+
     }
 
     private void retrieveAllHotelsAvailabilities(){

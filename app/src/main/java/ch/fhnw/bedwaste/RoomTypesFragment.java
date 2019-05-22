@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.bedwaste.model.AvailabilityResult;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 
 
 public class RoomTypesFragment extends Fragment {
@@ -57,10 +58,11 @@ public class RoomTypesFragment extends Fragment {
     }
     private void updateUI(String hotelId){
         RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(), hotelId);
+        HotelDescriptiveInfo info= roomtypes_listModel.getmItem();
         roomAvailabilitiesList = roomtypes_listModel.getAvailabilityResults();
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);
         if(roomTypesAdapter == null){
-            roomTypesAdapter = new RoomTypesAdapter(getActivity(), roomAvailabilitiesList);
+            roomTypesAdapter = new RoomTypesAdapter(getActivity(), roomAvailabilitiesList, info);
             recyclerView.setAdapter(roomTypesAdapter);
         }else{
             roomTypesAdapter.notifyDataSetChanged();

@@ -9,23 +9,33 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.analytics.ecommerce.Product;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import ch.fhnw.bedwaste.model.AvailabilityResult;
 
+import ch.fhnw.bedwaste.model.GuestRoom;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.model.HotelDescriptiveInfoFacilityInfo;
+import ch.fhnw.bedwaste.model.MultimediaDescription;
+import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
 import ch.fhnw.bedwaste.model.RoomAvailabilityResult;
 
 public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.RoomTypeViewHolder> {
 
     private static final String TAG = "RoomTypesAdapter";
     private List<AvailabilityResult> pricesRoomsList;
+    private HotelDescriptiveInfo mHotelDescriptiveInfo;
 
     private Context context;
 
-    public RoomTypesAdapter(Context context, List<AvailabilityResult> items){
+    public RoomTypesAdapter(Context context, List<AvailabilityResult> items, HotelDescriptiveInfo hotelDescriptiveInfo){
         this.context=context;
         pricesRoomsList= items;
+        mHotelDescriptiveInfo= hotelDescriptiveInfo;
     }
     @NonNull
     @Override
@@ -42,7 +52,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
         final AvailabilityResult item= pricesRoomsList.get(position);
         final RoomTypeViewHolder holder= roomTypeViewHolder;
         final String ratePlanId= pricesRoomsList.get(position).getRateplanId();
-        holder.bind(item);
+        holder.bind(item, mHotelDescriptiveInfo, position);
 
     }
 
@@ -76,14 +86,40 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
             chooseBtn = itemView.findViewById(R.id.choose_btn);
         }
         //method to call within the adapter's onBindViewHolder() after fetching data from the server
-        private void bind(AvailabilityResult roomItem) {
+        private void bind(AvailabilityResult roomItem, HotelDescriptiveInfo hotelDescriptiveInfo, int position) {
             roomItem=roomItem;
             String[] line = roomItem.getRateplanId().split("-");
+            String hotelId= line[0];
             String roomName= line[1] != null ? line[1]: "";
             roomNameTextView.setText(roomName);
-            Float rPrice= roomItem.getTotalPrice();
+            Float rePrice= roomItem.getTotalPrice();
+            Integer rPrice = Math.round(rePrice);
             String price = rPrice != null ? rPrice.toString()+" CHF/Nacht" : "";
             roomPrice.setText(price);
+            double regPrice= rPrice*1.15;
+            int regular_Price=(int) Math.round(regPrice);
+            regularPrice.setText("Regulär: "+String.valueOf(regular_Price) + "CHF");
+            if(hotelDescriptiveInfo != null){
+                HotelDescriptiveInfoFacilityInfo facilityInfo= hotelDescriptiveInfo.getFacilityInfo();
+                if(facilityInfo != null){
+                    int totalNbOfRooms= facilityInfo.getGuestRooms().size();
+
+                    //room
+                    GuestRoom room= hotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
+                    //room image
+                    java.util.List<MultimediaDescription> multimediaDescriptions = room.getMultimediaDescriptions();
+                    MultimediaDescription first_mmDescription = multimediaDescriptions.get(0);
+                    java.util.List<MultimediaDescriptionImages> room_images = first_mmDescription.getImages();
+                    MultimediaDescriptionImages room_picture = room_images.get(0);
+                    String imageUrl_room = room_picture.getImageUrl();
+                    Picasso.get().load(imageUrl_room)
+                            .resize(524, 350).centerCrop()
+                            //.placeholder(R.drawable.ic_location_city_blue_240dp)
+                            .into(roomThumbnail);
+                }
+            }
+
+
 
 
         }
