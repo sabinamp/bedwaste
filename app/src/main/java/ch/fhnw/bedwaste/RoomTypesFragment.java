@@ -30,6 +30,7 @@ public class RoomTypesFragment extends Fragment {
     private RoomTypesAdapter roomTypesAdapter;
     private static final String HOTEL_ID_KEY = "tracking_hotel";
     private String hotelId_value;
+    private HotelDescriptiveInfo info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class RoomTypesFragment extends Fragment {
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         hotelId_value = intent.getStringExtra("hotel_key");
+        info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data");
         Log.d(TAG, " - onCreate(Bundle) called. ");
         if(savedInstanceState != null){
             hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
@@ -58,7 +60,8 @@ public class RoomTypesFragment extends Fragment {
     }
     private void updateUI(String hotelId){
         RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(), hotelId);
-        HotelDescriptiveInfo info= roomtypes_listModel.getmItem();
+       // HotelDescriptiveInfo info= roomtypes_listModel.getmItem();
+
         roomAvailabilitiesList = roomtypes_listModel.getAvailabilityResults();
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);
         if(roomTypesAdapter == null){

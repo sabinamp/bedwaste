@@ -61,7 +61,7 @@ public class HotelInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.hotel_info_fragment, container, false);
-
+        HotelDescriptiveInfo hotelDescriptiveInfo = (HotelDescriptiveInfo) getActivity().getIntent().getSerializableExtra("hotel_descriptive_data");
         hotelAddress =view.findViewById(R.id.text_Address);
         model= new WelcomeViewModel();
         //receive values that got passed from previous activity
@@ -96,10 +96,10 @@ public class HotelInfoFragment extends Fragment {
         userLocationLat= getActivity().getIntent().getDoubleExtra("user_loc_lat", WelcomeViewModel.mDefaultLocation.latitude);
         userLocationLng = getActivity().getIntent().getDoubleExtra("user_loc_lng", WelcomeViewModel.mDefaultLocation.longitude);
 
-        HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
+        /*HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
             @Override
             public void success(Response<HotelDescriptiveInfo> response) {
-                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();*/
 
                 insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
@@ -203,7 +203,7 @@ public class HotelInfoFragment extends Fragment {
                             imageView, i);
                 }
 
-            }
+           /* }
 
             @Override
             public void failed(String message) {
@@ -212,7 +212,7 @@ public class HotelInfoFragment extends Fragment {
 
 
         service.getHotelDescriptiveInfo("en", hotellist_value);
-
+*/
         return view;
     }
 }

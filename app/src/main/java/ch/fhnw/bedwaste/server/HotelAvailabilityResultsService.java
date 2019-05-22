@@ -28,7 +28,7 @@ public class HotelAvailabilityResultsService {
     private String errorCode = null;
     private AvailabilityResultsListener listener;
     private static final String TAG="AvailabilityResultsServ";
-    
+
 
     public HotelAvailabilityResultsService(AvailabilityResultsListener listener){
         this.listener= listener;

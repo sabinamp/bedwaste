@@ -78,9 +78,10 @@ public class HotelInfoActivity extends SingleFragmentActivity {
         });
     }
 
-    public static Intent makeHotelInfoIntent(Context cont, String extra){
+    public static Intent makeHotelInfoIntent(Context cont, String extra, HotelDescriptiveInfo hotel_descriptive_data){
         Intent hotelViewIntent = new Intent(cont, HotelInfoActivity.class);
         hotelViewIntent.putExtra(EXTRA_HOTEL_ID, extra);
+        hotelViewIntent.putExtra("hotel_descriptive_data", hotel_descriptive_data);
         return hotelViewIntent;
     }
 

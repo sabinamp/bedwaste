@@ -68,7 +68,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
+                    Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId, hotel);
 
                     hotelDescriptionIntent.putExtra("key", hotelId);
                     hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);

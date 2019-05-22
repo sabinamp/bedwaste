@@ -72,12 +72,5 @@ public class RoomTypesActivity extends SingleFragmentActivity {
         super.onStop();
         Log.d(TAG, "onStop() called");
     }
-    public void startService(View view) {
-        startService(new Intent(getBaseContext(), HotelAvailabilityResultsService.class));
-    }
 
-    // Method to stop the service
-    public void stopService(View view) {
-        stopService(new Intent(getBaseContext(), HotelAvailabilityResultsService.class));
-    }
 }
