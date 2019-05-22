@@ -26,16 +26,6 @@ public class RoomTypesModel {
      */
     private static final String TAG="HotelListModel";
 
- /*   public HotelDescriptiveInfo getmItem() {
-        return mItem;
-    }
-
-    public void setmItem(HotelDescriptiveInfo mItem) {
-        this.mItem = mItem;
-    }*/
-
-
-    //private HotelDescriptiveInfo mItem= null;
     private List<AvailabilityResult> room_availabilities;
     private String currentHotelId;
     private Context context;
@@ -47,8 +37,7 @@ public class RoomTypesModel {
         this.context = context;
         room_availabilities= new ArrayList<>();
         currentHotelId= id;
-
-        //getHotelDescriptiveData(id);
+        
         retrieveAvailabilities(id);
 
     }
@@ -88,23 +77,7 @@ public class RoomTypesModel {
         return Collections.unmodifiableList(room_availabilities);
     }
 
-/*    void getHotelDescriptiveData(String id) {
 
-        HotelDescriptiveInfoService serviceInfo= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
-            @Override
-            public void success(Response<HotelDescriptiveInfo> response) {
-                 HotelDescriptiveInfo hotelItem = response.body();
-                 setmItem(hotelItem);
-                 Log.d(TAG, "retrieved successfully hotel descriptive info ");
-            }
-
-            @Override
-            public void failed(String message) {
-                Log.d(TAG, "failed retrieving HotelDescriptiveData)");
-            }
-        });
-        serviceInfo.getHotelDescriptiveInfo("en", currentHotelId);
-    }*/
 
     private void retrieveAllHotelsAvailabilities(){
         final Map<String, AvailabilityResults> room_av = new HashMap<>();
