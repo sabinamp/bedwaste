@@ -44,7 +44,7 @@
         <activity android:name=".HotelListViewActivity" />
         <activity android:name=".HotelInfoActivity"></activity>
         <activity android:name=".RoomTypesActivity"></activity>
-
+        <service android:name=".server.HotelAvailabilityResultsService" />
 
     </application>
 

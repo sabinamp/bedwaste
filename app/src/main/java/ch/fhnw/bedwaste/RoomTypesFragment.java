@@ -16,6 +16,7 @@ import java.util.List;
 import ch.fhnw.bedwaste.model.AvailabilityResult;
 import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
 
 public class RoomTypesFragment extends Fragment {
     /**
@@ -54,9 +55,13 @@ public class RoomTypesFragment extends Fragment {
         RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(), hotelId);
         roomAvailabilitiesList = roomtypes_listModel.getAvailabilityResults();
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);
-        roomTypesAdapter = new RoomTypesAdapter(getActivity(), roomAvailabilitiesList);
-        recyclerView.setAdapter(roomTypesAdapter);
-        roomTypesAdapter.notifyDataSetChanged();
+        if(roomTypesAdapter == null){
+            roomTypesAdapter = new RoomTypesAdapter(getActivity(), roomAvailabilitiesList);
+            recyclerView.setAdapter(roomTypesAdapter);
+        }else{
+            roomTypesAdapter.notifyDataSetChanged();
+        }
+
 
     }
     private void setLayoutManager(){
@@ -95,9 +100,7 @@ public class RoomTypesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        roomTypesAdapter.notifyDataSetChanged();
-
-
+        updateUI(hotelId_value);
 
         Log.d(TAG, "resuming back to the RoomTypesFragment");
     }
@@ -113,4 +116,5 @@ public class RoomTypesFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
     }
+
 }

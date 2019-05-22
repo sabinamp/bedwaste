@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -70,5 +71,13 @@ public class RoomTypesActivity extends SingleFragmentActivity {
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop() called");
+    }
+    public void startService(View view) {
+        startService(new Intent(getBaseContext(), HotelAvailabilityResultsService.class));
+    }
+
+    // Method to stop the service
+    public void stopService(View view) {
+        stopService(new Intent(getBaseContext(), HotelAvailabilityResultsService.class));
     }
 }

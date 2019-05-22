@@ -108,9 +108,8 @@ public class HotelListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(loaded){
-            myAdapter.notifyDataSetChanged();
-        }
+        updateUI();
+
         Log.d(TAG, "resuming back to the HotelListFragment");
     }
 
@@ -142,15 +141,16 @@ public class HotelListFragment extends Fragment {
         listmodel = new HotelListModel(getActivity(),item_ids);
         itemList=listmodel.getItems();
         //list adapter
-        myAdapter = new HotelListAdapter(itemList,userLocation, getActivity());
-        loaded=true;
-        Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
-        recyclerView.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
+        if(myAdapter == null){
+            myAdapter = new HotelListAdapter(itemList,userLocation, getActivity());
+            loaded=true;
+            Log.d(TAG, "onCreate() loading " + loaded +"completed - retrieved all hotels.");
+            recyclerView.setAdapter(myAdapter);
+        }else{
+            myAdapter.notifyDataSetChanged();
+        }
 
     }
-
-
 
 
     private void setLayoutManager(){
