@@ -57,23 +57,27 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
-
+        boolean notNullHotel= hotel!=null;
+        Log.d(TAG, "current hotel is not null: "+notNullHotel);
         final MyViewHolder holder = viewHolder;
-        final String hotelId = hotelList.get(position).getHotelId();
+        if(notNullHotel){
+            final String hotelId = hotel.getHotelId();
 
-        holder.bind(hotel, userLocation);
+            holder.bind(hotel, userLocation);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId);
 
-                hotelDescriptionIntent.putExtra("key", hotelId);
-                hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);
-                hotelDescriptionIntent.putExtra("user_loc_lng", getUserLocation().longitude);
-                context.startActivity(hotelDescriptionIntent);
-            }
-        });
+                    hotelDescriptionIntent.putExtra("key", hotelId);
+                    hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);
+                    hotelDescriptionIntent.putExtra("user_loc_lng", getUserLocation().longitude);
+                    context.startActivity(hotelDescriptionIntent);
+                }
+            });
+        }
+
     }
 
     @Override

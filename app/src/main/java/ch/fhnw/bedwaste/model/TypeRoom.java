@@ -20,7 +20,7 @@ import java.io.Serializable;
 @ApiModel(description = "")
 public class TypeRoom implements Serializable {
   private static final long serialVersionUID = 112594L;
-  
+
   @SerializedName("standardOccupancy")
   private Integer standardOccupancy = null;
   @SerializedName("standardNumBeds")

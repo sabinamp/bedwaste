@@ -56,6 +56,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -133,7 +134,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-
+    // Keys for storing data to internal storage.
+    private static final String DESCRIPTIVEINFO_ALL_HOTELS_MAP = "descriptive_info_all_hotels";
+    private static final String CURRENT_AVAILABILITIES_MAP = "all_hotel_ids";
     // Layout Elements
     private ImageButton mLocationButton;
     private LinearLayout filterLayout;
@@ -611,6 +614,14 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
             service_description.getHotelDescriptiveInfo("en", eachId);
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
+        //writing to internal storage
+        try{
+            InternalStorage.writeObject(WelcomeActivity.this, DESCRIPTIVEINFO_ALL_HOTELS_MAP, pmodel.getHotelId_descriptiveInfo());
+           Log.d(TAG, "writing to internal storage");
+        }catch (IOException ex){
+            Log.d(TAG, ex.getMessage());
+            Log.e(TAG, ex.getMessage());
+        }
     }
 
     private void displayMarkers(){
