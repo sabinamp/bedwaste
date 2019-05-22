@@ -15,12 +15,15 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Tangible room item(s) (e.g., newspaper) available to the guest.
  **/
 @ApiModel(description = "Tangible room item(s) (e.g., newspaper) available to the guest.")
-public class RoomAmenity {
-  
+public class RoomAmenity implements Serializable {
+  private static final long serialVersionUID = 112584L;
+
   @SerializedName("roomAmenityCode")
   private Integer roomAmenityCode = null;
   @SerializedName("codeDetail")

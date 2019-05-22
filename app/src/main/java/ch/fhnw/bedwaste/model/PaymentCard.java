@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class PaymentCard {
-  
+public class PaymentCard implements Serializable {
+  private static final long serialVersionUID = 112580L;
+
   public enum CardCodeEnum {
      AX,  VI,  MC,  EC,  DN,  JC,  DS,  MA,  BL,  CB,  BC,  CU,  TP, 
   };

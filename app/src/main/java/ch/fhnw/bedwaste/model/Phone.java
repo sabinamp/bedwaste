@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class Phone {
-  
+public class Phone implements Serializable {
+  private static final long serialVersionUID = 112581L;
+
   @SerializedName("phoneTechType")
   private Integer phoneTechType = null;
   @SerializedName("countryAccessCode")

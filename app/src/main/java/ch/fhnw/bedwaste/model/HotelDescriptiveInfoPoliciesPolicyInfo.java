@@ -15,12 +15,15 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * General policy information
  **/
 @ApiModel(description = "General policy information")
-public class HotelDescriptiveInfoPoliciesPolicyInfo {
-  
+public class HotelDescriptiveInfoPoliciesPolicyInfo implements Serializable {
+  private static final long serialVersionUID = 112562L;
+
   @SerializedName("minChildAge")
   private Integer minChildAge = null;
   @SerializedName("maxChildAge")

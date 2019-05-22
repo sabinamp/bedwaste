@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class CancelReservationRequest {
-  
+public class CancelReservationRequest implements Serializable {
+  private static final long serialVersionUID = 112349L;
+
   @SerializedName("reservationId")
   private String reservationId = null;
   @SerializedName("reservationEmail")

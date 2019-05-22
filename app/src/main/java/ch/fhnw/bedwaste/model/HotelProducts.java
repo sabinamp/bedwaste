@@ -13,14 +13,15 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class HotelProducts extends ArrayList<HotelProduct> {
-  
+public class HotelProducts extends ArrayList<HotelProduct> implements Serializable {
 
+  private static final long serialVersionUID = 112571L;
 
   @Override
   public boolean equals(Object o) {

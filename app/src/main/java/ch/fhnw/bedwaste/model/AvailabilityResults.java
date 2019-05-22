@@ -13,14 +13,15 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class AvailabilityResults extends ArrayList<RoomAvailabilityResult> {
-  
+public class AvailabilityResults extends ArrayList<RoomAvailabilityResult> implements Serializable {
 
+  private static final long serialVersionUID = 11236L;
 
   @Override
   public boolean equals(Object o) {

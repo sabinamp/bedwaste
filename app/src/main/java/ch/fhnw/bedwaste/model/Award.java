@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class Award {
-  
+public class Award implements Serializable {
+  private static final long serialVersionUID = 11237L;
+
   @SerializedName("provider")
   private String provider = null;
   @SerializedName("rating")

@@ -12,13 +12,15 @@
 
 package ch.fhnw.bedwaste.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class HotelInfoPosition {
-  
+public class HotelInfoPosition implements Serializable {
+  private static final long serialVersionUID = 112565L;
+
   @SerializedName("altitude")
   private BigDecimal altitude = null;
   @SerializedName("latitude")

@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class GuestCount {
-  
+public class GuestCount implements Serializable {
+  private static final long serialVersionUID = 112552L;
+
   @SerializedName("ageQualifyingCode")
   private Integer ageQualifyingCode = null;
   @SerializedName("count")

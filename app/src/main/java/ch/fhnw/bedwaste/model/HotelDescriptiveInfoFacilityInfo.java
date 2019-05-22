@@ -13,6 +13,7 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
@@ -21,8 +22,9 @@ import com.google.gson.annotations.SerializedName;
  * Provides information pertaining to the hotel facility itself. Describes the facilities provided at the hotel, including meeting rooms and restaurants.
  **/
 @ApiModel(description = "Provides information pertaining to the hotel facility itself. Describes the facilities provided at the hotel, including meeting rooms and restaurants.")
-public class HotelDescriptiveInfoFacilityInfo {
-  
+public class HotelDescriptiveInfoFacilityInfo implements Serializable {
+  private static final long serialVersionUID = 112560L;
+
   @SerializedName("guestRooms")
   private List<GuestRoom> guestRooms = null;
 

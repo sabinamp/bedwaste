@@ -16,9 +16,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class AvailabilityResult {
-  
+public class AvailabilityResult implements Serializable {
+  private static final long serialVersionUID = 11235L;
   @SerializedName("rateplanId")
   private String rateplanId = null;
   @SerializedName("totalPrice")

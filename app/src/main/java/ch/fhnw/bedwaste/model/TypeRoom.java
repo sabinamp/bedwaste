@@ -15,8 +15,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class TypeRoom {
+public class TypeRoom implements Serializable {
+  private static final long serialVersionUID = 112594L;
   
   @SerializedName("standardOccupancy")
   private Integer standardOccupancy = null;

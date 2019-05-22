@@ -13,6 +13,7 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.Date;
 import io.swagger.annotations.*;
@@ -22,8 +23,9 @@ import com.google.gson.annotations.SerializedName;
  * Contains descriptive information about a hotel.
  **/
 @ApiModel(description = "Contains descriptive information about a hotel.")
-public class HotelInfo {
-  
+public class HotelInfo implements Serializable {
+  private static final long serialVersionUID = 112563L;
+
   @SerializedName("whenBuilt")
   private Date whenBuilt = null;
   @SerializedName("position")

@@ -16,9 +16,11 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class Total {
-  
+public class Total implements Serializable {
+  private static final long serialVersionUID = 112593L;
   @SerializedName("amountAfterTax")
   private Float amountAfterTax = null;
   @SerializedName("currencyCode")

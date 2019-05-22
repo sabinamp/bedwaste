@@ -13,14 +13,15 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.Date;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class RoomStay {
-  
+public class RoomStay implements Serializable {
+  private static final long serialVersionUID = 112589L;
   @SerializedName("guestRoomId")
   private String guestRoomId = null;
   @SerializedName("rateplanId")

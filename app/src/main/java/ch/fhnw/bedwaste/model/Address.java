@@ -15,9 +15,12 @@ package ch.fhnw.bedwaste.model;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @ApiModel(description = "")
-public class Address {
-  
+public class Address implements Serializable {
+  private static final long serialVersionUID = 11234L;
+
   @SerializedName("streetNmbr")
   private Integer streetNmbr = null;
   @SerializedName("addressLine")

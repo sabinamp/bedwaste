@@ -13,13 +13,15 @@
 package ch.fhnw.bedwaste.model;
 
 
+import java.io.Serializable;
 import java.util.*;
 import io.swagger.annotations.*;
 import com.google.gson.annotations.SerializedName;
 
 @ApiModel(description = "")
-public class Descriptions {
-  
+public class Descriptions implements Serializable {
+  private static final long serialVersionUID = 112550L;
+
   @SerializedName("multimediadescriptions")
   private List<MultimediaDescription> multimediadescriptions = null;
 
