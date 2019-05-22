@@ -57,8 +57,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, final int position) {
         final HotelDescriptiveInfo hotel = hotelList.get(position);
-        boolean notNullHotel= hotel!=null;
-        Log.d(TAG, "current hotel is not null: "+notNullHotel);
+        boolean notNullHotel=  hotel != null;
+
         final MyViewHolder holder = viewHolder;
         if(notNullHotel){
             final String hotelId = hotel.getHotelId();

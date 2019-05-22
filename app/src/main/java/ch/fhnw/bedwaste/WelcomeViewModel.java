@@ -44,7 +44,7 @@ public class WelcomeViewModel extends ViewModel {
     static final LatLng DESIGNBOUTIQUE= new LatLng(47.480177, 8.247090);
     static final LatLng ROTESHAUS= new LatLng(47.484363, 8.206767);*/
 
-    private List<AvailabilityDTO> availabilityDTOList=null;
+
 
     private Map<String,AvailabilityResult> availabilitiesPerRegion;
     public static Set<String> ALL_IDS= null;
@@ -78,30 +78,19 @@ public class WelcomeViewModel extends ViewModel {
 
     private Map<String, Integer> displayedPrices = null;
 
-/*    public Map<String, MultimediaDescriptionImages> getMultimediaDescriptions() {
-        return multimediaDescriptions;
-    }
 
-    public void addMultimediaDescriptions(String id, MultimediaDescriptionImages multimediaDescriptions) {
-        this.multimediaDescriptions.put(id, multimediaDescriptions);
-    }
-
-    private Map<String, MultimediaDescriptionImages> multimediaDescriptions = null;*/
 
     private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
     private Map<String, AvailabilityResults> hotelId_availabilities;
 
     public WelcomeViewModel(){
         availabilitiesPerRegion = new HashMap<>();
-        availabilityDTOList = new ArrayList<>();
 
         hotelId_descriptiveInfo = new HashMap<>();
         hotelId_availabilities = new HashMap<>();
         hotelIdsInRegionZH = new HashMap<>();
         hotelIdsInRegionAargau = new HashMap<>();
         displayedPrices = new HashMap<>();
-
-
     }
 
 

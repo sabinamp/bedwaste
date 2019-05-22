@@ -41,8 +41,9 @@ public class HotelListFragment extends Fragment {
     private ArrayList<String> item_ids;
     //This flag is required to avoid first time onResume refreshing
     static boolean loaded = false;
+    private HotelListModel listmodel;
     /**
-     * Debugging tag LoginActivity used by the Android logger.
+     * Debugging tag HotelListFragment used by the Android logger.
      */
     private static final String TAG = "HotelListFragment";
     ArrayList<String> passedIds=null;
@@ -106,6 +107,7 @@ public class HotelListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         if(loaded){
             myAdapter.notifyDataSetChanged();
         }
@@ -116,6 +118,7 @@ public class HotelListFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         Log.d(TAG, "onLowMemory() called.");
+
     }
 
     @Override
@@ -125,7 +128,7 @@ public class HotelListFragment extends Fragment {
     }
 
     private void updateUI(){
-        HotelListModel listmodel=null;
+        listmodel=null;
         passedIds= getActivity().getIntent().getStringArrayListExtra("bedwaste_hotel_list");
         //passed from WelcomeActivity
         if(passedIds== null ||passedIds.isEmpty()){

@@ -4,10 +4,26 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.util.Log;
 import android.view.MenuItem;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import ch.fhnw.bedwaste.model.AvailabilityResults;
+import ch.fhnw.bedwaste.server.AvailabilityResultsListener;
+import ch.fhnw.bedwaste.server.HotelAvailabilityResultsService;
+import retrofit2.Response;
 
 
 public class RoomTypesActivity extends SingleFragmentActivity {
+    /**
+     * Debugging tag LoginActivity used by the Android logger.
+     */
+    private static final String TAG="RoomTypesActivity";
+
+
     @Override
     protected Fragment createFragment() {
         return new RoomTypesFragment();
@@ -40,5 +56,19 @@ public class RoomTypesActivity extends SingleFragmentActivity {
                 }
             }
         });
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart() called");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop() called");
     }
 }

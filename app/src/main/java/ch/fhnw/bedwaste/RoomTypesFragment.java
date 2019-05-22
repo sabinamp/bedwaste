@@ -33,14 +33,14 @@ public class RoomTypesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.room_types_list_fragment, container, false);
         roomAvailabilitiesList= new ArrayList<>();
-        if(savedInstanceState != null){
-            hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
-        }
+
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         hotelId_value = intent.getStringExtra("hotel_key");
         Log.d(TAG, " - onCreate(Bundle) called. ");
-
+        if(savedInstanceState != null){
+            hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
+        }
         recyclerView = view.findViewById(R.id.room_types_recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
@@ -94,9 +94,9 @@ public class RoomTypesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(roomAvailabilitiesList != null){
-            roomTypesAdapter.notifyDataSetChanged();
-        }
+
+        roomTypesAdapter.notifyDataSetChanged();
+
 
 
         Log.d(TAG, "resuming back to the RoomTypesFragment");
