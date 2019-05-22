@@ -35,7 +35,7 @@ public class RoomTypesFragment extends Fragment {
         view = inflater.inflate(R.layout.room_types_list_fragment, container, false);
         Toolbar tb = view.findViewById(R.id.toolbar);
 
-        tb.setSubtitle("Wähle ein Zimmer");
+        tb.setSubtitle("Wähle dein Zimmer");
 
         roomAvailabilitiesList= new ArrayList<>();
 
