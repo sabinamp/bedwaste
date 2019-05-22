@@ -113,7 +113,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
                     MultimediaDescriptionImages room_picture = room_images.get(0);
                     String imageUrl_room = room_picture.getImageUrl();
                     Picasso.get().load(imageUrl_room)
-                            .resize(500, 350).centerCrop()
+                            .resize(560, 350).centerCrop()
                             .into(roomThumbnail);
                 }
             }

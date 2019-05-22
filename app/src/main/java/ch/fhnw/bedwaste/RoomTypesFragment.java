@@ -36,7 +36,6 @@ public class RoomTypesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.room_types_list_fragment, container, false);
         Toolbar tb = view.findViewById(R.id.toolbar);
-
         tb.setSubtitle("Wähle dein Zimmer");
 
         roomAvailabilitiesList= new ArrayList<>();
@@ -44,7 +43,7 @@ public class RoomTypesFragment extends Fragment {
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         hotelId_value = intent.getStringExtra("hotel_key");
-        info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data");
+        info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data_for_rooms_activity");
         Log.d(TAG, " - onCreate(Bundle) called. ");
         if(savedInstanceState != null){
             hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
