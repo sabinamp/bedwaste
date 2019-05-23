@@ -31,40 +31,44 @@ public class RoomTypesFragment extends Fragment {
     private List<AvailabilityResult> roomAvailabilitiesList;
     private RoomTypesAdapter roomTypesAdapter;
     private static final String HOTEL_ID_KEY = "tracking_hotel";
+    private static final String HOTEL_INFO_KEY = "tracking_hotel_info";
+    private static final String HOTEL_AV_KEY2 = "tracking_availabilities";
     private String hotelId_value;
     private HotelDescriptiveInfo info;
-    private  List<RoomAvailabilityResult> availabilityResults;
+    private ArrayList<RoomAvailabilityResult> availabilityResults;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.room_types_list_fragment, container, false);
         Toolbar tb = view.findViewById(R.id.toolbar);
         tb.setSubtitle("Wähle dein Zimmer");
+        Log.d(TAG, " - onCreate(Bundle) called. ");
 
+        if(savedInstanceState != null){
+            hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
+            info=(HotelDescriptiveInfo) savedInstanceState.get(HOTEL_INFO_KEY);
+            availabilityResults=(ArrayList<RoomAvailabilityResult>) savedInstanceState.getSerializable("HOTEL_AV_KEY2");
+            Log.d(TAG, "savedInstanceState is not null");
+        }
 
+        recyclerView = view.findViewById(R.id.room_types_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        setLayoutManager();
+
+        updateUI(hotelId_value);
+
+        Log.d(TAG, " - onCreate(Bundle) completed. Loading room types completed ");
+        return view;
+    }
+    private void updateUI(String hotelId){
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         hotelId_value = intent.getStringExtra("hotel_key");
         info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data_for_rooms_activity");
         availabilityResults = (ArrayList<RoomAvailabilityResult>) intent.getSerializableExtra("availability_results_for_rooms_activity");
-        roomAvailabilitiesList= availabilityResults.get(0).getProducts();
-        Log.d(TAG, " - onCreate(Bundle) called. ");
-        if(savedInstanceState != null){
-            hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
+        if(availabilityResults != null){
+            roomAvailabilitiesList= availabilityResults.get(0).getProducts();
         }
-        recyclerView = view.findViewById(R.id.room_types_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        setLayoutManager();
-
-        updateUI(hotelId_value, roomAvailabilitiesList);
-
-        Log.d(TAG, " - onCreate(Bundle) completed. Loading room types completed ");
-        return view;
-    }
-    private void updateUI(String hotelId, List<AvailabilityResult> availabilityResults){
-        RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(),  availabilityResults);
-
-        roomAvailabilitiesList = roomtypes_listModel.getAvailabilityResults();
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);
         if(roomTypesAdapter == null){
             roomTypesAdapter = new RoomTypesAdapter(getActivity(), roomAvailabilitiesList, info);
@@ -86,6 +90,8 @@ public class RoomTypesFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(HOTEL_ID_KEY, hotelId_value);
+        outState.putSerializable(HOTEL_INFO_KEY, info);
+        outState.putSerializable(HOTEL_AV_KEY2, availabilityResults);
         super.onSaveInstanceState(outState);
     }
 
@@ -110,8 +116,7 @@ public class RoomTypesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        updateUI(hotelId_value, roomAvailabilitiesList);
+        updateUI(hotelId_value);
         Log.d(TAG, "resuming back to the RoomTypesFragment");
     }
 

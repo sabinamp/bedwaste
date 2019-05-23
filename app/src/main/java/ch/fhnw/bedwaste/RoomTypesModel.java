@@ -41,7 +41,7 @@ public class RoomTypesModel {
 
 
 
-    private void updateRoomAvailabilititesBasedOnResults(AvailabilityResults availabilities) {
+ /*   private void updateRoomAvailabilititesBasedOnResults(AvailabilityResults availabilities) {
 
         if(availabilities != null){
             List<AvailabilityResult> resultList= availabilities.get(0).getProducts();
@@ -50,7 +50,7 @@ public class RoomTypesModel {
                 room_availabilities.add(aRoomType);
             }
         }
-    }
+    }*/
 
     List<AvailabilityResult> getAvailabilityResults(){
         return Collections.unmodifiableList(room_availabilities);
