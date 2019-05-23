@@ -89,7 +89,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
         private void bind(AvailabilityResult roomItem, HotelDescriptiveInfo hotelDescriptiveInfo, int position) {
             roomItem=roomItem;
             String[] line = roomItem.getRateplanId().split("-");
-            String hotelId= line[0];
+            //String hotelId= line[0];
             String roomName= line[1] != null ? line[1]: "";
             roomNameTextView.setText(roomName);
             Float rePrice= roomItem.getTotalPrice();
@@ -106,6 +106,7 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
 
                     //room
                     GuestRoom room= hotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
+                    int maxAdultAcc= room.getMaxAdultOccupancy();
                     //room image
                     java.util.List<MultimediaDescription> multimediaDescriptions = room.getMultimediaDescriptions();
                     MultimediaDescription first_mmDescription = multimediaDescriptions.get(0);
