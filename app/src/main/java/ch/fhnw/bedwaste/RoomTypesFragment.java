@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.fhnw.bedwaste.model.AvailabilityResult;
+import ch.fhnw.bedwaste.model.AvailabilityResults;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
+import ch.fhnw.bedwaste.model.RoomAvailabilityResult;
 
 
 public class RoomTypesFragment extends Fragment {
@@ -31,6 +33,7 @@ public class RoomTypesFragment extends Fragment {
     private static final String HOTEL_ID_KEY = "tracking_hotel";
     private String hotelId_value;
     private HotelDescriptiveInfo info;
+    private  List<RoomAvailabilityResult> availabilityResults;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,12 +41,13 @@ public class RoomTypesFragment extends Fragment {
         Toolbar tb = view.findViewById(R.id.toolbar);
         tb.setSubtitle("Wähle dein Zimmer");
 
-        roomAvailabilitiesList= new ArrayList<>();
 
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         hotelId_value = intent.getStringExtra("hotel_key");
         info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data_for_rooms_activity");
+        availabilityResults = (ArrayList<RoomAvailabilityResult>) intent.getSerializableExtra("availability_results_for_rooms_activity");
+        roomAvailabilitiesList= availabilityResults.get(0).getProducts();
         Log.d(TAG, " - onCreate(Bundle) called. ");
         if(savedInstanceState != null){
             hotelId_value = savedInstanceState.getString(HOTEL_ID_KEY);
@@ -52,13 +56,13 @@ public class RoomTypesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
 
-        updateUI(hotelId_value);
+        updateUI(hotelId_value, roomAvailabilitiesList);
 
         Log.d(TAG, " - onCreate(Bundle) completed. Loading room types completed ");
         return view;
     }
-    private void updateUI(String hotelId){
-        RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(), hotelId);
+    private void updateUI(String hotelId, List<AvailabilityResult> availabilityResults){
+        RoomTypesModel roomtypes_listModel= new RoomTypesModel(getActivity(),  availabilityResults);
 
         roomAvailabilitiesList = roomtypes_listModel.getAvailabilityResults();
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);
@@ -107,7 +111,7 @@ public class RoomTypesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        updateUI(hotelId_value);
+        updateUI(hotelId_value, roomAvailabilitiesList);
         Log.d(TAG, "resuming back to the RoomTypesFragment");
     }
 

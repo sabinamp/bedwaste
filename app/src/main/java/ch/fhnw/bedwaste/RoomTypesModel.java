@@ -33,12 +33,11 @@ public class RoomTypesModel {
 
     private static final String ALL_AVAILABILITIES_MAP = "availabilities_all_hotels";
 
-    RoomTypesModel(Context context, String id) {
+    RoomTypesModel(Context context, List<AvailabilityResult> availabilityResults) {
         this.context = context;
-        room_availabilities= new ArrayList<>();
-        currentHotelId= id;
-        
-        retrieveAvailabilities(id);
+        room_availabilities= availabilityResults;
+
+        //retrieveAvailabilities(id);
 
     }
 
@@ -79,7 +78,7 @@ public class RoomTypesModel {
 
 
 
-    private void retrieveAllHotelsAvailabilities(){
+   /* private void retrieveAllHotelsAvailabilities(){
         final Map<String, AvailabilityResults> room_av = new HashMap<>();
         Log.d(TAG, "start retrieveAllHotelsAvailabilities() - fetching data from the server");
         for (final String eachId : WelcomeViewModel.ALL_IDS) {
@@ -100,17 +99,17 @@ public class RoomTypesModel {
             service.getRoomAvailabilitiesInHotel(eachId, 1, 0, 0);
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed");
-        /*//writing to internal storage
+        //writing to internal storage
         try{
             InternalStorage.writeObject(context, ALL_AVAILABILITIES_MAP, room_availabilities);
             Log.d(TAG, "writing all hotels' availabilities  to internal storage completed");
         }catch (IOException ex){
             Log.d(TAG, ex.getMessage());
             Log.e(TAG, ex.getMessage());
-        }*/
-    }
+        }
+    }*/
 
-    private void retrieveAvailabilities(final String id){
+    /*private void retrieveAvailabilities(final String id){
 
         Log.d(TAG, "start retrieveAllHotelsAvailabilities() for hotel "+id+" - fetching data from the server");
 
@@ -130,12 +129,12 @@ public class RoomTypesModel {
 
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server for hotel \"+id+\" - completed");
         //writing to internal storage
-        /*try{
+        try{
             InternalStorage.writeObject(context, ALL_AVAILABILITIES_MAP, room_availabilities);
             Log.d(TAG, "writing all hotels' availabilities  to internal storage completed");
         }catch (IOException ex){
             Log.d(TAG, ex.getMessage());
             Log.e(TAG, ex.getMessage());
-        }*/
-    }
+        }
+    }*/
 }

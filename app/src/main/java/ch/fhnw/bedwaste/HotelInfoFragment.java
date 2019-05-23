@@ -57,17 +57,19 @@ public class HotelInfoFragment extends Fragment {
     private double userLocationLng;
     private Button bookRoomsBtn;
     List<MultimediaDescriptionImages> hotel_images;
+    AvailabilityResults availabilityResults;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.hotel_info_fragment, container, false);
         final HotelDescriptiveInfo hotelDescriptiveInfo = (HotelDescriptiveInfo) getActivity().getIntent().getSerializableExtra("hotel_descriptive_data");
-        hotelAddress =view.findViewById(R.id.text_Address);
+        availabilityResults= new AvailabilityResults();
         model= new WelcomeViewModel();
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
         final String hotellist_value = intent.getStringExtra("key");
 
+        hotelAddress =view.findViewById(R.id.text_Address);
         final TextView insert_hotelname = (TextView) view.findViewById(R.id.ph_hotelName);
         final TextView insert_starRating = (TextView) view.findViewById(R.id.ph_starRating);
 
@@ -91,6 +93,7 @@ public class HotelInfoFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), RoomTypesActivity.class);
                 intent.putExtra("hotel_key", hotellist_value);
                 intent.putExtra("hotel_descriptive_data_for_rooms_activity", hotelDescriptiveInfo);
+                intent.putExtra("availability_results_for_rooms_activity", availabilityResults);
                 startActivity(intent);
             }
         });
@@ -137,6 +140,7 @@ public class HotelInfoFragment extends Fragment {
                     @Override
                     public void success(Response<AvailabilityResults> response) {
                         AvailabilityResults roomAvailabilityResults = response.body();
+                        availabilityResults= roomAvailabilityResults;
                         double price = roomAvailabilityResults.get(0).getProducts().get(0).getTotalPrice();
                         insert_price.setText(String.valueOf((int)price));
                     }
