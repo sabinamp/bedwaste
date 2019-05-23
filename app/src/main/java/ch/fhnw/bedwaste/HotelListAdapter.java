@@ -89,11 +89,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
         }
     }
 
-  /*  public void update(List<HotelDescriptiveInfo> data) {
-        hotelList.clear();
-        hotelList=data;
-        notifyDataSetChanged();
-    }*/
+
     public LatLng getUserLocation() {
         return userLocation;
     }

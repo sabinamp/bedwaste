@@ -28,11 +28,10 @@ public class HotelListModel {
     private Map<String, HotelDescriptiveInfo> hotelId_descriptiveInfo;
     Context context;
 
-    HotelListModel(Context context, List<String> ids) {
+    HotelListModel(Context context, List<String> ids, List<HotelDescriptiveInfo> data) {
         this.context=context;
-        mItems = new ArrayList<>();
         hotelId_descriptiveInfo = new HashMap<>();
-        retrieveHotelDescriptiveData(ids);
+        mItems = data;
 
     }
 
@@ -49,7 +48,7 @@ public class HotelListModel {
         this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
     }
 
-   private List<HotelDescriptiveInfo> retrieveHotelDescriptiveData(List<String> ids){
+   /*private List<HotelDescriptiveInfo> retrieveHotelDescriptiveData(List<String> ids){
         for (final String eachId : ids) {
             Log.d("TAG", "hotel ids' number: "+ eachId);
             Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
@@ -72,8 +71,8 @@ public class HotelListModel {
         Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed. Number of hotels : "+ids.size());
         return  mItems;
     }
-
-    List<HotelDescriptiveInfo>  retrieveAllHotelDescriptiveDataFromInternalStorage(List<String> ids){
+*/
+    /*List<HotelDescriptiveInfo>  retrieveAllHotelDescriptiveDataFromInternalStorage(List<String> ids){
         for (final String eachId : ids) {
             Log.d("TAG", "hotel ids' number: "+ eachId);
             try{
@@ -93,7 +92,7 @@ public class HotelListModel {
         }
         Log.d(TAG, "retrieveHotelDescriptiveData()- reading data from local storage - completed. Number of hotels : "+ids.size());
     return mItems;
-    }
+    }*/
 
 
 

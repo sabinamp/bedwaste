@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
      */
     private static final String TAG="SplashActivity";
     //Time before disappearance in ms
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 2000;
     // Keys for storing data to internal storage.
 
 

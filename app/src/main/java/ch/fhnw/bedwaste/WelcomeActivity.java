@@ -63,6 +63,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -647,10 +648,33 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 switch (menuItem.getItemId()) {
                     case R.id.app_bar_hotel_list: {
                         Intent listIntent = HotelListViewActivity.makeHotelListIntent(WelcomeActivity.this);
+                        int searchResultNumber= getmHotelsToDisplay().size();
+                        //pass hotel ids
                         ArrayList<String> listToPass= new ArrayList<String>();
-                        listToPass.addAll(getmHotelsToDisplay());
-
+                        if(searchResultNumber != 0){
+                            listToPass.addAll(getmHotelsToDisplay());
+                        }else{
+                            listToPass.addAll(WelcomeViewModel.ALL_IDS);
+                        }
                         listIntent.putStringArrayListExtra("bedwaste_hotel_list", listToPass);
+                        //pass hotel descriptive data
+                        ArrayList<HotelDescriptiveInfo> hotelDescriptiveListToPass= new ArrayList<>();
+
+                        if(searchResultNumber != 0){
+                            for (final String eachId : getmHotelsToDisplay()) {
+                                HotelDescriptiveInfo currentHotelDescriptiveInfo = pmodel.getHotelId_descriptiveInfo().get(eachId);
+                                hotelDescriptiveListToPass.add(currentHotelDescriptiveInfo);
+                            }
+                        } else {
+                            Collection<HotelDescriptiveInfo> allHotelDescr=  pmodel.getHotelId_descriptiveInfo().values();
+                            ArrayList<HotelDescriptiveInfo> allHotelDescr2= new ArrayList<>();
+                            allHotelDescr2.addAll(allHotelDescr);
+                            hotelDescriptiveListToPass.addAll(allHotelDescr);
+                        }
+
+
+                        listIntent.putExtra("descriptive_info_list_to_display",hotelDescriptiveListToPass );
+
                         listIntent.putExtra("USER_LOC_LATITUDE", mLastKnownLocation.getLatitude());
                         listIntent.putExtra("USER_LOC_LONGITUDE", mLastKnownLocation.getLongitude());
                         startActivity(listIntent);

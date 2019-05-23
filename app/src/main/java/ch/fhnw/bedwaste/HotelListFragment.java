@@ -29,7 +29,7 @@ import android.app.Fragment;
 
 public class HotelListFragment extends Fragment {
     // Keys for storing activity state.
-    private static final String KEY_LIST_HOTEL = "hotel_list";
+    private static final String KEY_HOTEL_LIST = "descriptive_hotel_list";
     private static final String HOTEL_IDS_KEY = "tracking_ids";
 
     private Button btn;
@@ -42,6 +42,7 @@ public class HotelListFragment extends Fragment {
     //This flag is required to avoid first time onResume refreshing
     static boolean loaded = false;
     private HotelListModel listmodel;
+    private  ArrayList<HotelDescriptiveInfo> hotelsPassed;
     /**
      * Debugging tag HotelListFragment used by the Android logger.
      */
@@ -52,6 +53,7 @@ public class HotelListFragment extends Fragment {
         itemList= new ArrayList<>();
         passedIds = new ArrayList<>();
         item_ids = new ArrayList<>();
+
     }
 
     @Override
@@ -62,9 +64,10 @@ public class HotelListFragment extends Fragment {
         if(savedInstanceState != null){
             //get saved passedIds
             item_ids= savedInstanceState.getStringArrayList(HOTEL_IDS_KEY);
+            hotelsPassed = (ArrayList<HotelDescriptiveInfo>)savedInstanceState.getSerializable(KEY_HOTEL_LIST);
         }
         loaded=false;
-        Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
+        Log.d(TAG, "HotelListFragment - onCreate(Bundle) called. Loading in onCreate() is "+loaded);
         recyclerView = view.findViewById(R.id.hotel_list_recyclerView);
         recyclerView.setHasFixedSize(true);
         setLayoutManager();
@@ -74,7 +77,7 @@ public class HotelListFragment extends Fragment {
         updateUI();
 
 
-        Log.d(TAG, "HotelListFragment Activity - onCreate(Bundle) completed. First time loading completed "+loaded);
+        Log.d(TAG, "HotelListFragment - onCreate(Bundle) completed. First time loading completed "+loaded);
         return view;
     }
     /**
@@ -83,6 +86,7 @@ public class HotelListFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putStringArrayList(HOTEL_IDS_KEY, item_ids);
+        outState.putSerializable(KEY_HOTEL_LIST, hotelsPassed);
         super.onSaveInstanceState(outState);
     }
 
@@ -129,17 +133,14 @@ public class HotelListFragment extends Fragment {
     private void updateUI(){
         listmodel=null;
         passedIds= getActivity().getIntent().getStringArrayListExtra("bedwaste_hotel_list");
-        //passed from WelcomeActivity
-        if(passedIds== null ||passedIds.isEmpty()){
-            item_ids=new ArrayList<>();
-            item_ids.addAll(WelcomeViewModel.ALL_IDS);
-
-        }else{
-            item_ids= passedIds;
-            Log.d(TAG, "onCreate() - the passed ids from the previous activity have size : "+passedIds.size());
-        }
-        listmodel = new HotelListModel(getActivity(),item_ids);
+        hotelsPassed= (ArrayList<HotelDescriptiveInfo>) getActivity().getIntent().getSerializableExtra("descriptive_info_list_to_display");
+        item_ids=passedIds;
+        listmodel = new HotelListModel(getActivity(),item_ids, hotelsPassed);
         itemList=listmodel.getItems();
+        Log.d(TAG, "onCreate() - the passed ids from the previous activity have size : "+passedIds.size());
+        Log.d(TAG, "onCreate() - the passed descriptive data from the previous activity have size : "+hotelsPassed.size());
+
+
         //list adapter
         if(myAdapter == null){
             myAdapter = new HotelListAdapter(itemList,userLocation, getActivity());

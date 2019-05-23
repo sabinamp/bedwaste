@@ -67,8 +67,8 @@ public class WelcomeViewModel extends ViewModel {
         ALL_IDS.add("00U5845f022rotesh");
         ALL_IDS.add("00G5846t022easyh");
     }
-    private Map<String, LatLng> hotelIdsInRegionAargau=null;
-    private Map<String, LatLng> hotelIdsInRegionZH=null;
+    /*private Map<String, LatLng> hotelIdsInRegionAargau=null;
+    private Map<String, LatLng> hotelIdsInRegionZH=null;*/
 
     private Map<String, Integer> displayedPrices = null;
 
@@ -82,15 +82,15 @@ public class WelcomeViewModel extends ViewModel {
 
         hotelId_descriptiveInfo = new HashMap<>();
         hotelId_availabilities = new HashMap<>();
-        hotelIdsInRegionZH = new HashMap<>();
-        hotelIdsInRegionAargau = new HashMap<>();
+       /* hotelIdsInRegionZH = new HashMap<>();
+        hotelIdsInRegionAargau = new HashMap<>();*/
         displayedPrices = new HashMap<>();
     }
 
 
 
     public Map<String, HotelDescriptiveInfo> getHotelId_descriptiveInfo() {
-        return Collections.unmodifiableMap(hotelId_descriptiveInfo);
+        return hotelId_descriptiveInfo;
     }
 
     public void updateHotelId_descriptiveInfo(String id, HotelDescriptiveInfo hotelId_descriptiveInfo) {
