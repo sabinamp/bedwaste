@@ -8,11 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
+    <!-- toolbar including the Wähle dein Zimmer subtitle appearance. -->
     <style name="ToolbarSubtitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
+        <item name="android:textColor">@android:color/white</item>
 
+    </style>
 
 </resources>

@@ -48,51 +48,7 @@ public class HotelListModel {
         this.hotelId_descriptiveInfo.put(id, hotelId_descriptiveInfo);
     }
 
-   /*private List<HotelDescriptiveInfo> retrieveHotelDescriptiveData(List<String> ids){
-        for (final String eachId : ids) {
-            Log.d("TAG", "hotel ids' number: "+ eachId);
-            Log.d(TAG, "start retrieveHotelDescriptiveData - fetching data from the server");
-            HotelDescriptiveInfoService service_description = new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
-                @Override
-                public void success(Response<HotelDescriptiveInfo> response) {
-                    HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
-                    updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
-                    mItems.add(hotelDescriptiveInfo);
 
-                }
-
-                @Override
-                public void failed(String message) {
-                    Log.d(TAG, "couldn't fetch hotel descriptive info" + message);
-                }
-            });
-            service_description.getHotelDescriptiveInfo("en", eachId);
-        }
-        Log.d(TAG, "retrieveHotelDescriptiveData()- fetching data from the server - completed. Number of hotels : "+ids.size());
-        return  mItems;
-    }
-*/
-    /*List<HotelDescriptiveInfo>  retrieveAllHotelDescriptiveDataFromInternalStorage(List<String> ids){
-        for (final String eachId : ids) {
-            Log.d("TAG", "hotel ids' number: "+ eachId);
-            try{
-                Log.d(TAG, "start retrieveHotelDescriptiveData - reading data from internal storage");
-                Map<String, HotelDescriptiveInfo> alldescriptiveInfo= (Map<String, HotelDescriptiveInfo>)InternalStorage.readObject(context, "descriptive_info_all_hotels" );
-                HotelDescriptiveInfo hotelDescriptiveInfo = alldescriptiveInfo.get(eachId);
-                updateHotelId_descriptiveInfo(eachId, hotelDescriptiveInfo);
-                mItems.add(hotelDescriptiveInfo);
-            }catch(IOException ex){
-                Log.e(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+ex.getMessage());
-                Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+ex.getMessage());
-            }catch (ClassNotFoundException e){
-                Log.e(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
-                Log.d(TAG, "retrieveHotelDescriptiveData()- exception while reading data from local storage"+e.getMessage());
-            }
-
-        }
-        Log.d(TAG, "retrieveHotelDescriptiveData()- reading data from local storage - completed. Number of hotels : "+ids.size());
-    return mItems;
-    }*/
 
 
 

@@ -273,7 +273,8 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="55dp" />
+                    android:textSize="55dp"
+                     />
 
 
             </LinearLayout>
