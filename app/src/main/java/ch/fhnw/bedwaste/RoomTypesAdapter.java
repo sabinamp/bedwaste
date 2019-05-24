@@ -1,6 +1,7 @@
 package ch.fhnw.bedwaste;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.ecommerce.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,7 +22,6 @@ import ch.fhnw.bedwaste.model.HotelDescriptiveInfo;
 import ch.fhnw.bedwaste.model.HotelDescriptiveInfoFacilityInfo;
 import ch.fhnw.bedwaste.model.MultimediaDescription;
 import ch.fhnw.bedwaste.model.MultimediaDescriptionImages;
-import ch.fhnw.bedwaste.model.RoomAvailabilityResult;
 
 public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.RoomTypeViewHolder> {
 
@@ -53,6 +52,15 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
         final RoomTypeViewHolder holder= roomTypeViewHolder;
         final String ratePlanId= pricesRoomsList.get(position).getRateplanId();
         holder.bind(item, mHotelDescriptiveInfo, position);
+        final GuestRoom roomExtra= mHotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
+        holder.chooseBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent2= BookingFirstStepActivity.makeBookingFirstStepIntent(v.getContext(), roomExtra);
+                context.startActivity(intent2);
+            }
+        });
 
     }
 
@@ -66,12 +74,14 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
 
     public static class RoomTypeViewHolder extends RecyclerView.ViewHolder {
         private AvailabilityResult roomItem;
+        private GuestRoom room;
         TextView roomNameTextView;
         TextView roomInclusiveTextView;
         TextView roomPrice;
         TextView regularPrice;
         ImageView roomThumbnail;
         ImageView roomTypeIcon1;
+        ImageView roomTypeIcon2;
         Button chooseBtn;
 
 
@@ -83,11 +93,12 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
             regularPrice = itemView.findViewById(R.id.regular_price);
             roomThumbnail = (ImageView)itemView.findViewById(R.id.room_thumbnail);
             roomTypeIcon1 = itemView.findViewById(R.id.roomtype_icon1);
-            chooseBtn = itemView.findViewById(R.id.choose_btn);
+            roomTypeIcon2= itemView.findViewById(R.id.roomtype_icon2);
+            chooseBtn = (Button) itemView.findViewById(R.id.choose_btn);
         }
         //method to call within the adapter's onBindViewHolder() after fetching data from the server
         private void bind(AvailabilityResult roomItem, HotelDescriptiveInfo hotelDescriptiveInfo, int position) {
-            roomItem=roomItem;
+            this.roomItem = roomItem;
             String[] line = roomItem.getRateplanId().split("-");
             //String hotelId= line[0];
             String roomName= line[1] != null ? line[1]: "";
@@ -105,8 +116,12 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
                     //int totalNbOfRooms= facilityInfo.getGuestRooms().size();
 
                     //room
-                    GuestRoom room= hotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
+                    room= hotelDescriptiveInfo.getFacilityInfo().getGuestRooms().get(position);
                     int maxAdultAcc= room.getMaxAdultOccupancy();
+                    if(maxAdultAcc == 1){
+                        //hide an icon
+                        roomTypeIcon1.setVisibility(View.INVISIBLE);
+                    }
                     //room image
                     java.util.List<MultimediaDescription> multimediaDescriptions = room.getMultimediaDescriptions();
                     MultimediaDescription first_mmDescription = multimediaDescriptions.get(0);
@@ -117,10 +132,9 @@ public class RoomTypesAdapter extends RecyclerView.Adapter<RoomTypesAdapter.Room
                             .resize(560, 350).centerCrop()
                             .into(roomThumbnail);
                 }
+
+
             }
-
-
-
 
         }
     }

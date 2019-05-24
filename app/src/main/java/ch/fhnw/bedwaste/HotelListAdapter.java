@@ -35,7 +35,6 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
 
     private List<HotelDescriptiveInfo> hotelList;
     private Context context;
-
     private LatLng userLocation;
 
     public HotelListAdapter( List<HotelDescriptiveInfo> list, LatLng userLoc, Context context) {
@@ -69,8 +68,6 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.MyVi
                 @Override
                 public void onClick(View v) {
                     Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), hotelId, hotel);
-
-                    hotelDescriptionIntent.putExtra("key", hotelId);
                     hotelDescriptionIntent.putExtra("user_loc_lat",getUserLocation().latitude);
                     hotelDescriptionIntent.putExtra("user_loc_lng", getUserLocation().longitude);
                     context.startActivity(hotelDescriptionIntent);

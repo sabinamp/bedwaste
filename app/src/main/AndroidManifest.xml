@@ -46,6 +46,8 @@
         <activity android:name=".RoomTypesActivity"
             android:parentActivityName=".HotelInfoActivity"></activity>
 
+        <activity android:name=".BookingFirstStepActivity"
+            android:parentActivityName=".RoomTypesActivity"></activity>
 
     </application>
 

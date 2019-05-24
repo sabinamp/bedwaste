@@ -35,8 +35,7 @@ import retrofit2.Response;
 
 
 public class HotelInfoActivity extends SingleFragmentActivity {
-    private static final String EXTRA_HOTEL_ID =
-            "ch.fhnw.bedwaste.extra.hotel.id";
+    private static final String EXTRA_HOTEL_ID = "hotel_id_key";
     /**
      * Debugging tag LoginActivity used by the Android logger.
      */

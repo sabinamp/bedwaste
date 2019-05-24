@@ -63,7 +63,7 @@ public class RoomTypesFragment extends Fragment {
     private void updateUI(String hotelId){
         //receive values that got passed from previous activity
         final Intent intent = getActivity().getIntent();
-        hotelId_value = intent.getStringExtra("hotel_key");
+        hotelId_value = intent.getStringExtra("hotel_key_for_rooms_activity");
         info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data_for_rooms_activity");
         availabilityResults = (ArrayList<RoomAvailabilityResult>) intent.getSerializableExtra("availability_results_for_rooms_activity");
         if(availabilityResults != null){

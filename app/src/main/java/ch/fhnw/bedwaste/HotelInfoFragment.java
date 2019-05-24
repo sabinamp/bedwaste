@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 public class HotelInfoFragment extends Fragment {
     /**
-     * Debugging tag LoginActivity used by the Android logger.
+     * Debugging tag HotelInfoFragment used by the Android logger.
      */
     private static final String TAG = "HotelInfoFragment";
     private View view;
@@ -65,9 +65,9 @@ public class HotelInfoFragment extends Fragment {
         final HotelDescriptiveInfo hotelDescriptiveInfo = (HotelDescriptiveInfo) getActivity().getIntent().getSerializableExtra("hotel_descriptive_data");
         availabilityResults= new AvailabilityResults();
         model= new WelcomeViewModel();
-        //receive values that got passed from previous activity
+        //receive values that got passed from the previous activity
         final Intent intent = getActivity().getIntent();
-        final String hotellist_value = intent.getStringExtra("key");
+        final String hotellist_value = intent.getStringExtra("hotel_id_key");
 
         hotelAddress =view.findViewById(R.id.text_Address);
         final TextView insert_hotelname = (TextView) view.findViewById(R.id.ph_hotelName);
@@ -91,7 +91,7 @@ public class HotelInfoFragment extends Fragment {
             public void onClick(View v) {
                 //open new activity RoomTypes
                 Intent intent = new Intent(getActivity(), RoomTypesActivity.class);
-                intent.putExtra("hotel_key", hotellist_value);
+                intent.putExtra("for_rooms_activity", hotellist_value);
                 intent.putExtra("hotel_descriptive_data_for_rooms_activity", hotelDescriptiveInfo);
                 intent.putExtra("availability_results_for_rooms_activity", availabilityResults);
                 startActivity(intent);
@@ -100,7 +100,9 @@ public class HotelInfoFragment extends Fragment {
         userLocationLat= getActivity().getIntent().getDoubleExtra("user_loc_lat", WelcomeViewModel.mDefaultLocation.latitude);
         userLocationLng = getActivity().getIntent().getDoubleExtra("user_loc_lng", WelcomeViewModel.mDefaultLocation.longitude);
 
-
+         if(hotelDescriptiveInfo == null){
+             Log.d(TAG, "passed hotel is null");
+         } else{
 
                 insert_hotelname.setText(hotelDescriptiveInfo.getHotelName());
 
@@ -204,6 +206,7 @@ public class HotelInfoFragment extends Fragment {
                     ((LinearLayout) view.findViewById(R.id.image_linear)).addView(
                             imageView, i);
                 }
+         }
 
 
         return view;
