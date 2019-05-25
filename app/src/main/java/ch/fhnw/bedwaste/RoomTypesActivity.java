@@ -37,13 +37,15 @@ public class RoomTypesActivity extends SingleFragmentActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent = HotelListViewActivity.makeHotelListIntent(RoomTypesActivity.this);
-                        startActivity(listIntent);
+                       /* Intent listIntent = HotelListViewActivity.makeHotelListIntent(RoomTypesActivity.this);
+                        startActivity(listIntent);*/
+                        finish();
                         return true;
                     }
                     case R.id.app_bar_map_view: {
                         Intent listIntent = new Intent(RoomTypesActivity.this, WelcomeActivity.class);
                         startActivity(listIntent);
+
                         return true;
                     }
                     case R.id.app_bar_profile: {
