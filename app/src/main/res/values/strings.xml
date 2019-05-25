@@ -20,6 +20,8 @@
     <string name="alsGastFortfahren">Als Gast fortfahren</string>
     <string name="button_book">Buchen</string>
     <string name="button_choose_room">Wählen</string>
-    <string name="name_label">Name</string>
-    <string name="firstname_label">Vorname</string>
+    <string name="name_label">Name:</string>
+    <string name="firstname_label">Vorname:</string>
+    <string name="street_label">Strasse:</string>
+    <string name="zipcode">PLZ:</string>
 </resources>

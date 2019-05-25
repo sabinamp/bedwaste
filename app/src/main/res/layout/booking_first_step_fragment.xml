@@ -15,61 +15,100 @@
         app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance"
         android:background="@color/colorPrimaryDark"
         />
+
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignBottom="@+id/toolbar_booking_first_step"
-    android:layout_marginBottom="10dp"
-    android:orientation="vertical"
-        android:paddingTop="40dp">
-        <LinearLayout
-            android:id= "@+id/linear_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/toolbar_booking_first_step"
+        android:layout_marginBottom="-124dp"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="20dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
             android:paddingBottom="8dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/name_label"
-                android:labelFor="@id/input_name" />
-        <EditText
-            android:id="@+id/input_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:layout_weight="1.01"
-            android:ems="10"
-            android:inputType="textNoSuggestions"
-            android:paddingRight="1dp"
-            android:paddingLeft="40dp"/>
-        </LinearLayout>
-        <LinearLayout
+                android:labelFor="@id/input_name"
+                android:text="@string/name_label" />
+
+            <EditText
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.01"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:inputType="textNoSuggestions"
+                android:paddingLeft="40dp"
+                android:paddingRight="1dp"
+                android:textColorHighlight="@color/colorAccent"
+                android:maxLines="1"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/line2"
+            android:layout_below="@+id/line1"
             android:orientation="horizontal"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:textColor="@color/dark_gray">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/input_name"
                 android:text="@string/firstname_label" />
+
             <EditText
                 android:id="@+id/input_firstname"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.01"
-                android:ems="10"
+                android:background="@android:color/transparent"
+                android:ems="11"
                 android:inputType="textNoSuggestions"
-                android:paddingRight="1dp"
-                android:paddingLeft="40dp"/>
-        </LinearLayout>
+                android:maxLines="1"
+                android:paddingStart="40dp"
+                android:paddingEnd="1dp"
+                android:textColorHighlight="@color/colorAccent" />
+        </android.support.design.widget.TextInputLayout>
+         <android.support.design.widget.TextInputLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingTop="10dp"
+             android:textColor="@color/dark_gray"
+             android:id="@+id/line3"
+            android:layout_below="@+id/line2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/input_name"
+                android:text="@string/street_label" />
+
+            <EditText
+                android:id="@+id/input_street"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.01"
+                android:background="@android:color/transparent"
+                android:ems="11"
+                android:maxLines="1"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="40dp"
+                android:paddingEnd="1dp"
+                android:textColorHighlight="@color/colorAccent" />
+         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 </RelativeLayout>

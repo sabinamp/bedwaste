@@ -28,6 +28,8 @@ public class BookingFirstStepFragment extends Fragment {
         tb.setSubtitle("Angaben eintragen");
         Log.d(TAG, " - onCreate(Bundle) called. ");
         TextView name= view.findViewById(R.id.input_name);
+        TextView firstname= view.findViewById(R.id.input_firstname);
+        TextView street= view.findViewById(R.id.input_street);
         return view;
     }
 }
