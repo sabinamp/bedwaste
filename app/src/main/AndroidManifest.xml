@@ -42,7 +42,8 @@
             android:required="false" />
 
         <activity android:name=".HotelListViewActivity" />
-        <activity android:name=".HotelInfoActivity"></activity>
+        <activity android:name=".HotelInfoActivity"
+            android:parentActivityName=".HotelListViewActivity"></activity>
         <activity android:name=".RoomTypesActivity"
             android:parentActivityName=".HotelInfoActivity"></activity>
 

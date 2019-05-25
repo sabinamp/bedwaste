@@ -60,8 +60,9 @@ public class HotelInfoActivity extends SingleFragmentActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent= HotelListViewActivity.makeHotelListIntent(HotelInfoActivity.this);
-                        startActivity(listIntent);
+                        //Intent listIntent= HotelListViewActivity.makeHotelListIntent(HotelInfoActivity.this);
+                        //startActivity(listIntent);
+                        finish();
                         return true;
                     }
                     case R.id.app_bar_map_view:
