@@ -37,8 +37,9 @@ public class BookingFirstStepActivity extends SingleFragmentActivity {
                         return true;
                     }
                     case R.id.app_bar_hotel_list: {
-                        Intent listIntent= HotelListViewActivity.makeHotelListIntent(BookingFirstStepActivity.this);
-                        startActivity(listIntent);
+                        /*Intent listIntent= HotelListViewActivity.makeHotelListIntent(BookingFirstStepActivity.this);
+                        startActivity(listIntent);*/
+                       finish();
                         return true;
                     }
                     case R.id.app_bar_map_view:
