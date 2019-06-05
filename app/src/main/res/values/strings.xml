@@ -24,4 +24,5 @@
     <string name="firstname_label">Vorname:</string>
     <string name="street_label">Strasse:</string>
     <string name="zipcode">PLZ:</string>
+    <string name="mit_angaben">Mit Angaben registrieren</string>
 </resources>

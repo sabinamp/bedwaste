@@ -17,42 +17,44 @@
         />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/toolbar_booking_first_step"
-        android:layout_marginBottom="-124dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
         android:paddingTop="50dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="20dp">
+        android:paddingRight="10dp"   >
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
+            android:paddingBottom="5dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp">
+            <!--<TextView
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/input_name"
-                android:text="@string/name_label" />
+                android:text="@string/name_label" />-->
+            <requestFocus></requestFocus>
+
 
             <EditText
                 android:id="@+id/input_name"
+                android:hint="Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.01"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:ems="10"
-                android:inputType="textNoSuggestions"
-                android:paddingLeft="40dp"
-                android:paddingRight="1dp"
+                android:inputType="textPersonName"
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
                 android:textColorHighlight="@color/colorAccent"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                />
         </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -60,55 +62,193 @@
             android:id="@+id/line2"
             android:layout_below="@+id/line1"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
+            android:paddingTop="5dp"
             android:paddingBottom="10dp"
-            android:textColor="@color/dark_gray">
-
-            <TextView
-                android:layout_width="match_parent"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp">
+        <!--    <TextView
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/input_name"
-                android:text="@string/firstname_label" />
+                android:text="@string/firstname_label" />-->
 
+            <requestFocus></requestFocus>
             <EditText
                 android:id="@+id/input_firstname"
+                android:hint="Vorname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.01"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:ems="11"
-                android:inputType="textNoSuggestions"
+                android:inputType="textPersonName"
                 android:maxLines="1"
-                android:paddingStart="40dp"
-                android:paddingEnd="1dp"
-                android:textColorHighlight="@color/colorAccent" />
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
         </android.support.design.widget.TextInputLayout>
+
          <android.support.design.widget.TextInputLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:paddingTop="10dp"
+             android:paddingTop="5dp"
              android:textColor="@color/dark_gray"
              android:id="@+id/line3"
-            android:layout_below="@+id/line2">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:labelFor="@id/input_name"
-                android:text="@string/street_label" />
-
+            android:layout_below="@+id/line2"
+             android:textSize="18sp">
+            <!-- <TextView
+                 android:layout_width="100dp"
+                 android:layout_height="wrap_content"
+                 android:labelFor="@id/input_street"
+                 android:text="@string/street_label" />-->
+             <requestFocus></requestFocus>
             <EditText
                 android:id="@+id/input_street"
+                android:hint="Strasse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.01"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:ems="11"
                 android:maxLines="1"
                 android:inputType="textNoSuggestions"
-                android:paddingStart="40dp"
-                android:paddingEnd="1dp"
-                android:textColorHighlight="@color/colorAccent" />
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
          </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:textColor="@color/dark_gray"
+            android:id="@+id/line4"
+            android:layout_below="@+id/line3"
+            android:textSize="18sp">
+
+            <requestFocus></requestFocus>
+            <EditText
+                android:id="@+id/input_zipcode"
+                android:hint="PLZ"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
+                android:inputType="textPostalAddress"
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:textColor="@color/dark_gray"
+            android:id="@+id/line5"
+            android:layout_below="@+id/line4"
+            android:textSize="18sp">
+
+            <requestFocus></requestFocus>
+            <EditText
+                android:id="@+id/input_ort"
+                android:hint="Ort"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:textColor="@color/dark_gray"
+            android:id="@+id/line6"
+            android:layout_below="@+id/line5"
+            android:textSize="18sp">
+
+            <requestFocus></requestFocus>
+            <EditText
+                android:id="@+id/input_land"
+                android:hint="Land"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:textColor="@color/dark_gray"
+            android:id="@+id/line7"
+            android:layout_below="@+id/line6"
+            android:textSize="18sp">
+
+            <requestFocus></requestFocus>
+            <EditText
+                android:id="@+id/input_tel"
+                android:hint="Telefon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:maxLines="1"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="50dp"
+                android:paddingEnd="5dp"
+                android:textColorHighlight="@color/colorAccent"
+                />
+        </android.support.design.widget.TextInputLayout>
+        <CheckBox android:id="@+id/checkbox_meat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mit_angaben"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/colorPrimary"/>
+        <Button
+            android:id="@+id/weiter"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/bookbtn_color"
+            android:text="Weiter zur Zahlung"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="250dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="#375DB5"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            />
     </LinearLayout>
 </RelativeLayout>
