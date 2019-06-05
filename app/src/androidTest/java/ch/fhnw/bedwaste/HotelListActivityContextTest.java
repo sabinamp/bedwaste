@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,10 +27,16 @@ public class HotelListActivityContextTest {
             }
         });
         hotelItemRoot = listfragment.getRootView();
+
     }
 
     @Test
     public void exists() {
         Assert.assertNotNull(hotelItemRoot);
+    }
+
+    @After
+    public void tearDown(){
+        listfragment=null;
     }
 }
