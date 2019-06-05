@@ -1085,10 +1085,15 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (hotel_overview_layout.getVisibility() == View.VISIBLE){
+
+        int X = (int)Math.round(ev.getRawX());
+        int Y = (int)Math.round(ev.getRawY());
+
+        if(!isWithinView(X, Y) && hotel_overview_layout.getVisibility() == View.VISIBLE){
             hotel_overview_layout.setVisibility(View.GONE);
-            return true;
+
         }
+
         return super.dispatchTouchEvent(ev);
     }
 
@@ -1137,6 +1142,20 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
+
+    boolean isWithinView(int xPoint, int yPoint){
+        int[] l = new int[2];
+        hotel_overview_layout.getLocationOnScreen(l);
+        int x = l[0];
+        int y = l[1];
+        int w = hotel_overview_layout.getWidth();
+        int h = hotel_overview_layout.getHeight();
+
+        if (xPoint< x || xPoint> x + w || yPoint< y || yPoint> y + h) {
+            return false;
+        }
+        return true;
+    }
 
 
     public void startAnimation() {
