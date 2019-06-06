@@ -24,6 +24,7 @@ public class HotelDescriptiveInfoServiceTest {
     public void setUp() {
         responseLatch=new CountDownLatch(1);
     }
+
     @Test(timeout=30000)
     public void fetchInfo() throws InterruptedException {
         String hotelHelmhausId= "00U5846j022d292h";
@@ -56,6 +57,8 @@ public class HotelDescriptiveInfoServiceTest {
 
         Assert.assertNotNull(hotelInfo);
         Assert.assertEquals("Hotel Helmhaus", hotelInfo.getHotelName());
+        Assert.assertNotNull(hotelInfo.getAffiliationInfo().getAwards());
+        Assert.assertNotNull(hotelInfo.getAffiliationInfo().getAwards().get(1));
         Assert.assertEquals(9.2, Double.valueOf(hotelInfo.getAffiliationInfo().getAwards().get(1).getRating()), 0.01);
         Assert.assertEquals("Hotels.com", hotelInfo.getAffiliationInfo().getAwards().get(1).getProvider());
     }
