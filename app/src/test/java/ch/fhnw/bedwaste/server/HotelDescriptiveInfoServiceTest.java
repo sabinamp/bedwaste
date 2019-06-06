@@ -37,7 +37,7 @@ public class HotelDescriptiveInfoServiceTest {
 
                    hotelInfo= response.body();
                 }else{
-                    
+
                     return;
                 }
                 responseLatch.countDown();
@@ -56,6 +56,8 @@ public class HotelDescriptiveInfoServiceTest {
 
         Assert.assertNotNull(hotelInfo);
         Assert.assertEquals("Hotel Helmhaus", hotelInfo.getHotelName());
+        Assert.assertEquals(9.2, Double.valueOf(hotelInfo.getAffiliationInfo().getAwards().get(1).getRating()), 0.01);
+        Assert.assertEquals("Hotels.com", hotelInfo.getAffiliationInfo().getAwards().get(1).getProvider());
     }
 }
 
