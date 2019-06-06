@@ -360,6 +360,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+    /**
+     * Configure the right onClickListener for the whole Filter View
+     */
     private void bindFilterData (){
 
         mFiltersButton = (ImageButton) findViewById(R.id.filters_btn);
@@ -1157,7 +1160,11 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         return true;
     }
 
-
+    /**
+     * Starts the Startup Messages
+     * Configures that the right views are hidden and that by pressing on the boxes the animation is triggered
+     *
+     */
     public void startAnimation() {
         mBottomNavigationView.setVisibility(View.INVISIBLE);
         searchBar.setVisibility(View.INVISIBLE);
