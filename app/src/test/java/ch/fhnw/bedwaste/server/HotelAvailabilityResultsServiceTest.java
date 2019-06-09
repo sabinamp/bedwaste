@@ -36,14 +36,14 @@ public class HotelAvailabilityResultsServiceTest {
             @Override
             public void onResponse(Call<AvailabilityResults> call, Response<AvailabilityResults> response) {
                 if(response.isSuccessful()) {
-                    //Log.d("TAG",response.code()+"");
+                    //Log.d("TAG",response.statusCode()+"");
                     System.out.println(response.code()+"");
                     fetchedData= response.body();
                     responseLatch.countDown();
 
                 } else {
                     String errorCode = response.errorBody().toString();
-                    //Log.d("TAG",response.code()+errorCode);
+                    //Log.d("TAG",response.statusCode()+errorCode);
                     System.out.println(response.code()+errorCode);
                     return;
                 }

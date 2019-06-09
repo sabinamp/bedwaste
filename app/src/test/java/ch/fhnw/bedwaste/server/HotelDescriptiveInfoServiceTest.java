@@ -5,6 +5,7 @@ import android.util.Log;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.model.TestTimedOutException;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -17,7 +18,7 @@ import retrofit2.Retrofit;
 
 public class HotelDescriptiveInfoServiceTest {
     private CountDownLatch responseLatch;
-    private HotelDescriptiveInfo hotelInfo;
+    private HotelDescriptiveInfo hotelInfo = null;
     static final String BASE_URL = "http://86.119.40.244:8888";
 
     @Before
@@ -38,7 +39,7 @@ public class HotelDescriptiveInfoServiceTest {
 
                    hotelInfo= response.body();
                 }else{
-
+                    System.out.println( "unsuccessful response");
                     return;
                 }
                 responseLatch.countDown();
@@ -62,51 +63,51 @@ public class HotelDescriptiveInfoServiceTest {
         Assert.assertEquals(9.2, Double.valueOf(hotelInfo.getAffiliationInfo().getAwards().get(1).getRating()), 0.01);
         Assert.assertEquals("Hotels.com", hotelInfo.getAffiliationInfo().getAwards().get(1).getProvider());
 
-        //write own mocksn(handwritten) instead using mockito
-        //test if cancel works, when onFailure(), e.g. hotelid nonexistent, ends up in onFailure();
-
     }
 
-    @Test(timeout=3000)
+    @Test(timeout=30000)
     public void fetchNonExistingHotelID() throws InterruptedException {
-        String hotelWrongId= "XXXWrongIDXXX";
-        Retrofit retrofit= APIClient.getClient();
-        HotelDescriptiveInfoInterface jsonDescriptiveInfoAPI= retrofit.create(HotelDescriptiveInfoInterface.class);
+        //test if e.g. hotelid nonexistent
+        //test if e.g. hotelid nonexistent
+        //test the unexpected, and what you already expect
+        String hotelWrongId = "XXXWrongIDXXX";
+        Retrofit retrofit = APIClient.getClient();
+        HotelDescriptiveInfoInterface jsonDescriptiveInfoAPI = retrofit.create(HotelDescriptiveInfoInterface.class);
         Call<HotelDescriptiveInfo> callApi = jsonDescriptiveInfoAPI.getDescriptiveInfo("en", hotelWrongId);
+
         callApi.enqueue(new Callback<HotelDescriptiveInfo>() {
-            @Override
-            public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
-                if(response.isSuccessful()){
+                @Override
+                public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
+                    //check whether the request is actual successful (status 200-299)
+                    if (response.isSuccessful()) {
+                        hotelInfo = response.body();
+                        System.out.println(response.code() + " ");
+                        responseLatch.countDown();
+                    } else {
+                        APIError error = APIErrorUtils.parseError(response);
+                        System.out.println(response.code() + " " + " Error message: " + error.message);
+                        responseLatch.countDown();
+                        return;
+                    }
 
-                    hotelInfo= response.body();
-                }else{
-
-                    return;
                 }
-                responseLatch.countDown();
-            }
 
-            @Override
-            public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                @Override
+                public void onFailure(Call<HotelDescriptiveInfo> call, Throwable t) {
+                    t.printStackTrace();
+                    call.cancel();
+                    System.out.println(t.getMessage());
+                    responseLatch.countDown();
+                }
+            });
 
-                t.printStackTrace();
-                call.cancel();
-                System.out.println( t.getMessage());
-                responseLatch.countDown();
-            }
-        });
 
         responseLatch.await();
 
-
         Assert.assertNull(hotelInfo);
 
-        //write own mocksn(handwritten) instead using mockito
-        //test if cancel works, when onFailure(), e.g. hotelid nonexistent, ends up in onFailure();
-        //test the unexpected, and what you already expect
-        //why does e.g. retrofit run into a timeout, postman returns 500 as code. Retrofit makes timeout.
-        //coverage tool to have more data about quality of tool.
-        //Sonarqube
+
+
     }
 }
 

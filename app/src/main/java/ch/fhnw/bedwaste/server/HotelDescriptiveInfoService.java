@@ -40,7 +40,8 @@ public class HotelDescriptiveInfoService {
                     Log.d("TAG",response.code()+"");
                     listener.success(response);
                 }else{
-                    Log.d("TAG",response.code()+"");
+                    APIError error = APIErrorUtils.parseError(response);
+                    Log.d("TAG",response.code()+"Error message: "+error.message);
                     return;
                 }
 

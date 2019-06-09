@@ -46,7 +46,7 @@ public class AvailabilitiesPerRegionService {
 
                 } else {
                     errorCode =""+ response.code();
-                    Log.d("TAG","Error code: "+errorCode);
+                    Log.d("TAG","Error statusCode: "+errorCode);
                     return;
 
                 }
