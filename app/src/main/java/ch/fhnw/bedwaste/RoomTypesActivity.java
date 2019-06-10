@@ -23,10 +23,11 @@ public class RoomTypesActivity extends SingleFragmentActivity {
      * Debugging tag LoginActivity used by the Android logger.
      */
     private static final String TAG="RoomTypesActivity";
-
+    private NetworkDetector netDetector = new NetworkDetector(this);
 
     @Override
     protected Fragment createFragment() {
+        netDetector.networkRunnable.run();
         return new RoomTypesFragment();
     }
 
