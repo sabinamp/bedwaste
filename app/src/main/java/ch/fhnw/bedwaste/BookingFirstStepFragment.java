@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.fhnw.bedwaste.model.AvailabilityResult;
@@ -27,9 +28,19 @@ public class BookingFirstStepFragment extends Fragment {
         Toolbar tb = view.findViewById(R.id.toolbar_booking_first_step);
         tb.setSubtitle("Angaben eintragen");
         Log.d(TAG, " - onCreate(Bundle) called. ");
+        TextView selectedRoomDetails= view.findViewById(R.id.selectedRoom);
+        selectedRoomDetails.setText(selectedRoom.getRoomTypeName()+" ");
+        int maxPeople= selectedRoom.getMaxOccupancy();
+        ImageView maxocc_icon1= view.findViewById(R.id.maxocc_icon1);
+        ImageView maxocc_icon2= view.findViewById(R.id.maxocc_icon2);
+        if(maxPeople ==  1){
+            maxocc_icon2.setVisibility(View.INVISIBLE);
+        }
         TextView name= view.findViewById(R.id.input_name);
         TextView firstname= view.findViewById(R.id.input_firstname);
         TextView street= view.findViewById(R.id.input_street);
+        TextView zipcode= view.findViewById(R.id.input_zipcode);
+        TextView city= view.findViewById(R.id.input_ort);
         return view;
     }
 }

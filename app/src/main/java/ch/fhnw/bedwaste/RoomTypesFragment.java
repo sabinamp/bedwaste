@@ -66,7 +66,7 @@ public class RoomTypesFragment extends Fragment {
         hotelId_value = intent.getStringExtra("hotel_key_for_rooms_activity");
         info= (HotelDescriptiveInfo) intent.getSerializableExtra("hotel_descriptive_data_for_rooms_activity");
         availabilityResults = (ArrayList<RoomAvailabilityResult>) intent.getSerializableExtra("availability_results_for_rooms_activity");
-        if(availabilityResults != null){
+        if(availabilityResults != null || !availabilityResults.isEmpty()){
             roomAvailabilitiesList= availabilityResults.get(0).getProducts();
         }
         Log.d(TAG, "onCreate() loading "+"completed - retrieved  availabilities for. hotel with id "+hotelId);

@@ -23,13 +23,49 @@
         android:paddingTop="50dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"   >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectedRoom"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+            <LinearLayout
+                android:id="@+id/type_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingRight="4dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="0dp"
+                android:layout_gravity="right">
+            <ImageView
+                android:id="@+id/maxocc_icon1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:paddingLeft="4dp"
+                android:src="@drawable/ic_account_box_black_24dp" />
+            <ImageView
+                android:id="@+id/maxocc_icon2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:paddingLeft="2dp"
+                android:src="@drawable/ic_account_box_black_24dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
+            android:paddingBottom="3dp"
             android:textColor="@color/dark_gray"
             android:textSize="18sp">
             <!--<TextView
@@ -62,8 +98,8 @@
             android:id="@+id/line2"
             android:layout_below="@+id/line1"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="5dp"
             android:textColor="@color/dark_gray"
             android:textSize="18sp">
         <!--    <TextView
@@ -91,7 +127,7 @@
          <android.support.design.widget.TextInputLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:paddingTop="5dp"
+             android:paddingTop="4dp"
              android:textColor="@color/dark_gray"
              android:id="@+id/line3"
             android:layout_below="@+id/line2"
@@ -120,7 +156,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="3dp"
             android:textColor="@color/dark_gray"
             android:id="@+id/line4"
             android:layout_below="@+id/line3"
@@ -144,7 +180,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="3dp"
             android:textColor="@color/dark_gray"
             android:id="@+id/line5"
             android:layout_below="@+id/line4"
@@ -168,7 +204,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="3dp"
             android:textColor="@color/dark_gray"
             android:id="@+id/line6"
             android:layout_below="@+id/line5"
@@ -192,7 +228,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="3dp"
             android:textColor="@color/dark_gray"
             android:id="@+id/line7"
             android:layout_below="@+id/line6"
@@ -225,7 +261,7 @@
         <Button
             android:id="@+id/weiter"
             android:layout_width="250dp"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
@@ -239,7 +275,7 @@
         <Button
             android:id="@+id/login"
             android:layout_width="250dp"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
