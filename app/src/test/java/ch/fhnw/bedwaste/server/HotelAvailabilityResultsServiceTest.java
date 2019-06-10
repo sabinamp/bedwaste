@@ -11,7 +11,7 @@ import retrofit2.Response;
 
 public class HotelAvailabilityResultsServiceTest {
     private CountDownLatch responseLatch;
-    private AvailabilityResults hotelAvailabilityResults;
+
     static final String BASE_URL = "http://86.119.40.244:8888";
     private AvailabilityResults fetchedData=null;
     private HotelAvailabilityResultsService service;
