@@ -50,8 +50,10 @@ public class HotelAvailabilityResultsService {
                    Log.d("TAG",response.code()+"");
                    listener.success(response);
                 } else {
-                    errorCode = response.errorBody().toString();
-                    Log.d("TAG",response.code()+errorCode);
+                   // errorCode = response.errorBody().toString();
+                    APIError error = APIErrorUtils.parseError(response);
+                    listener.failed(response.code()+"Error message: "+error.message);
+                    Log.d("TAG","Error statusCode: "+ response.code()+"Error message: "+error.message);
                     return;
                 }
             }

@@ -45,8 +45,10 @@ public class AvailabilitiesPerRegionService {
                     listener.success(response);
 
                 } else {
-                    errorCode =""+ response.code();
-                    Log.d("TAG","Error statusCode: "+errorCode);
+                    APIError error = APIErrorUtils.parseError(response);
+                    listener.failed("Error statusCode: "+response.code()+"Error message: "+error.message);
+                    Log.d("TAG","Error statusCode: "+response.code()+"Error message: "+error.message);
+
                     return;
 
                 }

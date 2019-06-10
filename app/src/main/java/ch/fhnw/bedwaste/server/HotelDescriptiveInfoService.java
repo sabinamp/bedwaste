@@ -37,11 +37,13 @@ public class HotelDescriptiveInfoService {
             @Override
             public void onResponse(Call<HotelDescriptiveInfo> call, Response<HotelDescriptiveInfo> response) {
                 if(response.isSuccessful()){
-                    Log.d("TAG",response.code()+"");
                     listener.success(response);
+                    Log.d("TAG",response.code()+"");
                 }else{
                     APIError error = APIErrorUtils.parseError(response);
-                    Log.d("TAG",response.code()+"Error message: "+error.message);
+                    listener.failed("Error statusCode: "+response.code()+"Error message: "+error.message);
+                    Log.d("TAG","Error statusCode: "+response.code()+"Error message: "+error.message);
+
                     return;
                 }
 
