@@ -50,6 +50,7 @@ public class HotelInfoFragment extends Fragment {
     private TextView insert_street;
     private TextView insert_village;
     private TextView insert_telnr;
+    private TextView insert_rating_tripadvisor;
     private int amount_hotel_pictures;
     private CheckBox checkBox_breakfast;
     private CheckBox checkBox_wlan;
@@ -82,6 +83,9 @@ public class HotelInfoFragment extends Fragment {
 
         final TextView insert_village = (TextView) view.findViewById(R.id.ph_location);
         final TextView insert_telnr = (TextView) view.findViewById(R.id.ph_phoneNr);
+
+        final TextView insert_rating_tripadvisor = (TextView) view.findViewById(R.id.ph_hotel_rating_tripadvisor);
+
 
         final CheckBox checkBox_breakfast = (CheckBox) view.findViewById(R.id.checkBox_Breakfast);
         final CheckBox checkBox_wlan = (CheckBox) view.findViewById(R.id.checkBox_Wlan);
@@ -167,8 +171,15 @@ public class HotelInfoFragment extends Fragment {
 
                 insert_telnr.setText("(+" + phone.getCountryAccessCode() + ")" + phone.getPhoneNumber());
 
+                //Tripadvisor Rating
+                ch.fhnw.bedwaste.model.Award award_tripadvisor = award_list.get(1);
+                String string_rating_tripadvisor = award_tripadvisor.getRating();
 
-                //WLAN + Breakfast
+                insert_rating_tripadvisor.setText(string_rating_tripadvisor + "/10");
+
+
+
+             //WLAN + Breakfast
 
                 java.util.List<ch.fhnw.bedwaste.model.Service> services = hotelInfo.getServices();
 
