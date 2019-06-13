@@ -804,6 +804,9 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                         Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), matched_hotel_id, hotelDescriptiveInfo);
                         hotelDescriptionIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(hotelDescriptionIntent);
+                        hotel_overview_layout.setVisibility(View.GONE);
+
+
                     }
                 });
            }
