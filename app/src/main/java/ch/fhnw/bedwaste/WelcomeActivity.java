@@ -447,6 +447,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 seekBarPrice.setProgress(100);
                 textValueDistance.setText("100 CHF");
                 textValueDistance.setText("10 km");
+                seekBarDistance.setProgress(10);
                 textValuePeople.setText("1");
                 //textValueNights.setText("1");
                 textValueRooms.setText("1");
