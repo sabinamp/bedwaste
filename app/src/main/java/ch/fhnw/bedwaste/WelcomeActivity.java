@@ -191,6 +191,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView ho_city;
     private TextView ho_rating;
     private TextView ho_minutes;
+    private Button ho_button;
 
     private LatLng mSearchLocation;
 
@@ -257,6 +258,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         } catch (ParseException e) {
             Log.d(TAG, "ParseException thrown: "+e.getMessage());
         }
+        Intent intent = getIntent();
         maxprice=500;
         nbadults=1;
         nbrooms=1;
@@ -285,7 +287,6 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
 
         mEditText = findViewById(R.id.input_location);
         addBottomNavigation();
-        Intent intent = getIntent();
         boolean Startup = intent.getBooleanExtra("Startup", false);
         if (Startup){
             addIntroAnimation();
@@ -312,6 +313,8 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
         ho_address =(TextView) findViewById(R.id.wel_hotel_address_line);
         ho_city = (TextView) findViewById(R.id.wel_otel_city);
         ho_minutes =(TextView) findViewById(R.id.wel_min_hotel);
+        ho_button =(Button) findViewById(R.id.wel_booking_button);
+
 
 
 
@@ -741,7 +744,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
        HotelDescriptiveInfoService service= new HotelDescriptiveInfoService(new HotelDescriptiveInfoListener() {
             @Override
             public void success(Response<HotelDescriptiveInfo> response) {
-                HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
+                final HotelDescriptiveInfo hotelDescriptiveInfo = response.body();
 
                 String rating = hotelDescriptiveInfo.getAffiliationInfo().getAwards().get(1).getRating() +"/10";
                 ho_hotelname.setText(hotelDescriptiveInfo.getHotelName());
@@ -769,7 +772,7 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 MultimediaDescriptionImages banner_picture = hotel_images.get(0);
                 String imageUrl_banner = banner_picture.getImageUrl();
 
-                Picasso.get().load(imageUrl_banner).resize(580, 380).centerCrop().into(ho_image);
+                Picasso.get().load(imageUrl_banner).fit().into(ho_image);
 
                 //insert distance in km
                 LatLng hotelLoc= new LatLng(hotelInfo.getPosition().getLatitude().doubleValue(),
@@ -792,6 +795,17 @@ public class WelcomeActivity extends AppCompatActivity implements OnMapReadyCall
                 String displayedNb = streetNb!= null ? streetNb.toString() : "";
                 ho_address.setText(address.getAddressLine() + " " + displayedNb);
                 ho_city.setText(address.getPostalCode() + " " + address.getCityName());
+
+
+                final Context context = getBaseContext();
+                ho_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent hotelDescriptionIntent = HotelInfoActivity.makeHotelInfoIntent(v.getContext(), matched_hotel_id, hotelDescriptiveInfo);
+                        hotelDescriptionIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(hotelDescriptionIntent);
+                    }
+                });
            }
 
             @Override
