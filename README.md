@@ -6,4 +6,5 @@ Technology stack:
 * the Retrofit library for remote calls to web services
 * GSON to serialize Java objects to JSON and vice versa.
 * Restful API to a server side hotel service stub, which provides hard coded data as the information on hotel deals in Zürich. 
-* Google Maps API 
+* Google Maps Android API 
+* Android Picasso library -an image loading library for Android.
